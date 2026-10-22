@@ -295,6 +295,21 @@ tr.sub td{background:var(--sunken);font-weight:700;font-size:13px}
 .flow .arr{color:var(--ink-3)}
 .kbd{font-size:12px;background:var(--surface-2);border:1px solid var(--line-2);border-radius:5px;padding:0 6px;font-weight:600;color:var(--ink)}
 
+/* banks & cash */
+.bcin{width:120px;border:1px solid var(--line-2);border-radius:6px;padding:5px 6px;background:var(--surface);text-align:end}
+.bcin[type="date"]{width:140px;text-align:start}
+.bcin.note{width:200px;text-align:start}
+.bcin:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:transparent}
+.bcin:disabled{background:var(--sunken);color:var(--ink-2);border-color:var(--line)}
+.bcrow.dirty td:first-child{box-shadow:inset -3px 0 0 var(--gold)}
+.bctable{min-width:1100px}
+.bctable th,.bctable td{padding:6px 8px;font-size:12.5px;white-space:nowrap}
+.bctable td.l{white-space:normal;min-width:120px}
+.bctable td.calc{background:var(--sunken);font-weight:600;text-align:end}
+.bctable tr.co td{background:var(--sunken);font-weight:700}
+.bctable tfoot td{font-weight:700;background:var(--surface-2);border-top:2px solid var(--line-2)}
+.bcsub{font-size:14px;font-weight:700;margin:6px 0 0}
+
 /* revenue report */
 .reptable{min-width:1700px}
 .reptable th,.reptable td{padding:6px 8px;font-size:12.5px;white-space:nowrap;text-align:center}
@@ -397,7 +412,7 @@ tr.sub td{background:var(--sunken);font-weight:700;font-size:13px}
 <template id="guideTpl">
 <div class="guide">
   <nav class="toc" aria-label="محتويات الدليل">
-    <a href="#g-idea">فكرة النظام</a><a href="#g-start">التجهيز لأول مرة</a><a href="#g-share">الدخول والصلاحيات</a><a href="#g-matrix">مصفوفة الإقفال</a><a href="#g-close">الإقفال اليومي</a><a href="#g-approve">الاعتماد والإرجاع</a><a href="#g-dash">لوحة المتابعة</a><a href="#g-tasks">المهام</a><a href="#g-perf">الإنجاز والأداء</a><a href="#g-rev">تسجيل الإيرادات</a><a href="#g-rrep">تقرير الإيرادات</a><a href="#g-files">المرفقات والتقارير</a><a href="#g-routine">روتين العمل</a><a href="#g-faq">أسئلة شائعة</a>
+    <a href="#g-idea">فكرة النظام</a><a href="#g-start">التجهيز لأول مرة</a><a href="#g-share">الدخول والصلاحيات</a><a href="#g-matrix">مصفوفة الإقفال</a><a href="#g-close">الإقفال اليومي</a><a href="#g-approve">الاعتماد والإرجاع</a><a href="#g-dash">لوحة المتابعة</a><a href="#g-tasks">المهام</a><a href="#g-perf">الإنجاز والأداء</a><a href="#g-rev">تسجيل الإيرادات</a><a href="#g-rrep">تقرير الإيرادات</a><a href="#g-bc">البنوك والصندوق</a><a href="#g-files">المرفقات والتقارير</a><a href="#g-routine">روتين العمل</a><a href="#g-faq">أسئلة شائعة</a>
   </nav>
   <article class="doc">
     <section id="g-idea">
@@ -556,6 +571,22 @@ tr.sub td{background:var(--sunken);font-weight:700;font-size:13px}
       </ul>
       <div class="warnbox">التاريخ المكتوب داخل بعض ملفات Excel غير دقيق (مثلاً سنة 2027 أو شهر خاطئ)، لذلك يعتمد الاستيراد على اسم الملف وينبّهك عند الاختلاف. راجع التاريخ قبل الضغط على «استيراد».</div>
     </section>
+    <section id="g-bc">
+      <h2>البنوك والصندوق</h2>
+      <p>نفس تقرير «إقفالات وإغلاقات البنوك والصندوق» اليومي، بأربعة أقسام:</p>
+      <div class="tw"><table><thead><tr><th>القسم</th><th>ما يُدخل</th><th>المعادلة</th></tr></thead><tbody>
+        <tr><td>مطابقة أرصدة البنوك</td><td>رصيد البنك الفعلي، ورصيد البنك في الأوائل، لكل حساب</td><td>الفرق = الفعلي − الأوائل</td></tr>
+        <tr><td>إغلاق وسيط المتحصلات النقدية</td><td>تاريخ الإقفال، وتحصيل الصندوق، ورصيد الوسيط، لكل فرع</td><td>الفرق = تحصيل الصندوق − رصيد الوسيط</td></tr>
+        <tr><td>إغلاق تحصيل النقدية بالفروع</td><td>تاريخ آخر إيداع، وتاريخ آخر تحصيل، والتحصيل النقدي</td><td>رصيد الوسيط = −(فرق الوسيط) تلقائياً · الفرق = التحصيل − رصيد الوسيط</td></tr>
+        <tr><td>إقفال الصندوق</td><td>الرصيد الفعلي والدفتري لكل صندوق</td><td>الفرق = الفعلي − الدفتري، وجدول إيداعات الفروع يُحسب تلقائياً لكل منشأة</td></tr>
+      </tbody></table></div>
+      <h3>طريقتا التحديث</h3>
+      <ul>
+        <li><strong>يدوياً:</strong> أدخل القيم في الجداول، ويُحفظ الصف تلقائياً عند الانتقال لصف آخر.</li>
+        <li><strong>برفع ملف Excel:</strong> زر «استيراد من Excel» يقرأ الأوراق الأربع، ويضيف الحسابات والصناديق والفروع غير الموجودة. يُقرأ التاريخ من <strong>داخل الملف</strong> لأن أسماء هذه الملفات غير دقيقة، ويظهر لك للتأكيد.</li>
+      </ul>
+      <p><strong>كمهمة إقفال:</strong> أضف بنداً من نوع «إقفال البنوك والصندوق» للمحاسب المسؤول. لا يُرسل للاعتماد إلا بعد إدخال كل الحسابات والصناديق ووسيط كل الفروع، وكتابة ملاحظة لكل فرق في البنوك أو الصندوق.</p>
+    </section>
     <section id="g-files">
       <h2>المرفقات والتقارير</h2>
       <p>يمكن إرفاق ملفات <strong>Excel</strong> و<strong>Word</strong> و<strong>PDF</strong> (وصور المستندات) بأي <strong>بند إقفال</strong> أو <strong>مهمة</strong>، مثل كشف البنك، أو محضر جرد الصندوق، أو تقرير المصاريف، أو ملف التسوية.</p>
@@ -602,7 +633,7 @@ tr.sub td{background:var(--sunken);font-weight:700;font-size:13px}
 (function(){
 "use strict";
 /* ================= constants ================= */
-const COLS=["team","depts","lines","tasks","activity","branches"];
+const COLS=["team","depts","lines","tasks","activity","branches","bankAccts","cashBoxes"];
 const DEF_TYPES=[
   {k:"rev",l:"الإيرادات",mode:"amount"},
   {k:"bank",l:"حركة البنوك",mode:"reconcile",a:"الرصيد الدفتري",b:"رصيد كشف البنك"},
@@ -610,8 +641,9 @@ const DEF_TYPES=[
   {k:"pur",l:"المشتريات",mode:"amount"},
   {k:"exp",l:"المصاريف",mode:"amount"},
   {k:"cust",l:"العهد",mode:"reconcile",a:"رصيد العهد الدفتري",b:"المستندات والنقدية لدى أصحاب العهد"},
-  {k:"revform",l:"نموذج إيرادات الفروع",mode:"revform"}];
-const REVFORM_TYPE={k:"revform",l:"نموذج إيرادات الفروع",mode:"revform"};
+  {k:"revform",l:"نموذج إيرادات الفروع",mode:"revform"},
+  {k:"bcform",l:"إقفال البنوك والصندوق",mode:"bcform"}];
+const REVFORM_TYPE={k:"revform",l:"نموذج إيرادات الفروع",mode:"revform"},BCFORM_TYPE={k:"bcform",l:"إقفال البنوك والصندوق",mode:"bcform"};
 const DEF_CONFIG={types:DEF_TYPES,weekend:[5,6],dueOffset:1,dueTime:"12:00"};
 const ROLES=[{k:"cfo",l:"المدير المالي"},{k:"head",l:"رئيس قسم"},{k:"acc",l:"محاسب"}];
 const IST=[{k:"pending",l:"لم يبدأ",c:""},{k:"draft",l:"قيد العمل",c:"info"},{k:"submitted",l:"بانتظار الاعتماد",c:"gold"},{k:"returned",l:"مُعاد للتعديل",c:"bad"},{k:"approved",l:"معتمد",c:"ok"}];
@@ -624,6 +656,7 @@ const DAYS3=["أحد","اثنين","ثلاثاء","أربعاء","خميس","ج�
 const PALETTE=["#0D6A59","#2D5B99","#A8701A","#8A3F8F","#B0452C","#3F7D2E","#5B5FA8","#1C7C8C","#9C3D5B","#6B6B2E"];
 const ICONS={
   dash:'<path d="M4 13h6V4H4zM14 20h6v-9h-6zM4 20h6v-4H4zM14 7h6V4h-6z"/>',
+  bank:'<path d="M3 10h18M5 10v8M9 10v8M15 10v8M19 10v8M3 20h18M12 3l9 5H3z"/>',
   rrep:'<path d="M5 3h10l4 4v14H5z"/><path d="M9 17v-3M12 17v-6M15 17v-4"/>',
   rev:'<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6.5 9.5h.01M17.5 14.5h.01"/>',
   close:'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h4"/>',
@@ -645,6 +678,7 @@ const VIEWS=[
   {k:"close",l:"الإقفال اليومي",i:"close",h:"إدخال الإقفالات واعتمادها لكل يوم عمل"},
   {k:"rev",l:"تسجيل الإيرادات",i:"rev",h:"نموذج إيرادات الفروع اليومية: المبيعات وسحب الشبكات والعجز والفائض"},
   {k:"rrep",l:"تقرير الإيرادات",i:"rrep",h:"تجميع إيرادات الفروع لأي فترة، حسب الفرع أو المنشأة أو اليوم"},
+  {k:"bc",l:"البنوك والصندوق",i:"bank",h:"مطابقة أرصدة البنوك، ووسيط المتحصلات، وتحصيل النقدية بالفروع، وإقفال الصندوق"},
   {k:"tasks",l:"المهام",i:"tasks",h:"الأعمال غير اليومية وتوزيعها على الفريق"},
   {k:"perf",l:"الإنجاز والأداء",i:"perf",h:"حجم الإنجاز والانضباط لكل محاسب وقسم"},
   {k:"files",l:"المرفقات والتقارير",i:"clip",h:"كل ملفات Excel وWord وPDF المرفقة بالإقفالات والمهام"},
@@ -684,9 +718,9 @@ const lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
 const numOrEmpty=v=>v===""||v==null||isNaN(+v)?"":+v;
 
 /* ================= state ================= */
-const state={team:[],depts:[],lines:[],tasks:[],activity:[],files:[],branches:[],days:{},rev:{},config:null};
+const state={team:[],depts:[],lines:[],tasks:[],activity:[],files:[],branches:[],bankAccts:[],cashBoxes:[],days:{},rev:{},bc:{},config:null};
 const ready={};
-const ui={view:(location.hash||"").slice(1)||lsGet("crm_view")||"dash",day:null,dept:"all",member:"all",ist:"all",taskMember:"all",taskDept:"all",taskPrio:"all",taskQ:"",repFrom:"",repTo:"",repQuick:"month",repCo:"all",repBr:"all",repBy:"branch",repTab:"sales",revTab:"sales",revScope:"auto",abnPre:"",fKind:"all",fType:"all",fDept:"all",fQ:"",period:"month",perfDept:"all",actMember:"all"};
+const ui={view:(location.hash||"").slice(1)||lsGet("crm_view")||"dash",day:null,dept:"all",member:"all",ist:"all",taskMember:"all",taskDept:"all",taskPrio:"all",taskQ:"",bcTab:"banks",repFrom:"",repTo:"",repQuick:"month",repCo:"all",repBr:"all",repBy:"branch",repTab:"sales",revTab:"sales",revScope:"auto",abnPre:"",fKind:"all",fType:"all",fDept:"all",fQ:"",period:"month",perfDept:"all",actMember:"all"};
 if(!VIEWS.some(v=>v.k===ui.view))ui.view="dash";
 let me=lsGet("crm_me")||"";
 let canWrite=true,isOwnerV=false,fbAuth=null,authUser=null,ownerEmail="",ownerHash="",fbStarted=false,accessEmails=null,syncingAccess=false,pendingImport=null;
@@ -695,7 +729,7 @@ const downloads={async save(o){const b=new Blob([o.data],{type:/\.json$/.test(o.
 const WIN=shiftD(today(),-75);
 
 const cfg=()=>Object.assign({},DEF_CONFIG,state.config||{});
-const types=()=>{let t=cfg().types;t=t&&t.length?t:DEF_TYPES;return t.some(x=>x.k==="revform")?t:t.concat([REVFORM_TYPE])};
+const types=()=>{let t=cfg().types;t=t&&t.length?t:DEF_TYPES;return t.concat([REVFORM_TYPE,BCFORM_TYPE].filter(x=>!t.some(y=>y.k===x.k)))};
 const typeOf=k=>types().find(t=>t.k===k)||{k,l:k||"—",mode:"amount"};
 
 /* ---- calendar ---- */
@@ -753,7 +787,7 @@ const Data={
       return;
     }
     this.mode="local";
-    try{const raw=JSON.parse(lsGet("crm_local2")||"{}");COLS.forEach(c=>{if(Array.isArray(raw[c]))state[c]=raw[c]});if(raw.days)state.days=raw.days;if(raw.config)state.config=raw.config;if(Array.isArray(raw.files))state.files=raw.files;if(raw.rev)state.rev=raw.rev}catch(e){}
+    try{const raw=JSON.parse(lsGet("crm_local2")||"{}");COLS.forEach(c=>{if(Array.isArray(raw[c]))state[c]=raw[c]});if(raw.days)state.days=raw.days;if(raw.config)state.config=raw.config;if(Array.isArray(raw.files))state.files=raw.files;if(raw.rev)state.rev=raw.rev;if(raw.bc)state.bc=raw.bc}catch(e){}
     COLS.forEach(c=>ready[c]=true);ready.config=true;daysReady=true;
     paintConn();afterData();
   },
@@ -763,12 +797,15 @@ const Data={
     if(!isOwnerV&&ownerHash&&window.crypto&&crypto.subtle){try{const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(em));isOwnerV=[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")===ownerHash}catch(e){}}
     this.mode="db";
     const rows=s=>s.docs.map(d=>Object.assign({},d.data(),{id:d.id}));
-    ["team","depts","lines","tasks","branches"].forEach(c=>db.collection(c).onSnapshot(s=>{state[c]=rows(s);ready[c]=true;afterData()},subErr));
+    ["team","depts","lines","tasks","branches","bankAccts","cashBoxes"].forEach(c=>db.collection(c).onSnapshot(s=>{state[c]=rows(s);ready[c]=true;afterData()},subErr));
     db.collection("activity").orderBy("at","desc").limit(150).onSnapshot(s=>{state.activity=rows(s);ready.activity=true;afterData()},subErr);
     db.doc("setup/config").onSnapshot(s=>{state.config=s.exists?s.data():null;ready.config=true;afterData()},subErr);
     db.collection("days").where("date",">=",WIN).onSnapshot(s=>{
       const m={};Object.keys(state.days).forEach(k=>{if(k<WIN)m[k]=state.days[k]});
       s.docs.forEach(d=>{m[d.id]=d.data()});state.days=m;daysReady=true;afterData()},subErr);
+    db.collection("bc").where("date",">=",WIN).onSnapshot(s=>{
+      const m={};Object.keys(state.bc).forEach(k=>{if(k<WIN)m[k]=state.bc[k]});
+      s.docs.forEach(d=>{m[d.id]=d.data()});state.bc=m;ready.bc=true;afterData()},subErr);
     db.collection("rev").where("date",">=",WIN).onSnapshot(s=>{
       const m={};Object.keys(state.rev).forEach(k=>{if(k<WIN)m[k]=state.rev[k]});
       s.docs.forEach(d=>{m[d.id]=d.data()});state.rev=m;ready.rev=true;afterData()},subErr);
@@ -818,7 +855,8 @@ function watchDay(date){
   const cur={date,ready:false,unsub:()=>{}};extra=cur;
   const u1=db.doc("days/"+date).onSnapshot(s=>{if(s.exists)state.days[date]=s.data();else delete state.days[date];cur.ready=true;afterData()},e=>subErr(e));
   const u2=db.doc("rev/"+date).onSnapshot(s=>{if(s.exists)state.rev[date]=s.data();else delete state.rev[date];afterData()},e=>subErr(e));
-  cur.unsub=()=>{u1();u2()};
+  const u3=db.doc("bc/"+date).onSnapshot(s=>{if(s.exists)state.bc[date]=s.data();else delete state.bc[date];afterData()},e=>subErr(e));
+  cur.unsub=()=>{u1();u2();u3()};
 }
 function writeErr(e){
   const code=e&&e.code;
@@ -957,7 +995,7 @@ function renderNav(){
     return'<button type="button" data-view="'+v.k+'"'+(ui.view===v.k?' aria-current="page"':"")+">"+svg(v.i)+"<span>"+v.l+"</span>"+b+"</button>"}).join("");
 }
 function render(){
-  if(ui.view==="rev"&&revDirty.size){renderNav();return}
+  if((ui.view==="rev"||ui.view==="bc")&&revDirty.size){renderNav();return}
   const a=document.activeElement,fid=a&&a.id&&$("#main").contains(a)?a.id:null,sel=fid&&a.selectionStart!=null?[a.selectionStart,a.selectionEnd]:null;
   renderNav();
   const v=VIEWS.find(x=>x.k===ui.view);
@@ -985,7 +1023,7 @@ function render(){
   $("#main").innerHTML=html;
   if(fid){const el=document.getElementById(fid);if(el){el.focus();if(sel&&el.setSelectionRange)try{el.setSelectionRange(sel[0],sel[1])}catch(e){}}}
   if(ui.view==="tasks")bindDnD();
-  if(Data.mode!=="connecting"&&(ui.view==="close"||ui.view==="dash"||ui.view==="rev")){const D=curDay();watchDay(D);setTimeout(()=>ensureDay(D),0)}
+  if(Data.mode!=="connecting"&&(ui.view==="close"||ui.view==="dash"||ui.view==="rev"||ui.view==="bc")){const D=curDay();watchDay(D);setTimeout(()=>ensureDay(D),0)}
 }
 const roleRank=m=>({cfo:0,head:1,acc:2}[m&&m.role]??3);
 const sortedTeam=()=>state.team.slice().sort((a,b)=>roleRank(a)-roleRank(b)||String(a.name).localeCompare(b.name,"ar"));
@@ -1011,6 +1049,7 @@ function memberSelect(id,val,withMe,deptFilter){
 function deptSelect(id,val){return'<select class="select" id="'+id+'" aria-label="القسم"><option value="all">كل الأقسام</option>'+state.depts.map(d=>'<option value="'+esc(d.id)+'"'+(val===d.id?" selected":"")+">"+esc(d.name)+"</option>").join("")+"</select>"}
 function valSummary(it){
   const t=typeOf(it.typeK);
+  if(t.mode==="bcform"){const b=bcSummary(it.date);return"بنوك "+nf.format(b.bk)+"/"+nf.format(b.bkT)+" · صناديق "+nf.format(b.bx)+"/"+nf.format(b.bxT)+" · وسيط "+nf.format(b.md)+"/"+nf.format(b.mdT)+(b.bkDiff+b.bxDiff?' · <span class="varbad">'+nf.format(b.bkDiff+b.bxDiff)+" فرق</span>":"")}
   if(t.mode==="revform"){const sm=revSummary(it);return nf.format(sm.done)+"/"+nf.format(sm.total)+" فرع"+(sm.done?" · فعلي <b>"+moneyShort(sm.act)+"</b> · صافي "+sgn(sm.net)+(sm.abn?' · <span class="varbad">'+nf.format(sm.abn)+" غير طبيعي</span>":""):"")}
   if(it.status==="pending")return'<span class="muted">لم يُدخل بعد</span>';
   if(it.noAct)return"لا توجد حركة";
@@ -1042,6 +1081,7 @@ VIEWFN.dash=function(){
   const groups=groupByDept(items);
   const deptRows=groups.length?'<div class="rows">'+groups.map(g=>{const c=g.items.filter(isClosed).length;return'<div class="brow"><span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><b>'+esc(g.name)+"</b></span>"+stackBar(g.items)+'<span class="val">'+nf.format(c)+"/"+nf.format(g.items.length)+"</span></div>"}).join("")+"</div>"+istLegend():'<div class="empty">لا توجد بنود إقفال لهذا اليوم</div>';
   const tt=types().map(t=>{const its=items.filter(i=>i.typeK===t.k);if(!its.length)return"";const c=its.filter(isClosed).length;
+    if(t.mode==="bcform"){const b=bcSummary(D),df=r2(b.bankAct-b.bankSys);return'<div class="tt"><span class="l">'+esc(t.l)+'</span><span class="v'+(df?" bad":"")+'">'+(df?"فرق البنوك "+nf2.format(df):"البنوك مطابقة")+'</span><span class="s num">بنوك '+nf.format(b.bk)+"/"+nf.format(b.bkT)+" · صناديق "+nf.format(b.bx)+"/"+nf.format(b.bxT)+" · "+nf.format(c)+"/"+nf.format(its.length)+" مُقفل</span></div>"}
     if(t.mode==="revform"){const sms=its.map(revSummary);const act=sms.reduce((a,x)=>a+x.act,0),ab=sms.reduce((a,x)=>a+x.abn,0),bd=sms.reduce((a,x)=>a+x.done,0),bt=sms.reduce((a,x)=>a+x.total,0);return'<div class="tt"><span class="l">'+esc(t.l)+'</span><span class="v'+(ab?" bad":"")+'">'+money(act)+'</span><span class="s num">'+nf.format(bd)+"/"+nf.format(bt)+" فرع مسجّل · "+nf.format(c)+"/"+nf.format(its.length)+" مُقفل"+(ab?" · "+nf.format(ab)+" غير طبيعي":"")+"</span></div>"}
     if(t.mode==="reconcile"){const v=its.reduce((s,i)=>s+variance(i),0);const nv=its.filter(i=>variance(i)!==0).length;return'<div class="tt"><span class="l">'+esc(t.l)+'</span><span class="v'+(nv?" bad":"")+'">'+(nv?"فرق "+nf2.format(v):"مطابق")+'</span><span class="s num">'+nf.format(c)+"/"+nf.format(its.length)+" مُقفل"+(nv?" · "+nf.format(nv)+" بند بفرق":"")+"</span></div>"}
     const sum=its.reduce((s,i)=>s+(hasVal(i.amount)?+i.amount:0),0);return'<div class="tt"><span class="l">'+esc(t.l)+'</span><span class="v">'+money(sum)+'</span><span class="s num">'+nf.format(c)+"/"+nf.format(its.length)+" مُقفل</span></div>"}).join("");
@@ -1198,7 +1238,7 @@ VIEWFN.setup=function(){
   }
   h+="</div>";
   h+=branchesPanel(A);
-  h+='<div class="grid-2"><div class="panel"><h2>أنواع الإقفال'+(A?'<button type="button" class="btn sm" data-new="types">'+svg("plus")+"نوع جديد</button>":"")+'</h2><div class="list">'+types().map(t=>'<div class="li"'+(A?' data-open="types:'+esc(t.k)+'" style="cursor:pointer"':"")+'><div class="grow"><div class="t">'+esc(t.l)+'</div><div class="s">'+(t.mode==="revform"?"نموذج: إيرادات الفروع وسحب الشبكات والعجز والفائض":t.mode==="reconcile"?"مطابقة: "+esc(t.a||"الرصيد الدفتري")+" مقابل "+esc(t.b||"الرصيد الفعلي"):"مبلغ: عدد المستندات والإجمالي")+'</div></div><span class="chip num">'+nf.format(state.lines.filter(l=>l.typeK===t.k&&l.active!==false).length)+" بند</span></div>").join("")+"</div></div>";
+  h+='<div class="grid-2"><div class="panel"><h2>أنواع الإقفال'+(A?'<button type="button" class="btn sm" data-new="types">'+svg("plus")+"نوع جديد</button>":"")+'</h2><div class="list">'+types().map(t=>'<div class="li"'+(A?' data-open="types:'+esc(t.k)+'" style="cursor:pointer"':"")+'><div class="grow"><div class="t">'+esc(t.l)+'</div><div class="s">'+(t.mode==="bcform"?"نموذج: مطابقة البنوك ووسيط المتحصلات وتحصيل النقدية والصندوق":t.mode==="revform"?"نموذج: إيرادات الفروع وسحب الشبكات والعجز والفائض":t.mode==="reconcile"?"مطابقة: "+esc(t.a||"الرصيد الدفتري")+" مقابل "+esc(t.b||"الرصيد الفعلي"):"مبلغ: عدد المستندات والإجمالي")+'</div></div><span class="chip num">'+nf.format(state.lines.filter(l=>l.typeK===t.k&&l.active!==false).length)+" بند</span></div>").join("")+"</div></div>";
   h+='<div class="panel"><h2>المواعيد</h2><div style="display:flex;flex-direction:column;gap:14px"><div class="field"><label>أيام العطلة الأسبوعية</label><div class="checks">'+DAYN.map((d,i)=>'<label><input type="checkbox" id="wk'+i+'"'+((c.weekend||[]).includes(i)?" checked":"")+(A?"":" disabled")+">"+d+"</label>").join("")+'</div></div><div class="field"><label for="cfgOff">موعد تسليم إقفال اليوم</label><select class="select" id="cfgOff"'+(A?"":" disabled")+'><option value="0"'+(+c.dueOffset===0?" selected":"")+'>في نفس اليوم</option><option value="1"'+(+c.dueOffset===1?" selected":"")+'>يوم العمل التالي</option><option value="2"'+(+c.dueOffset===2?" selected":"")+'>بعد يومي عمل</option></select></div><div class="field"><label for="cfgTime">قبل الساعة</label><input class="input" type="time" id="cfgTime" value="'+esc(c.dueTime||"12:00")+'"'+(A?"":" disabled")+' style="max-width:160px"></div>'+'<div class="field"><label for="cfgThr">حد العجز/الفائض غير الطبيعي في نموذج الإيرادات (ر.س)</label><input class="input num" type="number" min="0" step="0.01" id="cfgThr" value="'+esc(thr())+'"'+(A?"":" disabled")+' style="max-width:160px"></div>'+(A?'<div><button type="button" class="btn primary" id="saveCfg">حفظ الإعدادات</button></div>':"")+"</div></div></div>";
   h+=dataPanel();
   return h;
@@ -1213,13 +1253,14 @@ function dataPanel(){
 }
 async function exportBackup(){
   try{
-    const d={app:"masar",version:1,exportedAt:new Date().toISOString(),config:state.config,days:state.days,rev:state.rev};
+    const d={app:"masar",version:1,exportedAt:new Date().toISOString(),config:state.config,days:state.days,rev:state.rev,bc:state.bc};
     COLS.forEach(c=>{d[c]=state[c]});
     if(Data.mode==="db"){
       toast("جارٍ تجهيز النسخة الاحتياطية…");
       const ds=await db.collection("days").get();d.days={};ds.docs.forEach(x=>{d.days[x.id]=x.data()});
       const as=await db.collection("activity").get();d.activity=as.docs.map(x=>Object.assign({},x.data(),{id:x.id}));
       const rs=await db.collection("rev").get();d.rev={};rs.docs.forEach(x=>{d.rev[x.id]=x.data()});
+      const bs=await db.collection("bc").get();d.bc={};bs.docs.forEach(x=>{d.bc[x.id]=x.data()});
     }
     await downloads.save({filename:"masar-backup-"+today()+".json",data:JSON.stringify(d)});
   }catch(e){console.warn(e);toast("تعذّر تجهيز النسخة الاحتياطية")}
@@ -1232,12 +1273,13 @@ async function readImport(file){
 }
 async function applyImport(){
   const d=pendingImport&&pendingImport.d;pendingImport=null;if(!d)return;
-  if(Data.mode==="local"){COLS.forEach(c=>{state[c]=Array.isArray(d[c])?d[c]:[]});state.days=d.days||{};state.rev=d.rev||{};state.config=d.config||null;Data.persist();toast("تم الاسترجاع");afterData();return}
+  if(Data.mode==="local"){COLS.forEach(c=>{state[c]=Array.isArray(d[c])?d[c]:[]});state.days=d.days||{};state.rev=d.rev||{};state.bc=d.bc||{};state.config=d.config||null;Data.persist();toast("تم الاسترجاع");afterData();return}
   try{
     const ops=[];
     COLS.forEach(c=>(d[c]||[]).forEach(r=>{const b=Object.assign({},r);const id=b.id;delete b.id;if(id)ops.push([db.collection(c).doc(String(id)),b])}));
     Object.keys(d.days||{}).forEach(k=>ops.push([db.doc("days/"+k),d.days[k]]));
     Object.keys(d.rev||{}).forEach(k=>ops.push([db.doc("rev/"+k),d.rev[k]]));
+    Object.keys(d.bc||{}).forEach(k=>ops.push([db.doc("bc/"+k),d.bc[k]]));
     if(d.config)ops.push([db.doc("setup/config"),d.config]);
     for(let i=0;i<ops.length;i+=400){const b=db.batch();ops.slice(i,i+400).forEach(o=>b.set(o[0],o[1]));await b.commit()}
     log("استرجع نسخة احتياطية ("+ops.length+" سجل)");toast("تم استرجاع "+nf.format(ops.length)+" سجل");
@@ -1326,6 +1368,14 @@ const SCHEMA={
     {k:"label",l:"وصف البند",req:1,full:1,ph:"مثال: بنك الراجحي — الحساب الجاري 1234"},
     {k:"branchIds",l:"الفروع المسندة لهذا المحاسب",type:"multi",opts:()=>state.branches.filter(b=>b.active!==false).sort(sortBr).map(b=>[b.id,b.name]),showIf:r=>typeOf(r.typeK).mode==="revform",full:1},
     {k:"active",l:"الحالة",type:"select",opts:()=>[["1","فعّال — يظهر في الإقفال اليومي"],["0","موقوف"]],def:"1",full:1}]},
+  bankAccts:{t:"حساب بنكي",f:[
+    {k:"company",l:"المنشأة",req:1,full:1},{k:"bank",l:"البنك",req:1,ph:"مثال: الراجحي"},{k:"acct",l:"مختصر الحساب",req:1,ph:"آخر أرقام الحساب"},
+    {k:"desc",l:"بيان الحساب",full:1,ph:"مثال: شبكات، عمليات، رواتب"},
+    {k:"active",l:"الحالة",type:"select",opts:()=>[["1","فعّال"],["0","موقوف"]],def:"1",full:1}]},
+  cashBoxes:{t:"صندوق",f:[
+    {k:"entity",l:"الجهة / المنشأة",req:1,full:1},
+    {k:"group",l:"الجدول",type:"select",opts:()=>[["main","إقفال الصندوق الرئيسي (الخزينة)"],["other","جهات أخرى"]],def:"main",full:1},
+    {k:"active",l:"الحالة",type:"select",opts:()=>[["1","فعّال"],["0","موقوف"]],def:"1",full:1}]},
   branches:{t:"فرع",f:[
     {k:"name",l:"اسم الفرع",req:1},{k:"company",l:"المنشأة / الشركة"},
     {k:"termsText",l:"أرقام أجهزة الشبكة (رقم في كل سطر)",type:"textarea",full:1},
@@ -1350,6 +1400,7 @@ function openForm(col,id,preset){
   if(col==="types")rec=id?Object.assign({},types().find(t=>t.k===id)):{};
   else rec=id?Object.assign({},byId(col,id)):Object.assign({},preset||{});
   if(col==="lines"&&id)rec.active=rec.active===false?"0":"1";
+  if((col==="bankAccts"||col==="cashBoxes")&&id)rec.active=rec.active===false?"0":"1";
   if(col==="branches"&&id){rec.active=rec.active===false?"0":"1";rec.termsText=(rec.terminals||[]).map(x=>x.no).join("\n")}
   if(!id)SCHEMA[col].f.forEach(f=>{if(rec[f.k]==null&&f.def!=null)rec[f.k]=typeof f.def==="function"?f.def():f.def});
   modal={kind:"form",col,id,rec};paintForm();
@@ -1375,12 +1426,13 @@ function paintForm(){
 function readForm(){document.querySelectorAll("#mform [data-k]").forEach(el=>{modal.rec[el.dataset.k]=el.dataset.multi?[...el.querySelectorAll("input:checked")].map(x=>x.value):el.value})}
 async function submitForm(){
   readForm();const {col,id,rec}=modal;const S=SCHEMA[col];let ok=true;
+  if(col==="lines"&&typeOf(rec.typeK).mode==="bcform"&&!String(rec.label||"").trim())rec.label="إقفال البنوك والصندوق";
   if(col==="lines"){if(typeOf(rec.typeK).mode==="revform"){if(!(rec.branchIds||[]).length){toast("اختر فرعاً واحداً على الأقل");return}if(!String(rec.label||"").trim())rec.label="تسجيل إيرادات: "+rec.branchIds.map(b=>brName(b)).join("، ")}else rec.branchIds=[]}
   S.f.filter(f=>!f.showIf||f.showIf(rec)).forEach(f=>{const e=document.querySelector('[data-err="'+f.k+'"]');if(!e)return;const req=typeof f.req==="function"?f.req(rec):f.req;if(req&&!String(rec[f.k]||"").trim()){e.textContent="هذا الحقل مطلوب";e.hidden=false;ok=false}else e.hidden=true});
   if(!ok)return;
   const nm=rec.title||rec.name||rec.label||rec.l;
   if(col==="types"){
-    if(id==="revform")rec.mode="revform";
+    if(id==="revform"||id==="bcform")rec.mode=id;
     const c=cfg();const list=types().slice();
     if(id){const i=list.findIndex(t=>t.k===id);list[i]=Object.assign({},list[i],{l:rec.l,mode:rec.mode,a:rec.a||"",b:rec.b||""})}
     else list.push({k:"t"+uid().slice(-6),l:rec.l,mode:rec.mode,a:rec.a||"",b:rec.b||""});
@@ -1390,6 +1442,7 @@ async function submitForm(){
   if(col==="team"&&rec.role==="cfo")rec.deptId="";
   if(col==="team"){rec.email=String(rec.email||"").trim().toLowerCase();if(rec.email&&state.team.some(x=>x.id!==id&&String(x.email||"").trim().toLowerCase()===rec.email)){toast("هذا البريد مسجّل لموظف آخر");return}}
   if(col==="lines"){rec.active=rec.active!=="0";if(!id)rec.startDate=today()}
+  if(col==="bankAccts"||col==="cashBoxes"){rec.active=rec.active!=="0";if(!id)rec.order=state[col].length}
   if(col==="branches"){
     if(state.branches.some(b=>b.id!==id&&String(b.name).trim()===String(rec.name).trim())){toast("يوجد فرع بنفس الاسم");return}
     rec.active=rec.active!=="0";rec.terminals=[...new Set(String(rec.termsText||"").split(/[\s,،]+/).map(x=>x.trim()).filter(Boolean))].map(no=>({no}));delete rec.termsText;if(!id)rec.order=state.branches.length;
@@ -1413,6 +1466,7 @@ function closeModal(){attachClose();modal=null;$("#layer").innerHTML="";schedule
 async function deleteCurrent(){
   const {col,id}=modal;
   if(col==="types"){
+    if(id==="bcform"){toast("نوع «إقفال البنوك والصندوق» أساسي ولا يُحذف");return}
     if(id==="revform"){toast("نوع «نموذج إيرادات الفروع» أساسي ولا يُحذف");return}
     if(state.lines.some(l=>l.typeK===id)){toast("لا يمكن حذف نوع مستخدم في بنود الإقفال — احذف البنود أو غيّر نوعها أولاً");return}
     const c=cfg();try{await Data.setConfig(Object.assign({},c,{types:types().filter(t=>t.k!==id)}));closeModal();toast("تم الحذف")}catch(e){writeErr(e)}return;
@@ -1436,16 +1490,18 @@ function paintItem(){
   const inp=(k,l)=>'<div class="field"><label for="i_'+k+'">'+l+'</label><input class="input num" type="number" step="0.01" inputmode="decimal" id="i_'+k+'" data-ik="'+k+'" value="'+esc(hasVal(it[k])?it[k]:"")+'"'+dis+"></div>";
   let body='<div class="field full" style="flex-direction:row;gap:8px;flex-wrap:wrap;align-items:center"><span class="tchip">'+esc(t.l)+"</span>"+who(it.assignee)+'<span class="muted">·</span><span>'+fmtDay(it.date)+'</span><span class="chip '+st.c+'">'+st.l+"</span>"+(late?'<span class="chip bad">متأخر</span>':"")+"</div>";
   if(it.status==="returned"&&it.retNote)body+='<div class="note bad"><b>مُعاد للتعديل:</b> '+esc(it.retNote)+"</div>";
-  if(t.mode==="revform")body+=revItemBox(it);
+  if(t.mode==="bcform")body+=bcItemBox(it);
+  else if(t.mode==="revform")body+=revItemBox(it);
   else body+=inp("count",t.mode==="reconcile"?"عدد الحركات":"عدد المستندات / القيود");
   if(t.mode==="reconcile"){body+='<div class="field"></div>'+inp("book",esc(t.a||"الرصيد الدفتري"))+inp("actual",esc(t.b||"الرصيد الفعلي"))+'<div class="varbox" id="varbox"></div>'}
-  else if(t.mode!=="revform")body+=inp("amount","إجمالي المبلغ (ر.س)");
+  else if(t.mode!=="revform"&&t.mode!=="bcform")body+=inp("amount","إجمالي المبلغ (ر.س)");
   body+='<div class="field full"><label for="i_note">'+(t.mode==="reconcile"?"تفسير الفرق / ملاحظات":"ملاحظات")+'</label><textarea class="input" id="i_note" data-ik="note"'+dis+">"+esc(it.note||"")+'</textarea><span class="err" id="itemErr" hidden></span></div>';
   if(appr&&modal.returning)body+='<div class="field full"><label for="i_ret">سبب الإرجاع والمطلوب تعديله <span class="req">*</span></label><textarea class="input" id="i_ret"></textarea></div>';
   body+='<div class="field full"><label>المرفقات</label><div id="attBox"></div></div>';
   body+='<div class="meta"><span>موعد التسليم: '+fmtTs(dueTs(it.date))+"</span>"+(it.submittedAt?"<span>أُرسل: "+fmtTs(it.submittedAt)+(it.submittedBy?" — "+esc(memberName(it.submittedBy)):"")+"</span>":"")+(it.approvedAt&&it.status==="approved"?"<span>اعتُمد: "+fmtTs(it.approvedAt)+" — "+esc(memberName(it.approvedBy))+"</span>":"")+(it.returns?"<span>أُعيد للتعديل "+nf.format(it.returns)+" مرة</span>":"")+"</div>";
   let foot="";
-  if(edit)foot+='<button type="button" class="btn primary" data-ia="submit">إقفال وإرسال للاعتماد</button>'+(t.mode==="revform"?'<button type="button" class="btn" data-gorev="'+esc(it.date+"|"+it.assignee)+'">فتح نموذج الإيرادات</button>':'<button type="button" class="btn" data-ia="draft">حفظ كمسودة</button><button type="button" class="btn" data-ia="noact">لا توجد حركة</button>');
+  if(edit)foot+='<button type="button" class="btn primary" data-ia="submit">إقفال وإرسال للاعتماد</button>'+(t.mode==="bcform"?'<button type="button" class="btn" data-gobc="'+esc(it.date)+'">فتح نموذج البنوك والصندوق</button>':t.mode==="revform"?'<button type="button" class="btn" data-gorev="'+esc(it.date+"|"+it.assignee)+'">فتح نموذج الإيرادات</button>':'<button type="button" class="btn" data-ia="draft">حفظ كمسودة</button><button type="button" class="btn" data-ia="noact">لا توجد حركة</button>');
+  if(t.mode==="bcform"&&!edit)foot+='<button type="button" class="btn" data-gobc="'+esc(it.date)+'">عرض نموذج البنوك والصندوق</button>';
   if(t.mode==="revform"&&!edit)foot+='<button type="button" class="btn" data-gorev="'+esc(it.date+"|"+it.assignee)+'">عرض نموذج الإيرادات</button>';
   if(appr&&!modal.returning)foot+='<button type="button" class="btn okb" data-ia="approve">اعتماد</button><button type="button" class="btn danger" data-ia="return">إرجاع للتعديل</button>';
   if(appr&&modal.returning)foot+='<button type="button" class="btn danger armed" data-ia="returnGo">تأكيد الإرجاع</button><button type="button" class="btn" data-ia="returnCancel">تراجع</button>';
@@ -1468,6 +1524,11 @@ async function itemAction(a){
   const err=m=>{const e=$("#itemErr");if(e){e.textContent=m;e.hidden=false}};
   let ok=false;
   if(a==="draft"){ok=await updateItem(it,Object.assign(itemInputs(),{status:"draft",noAct:false}),null);if(ok)toast("حُفظت المسودة")}
+  else if(a==="submit"&&t.mode==="bcform"){
+    await flushAll();
+    const r=bcSubmitCheck(it);if(r.err)return err(r.err);const v=itemInputs();if(v.note)r.patch.note=v.note;
+    ok=await updateItem(it,r.patch,"أقفل وأرسل للاعتماد "+nm);if(ok)toast("أُرسل للاعتماد");
+  }
   else if(a==="submit"&&t.mode==="revform"){
     await flushAll();
     const r=revSubmitCheck(findItem(it.date,it.id)||it);if(r.err)return err(r.err);const v=itemInputs();if(v.note)r.patch.note=v.note;
@@ -1612,6 +1673,7 @@ async function flushRow(tr){
 const revPending=new Set();
 async function flushAll(){
   [...document.querySelectorAll(".rvrow.dirty")].forEach(tr=>{flushRow(tr)});
+  [...document.querySelectorAll(".bcrow.dirty")].forEach(tr=>{bcFlush(tr)});
   [...document.querySelectorAll(".tmin")].forEach(el=>{if(revDirty.has("t|"+el.id)){const p=saveTerm(el);revPending.add(p);p.finally(()=>revPending.delete(p))}});
   while(revPending.size)await Promise.all([...revPending]);
 }
@@ -1952,6 +2014,249 @@ async function runRevImport(){
   }catch(e){writeErr(e);M.busy="";paintImport()}
 }
 
+/* ================= banks & cash closing (البنوك والصندوق) ================= */
+const BC_SECS=[["banks","مطابقة أرصدة البنوك"],["med","إغلاق وسيط المتحصلات النقدية"],["col","إغلاق تحصيل النقدية بالفروع"],["box","إقفال الصندوق"]];
+const bcDoc=d=>state.bc[d]||{};
+const bcGet=(d,sec,k)=>(bcDoc(d)[sec]||{})[k];
+const sortOrd=(a,b)=>(+a.order||0)-(+b.order||0);
+const bcAccts=()=>state.bankAccts.filter(a=>a.active!==false).sort(sortOrd);
+const bcBoxes=g=>state.cashBoxes.filter(x=>x.active!==false&&(x.group||"main")===g).sort(sortOrd);
+const bcBranches=()=>state.branches.filter(b=>b.active!==false).sort((a,b)=>String(a.company||"").localeCompare(String(b.company||""),"ar")||sortBr(a,b));
+const bcItem=date=>dayItems(date).find(i=>typeOf(i.typeK).mode==="bcform");
+function canBC(date){
+  if(!canWrite||date>today())return false;
+  const it=bcItem(date);if(it&&revLocked(it))return false;
+  return canAdmin()||state.lines.some(l=>l.active!==false&&typeOf(l.typeK).mode==="bcform"&&l.assignee===me);
+}
+const medBal=(d,bid)=>{const m=bcGet(d,"med",bid);return m&&(hasVal(m.mediator)||hasVal(m.collected))?r2((+m.mediator||0)-(+m.collected||0)):null};
+const stChip=df=>df===0?'<span class="chip ok">مطابق</span>':'<span class="chip bad">فرق</span>';
+function bcSummary(d){
+  const A=bcAccts(),B=bcBranches(),X=bcBoxes("main"),g=(sec,k)=>bcGet(d,sec,k)||{};
+  const bk=A.filter(a=>hasVal(g("banks",a.id).actual)&&hasVal(g("banks",a.id).system)),bkDiff=bk.filter(a=>r2(g("banks",a.id).actual-g("banks",a.id).system)!==0);
+  const bx=X.filter(x=>hasVal(g("box",x.id).actual)&&hasVal(g("box",x.id).book)),bxDiff=bx.filter(x=>r2(g("box",x.id).actual-g("box",x.id).book)!==0);
+  const md=B.filter(b=>hasVal(g("med",b.id).collected)||hasVal(g("med",b.id).mediator));
+  const sum=(arr,sec,f)=>r2(arr.reduce((t,a)=>t+(+g(sec,a.id)[f]||0),0));
+  return{bk:bk.length,bkT:A.length,bkDiff:bkDiff.length,bkNoNote:bkDiff.filter(a=>!String(g("banks",a.id).notes||"").trim()),
+    bx:bx.length,bxT:X.length,bxDiff:bxDiff.length,bxNoNote:bxDiff.filter(x=>!String(g("box",x.id).notes||"").trim()),md:md.length,mdT:B.length,
+    bankAct:sum(A,"banks","actual"),bankSys:sum(A,"banks","system"),medCol:sum(B,"med","collected"),medMed:sum(B,"med","mediator"),colCash:sum(B,"col","cash"),boxAct:sum(X,"box","actual"),boxBook:sum(X,"box","book")};
+}
+function bcSubmitCheck(it){
+  const b=bcSummary(it.date);
+  if(!b.bkT&&!b.bxT)return{err:"لا توجد حسابات بنكية أو صناديق — أضفها أو استورد ملف Excel من صفحة «البنوك والصندوق»"};
+  if(b.bk<b.bkT)return{err:"لم تُسجَّل أرصدة كل الحسابات البنكية ("+b.bk+"/"+b.bkT+")"};
+  if(b.bx<b.bxT)return{err:"لم يُسجَّل إقفال كل الصناديق ("+b.bx+"/"+b.bxT+")"};
+  if(b.md<b.mdT)return{err:"لم يُسجَّل وسيط المتحصلات لكل الفروع ("+b.md+"/"+b.mdT+")"};
+  const nn=b.bkNoNote.map(a=>a.bank+" "+a.acct).concat(b.bxNoNote.map(x=>x.entity));
+  if(nn.length)return{err:"اكتب ملاحظة لكل فرق: "+nn.join("، ")};
+  return{patch:{status:"submitted",noAct:false,submittedAt:Date.now(),submittedBy:me,count:b.bk+b.bx+b.md,amount:b.bankAct,book:b.bankSys,actual:b.bankAct,note:"فروقات البنوك "+b.bkDiff+" · فروقات الصندوق "+b.bxDiff}};
+}
+function bcItemBox(it){
+  const b=bcSummary(it.date);
+  return'<div class="field full"><div class="ttl">'+ttBox("الحسابات البنكية",nf.format(b.bk)+"/"+nf.format(b.bkT))+ttBox("فرق البنوك",nf2.format(r2(b.bankAct-b.bankSys)),r2(b.bankAct-b.bankSys)!==0)+ttBox("الصناديق",nf.format(b.bx)+"/"+nf.format(b.bxT))+ttBox("فرق الصندوق",nf2.format(r2(b.boxAct-b.boxBook)),r2(b.boxAct-b.boxBook)!==0)+ttBox("وسيط المتحصلات",nf.format(b.md)+"/"+nf.format(b.mdT))+"</div></div>";
+}
+async function bcWrite(date,patch){
+  if(Data.mode==="db")await db.doc("bc/"+date).set(Object.assign({date},patch),{merge:true});
+  else{const d=state.bc[date]||(state.bc[date]={date});deepMerge(d,patch);Data.persist();schedule()}
+}
+function bcRowVals(tr){const o={};tr.querySelectorAll("[data-f]").forEach(el=>{o[el.dataset.f]=el.type==="number"?(el.value===""?"":r2(el.value)):el.value.trim()});return o}
+const bcKey=tr=>"bc|"+tr.dataset.d+"|"+tr.dataset.sec+"|"+tr.dataset.k;
+async function bcFlush(tr){
+  const key=bcKey(tr);if(!revDirty.has(key))return;revDirty.delete(key);tr.classList.remove("dirty");
+  const D=tr.dataset.d,v=Object.assign(bcRowVals(tr),{by:me||"",at:Date.now()});
+  const p=bcWrite(D,{[tr.dataset.sec]:{[tr.dataset.k]:v}}).then(async()=>{const it=bcItem(D);if(it&&it.status==="pending")await updateItem(it,{status:"draft"},null)});
+  revPending.add(p);
+  try{await p}catch(e){writeErr(e)}finally{revPending.delete(p)}
+  schedule();
+}
+function bcRecalc(tr){
+  const v=bcRowVals(tr),sec=tr.dataset.sec,n=k=>+v[k]||0;let df=null;
+  if(sec==="banks"&&(v.actual!==""||v.system!==""))df=r2(n("actual")-n("system"));
+  if(sec==="med"&&(v.collected!==""||v.mediator!==""))df=r2(n("collected")-n("mediator"));
+  if(sec==="col"){const der=tr.dataset.der===""?0:+tr.dataset.der;if(v.cash!==""||tr.dataset.der!=="")df=r2(n("cash")-der)}
+  if(sec==="box"&&(v.actual!==""||v.book!==""))df=r2(n("actual")-n("book"));
+  const c1=tr.querySelector('[data-c="diff"]'),c2=tr.querySelector('[data-c="st"]');
+  if(c1)c1.innerHTML=df===null?"":sgn(df);if(c2)c2.innerHTML=df===null?"":stChip(df);
+}
+function bcIn(D,sec,k,f,val,ed,type){
+  const id="bc_"+sec+"_"+k+"_"+f;
+  if(type==="note")return'<td><input class="bcin note" type="text" id="'+esc(id)+'" data-f="'+f+'" value="'+esc(val||"")+'" maxlength="500" placeholder="ملاحظات"'+(ed?"":" disabled")+"></td>";
+  if(type==="date")return'<td><input class="bcin" type="date" id="'+esc(id)+'" data-f="'+f+'" value="'+esc(val||"")+'"'+(ed?"":" disabled")+"></td>";
+  return'<td><input class="bcin num" type="number" step="0.01" inputmode="decimal" id="'+esc(id)+'" data-f="'+f+'" value="'+(hasVal(val)?esc(val):"")+'"'+(ed?"":" disabled")+"></td>";
+}
+const bcTr=(D,sec,k,extra)=>'<tr class="bcrow" data-sec="'+sec+'" data-k="'+esc(k)+'" data-d="'+D+'"'+(extra||"")+">";
+const fm=v=>nf2.format(r2(v));
+function bcBranchGroups(){const g={},order=[];bcBranches().forEach(b=>{const c=String(b.company||"").trim()||"—";if(!g[c]){g[c]=[];order.push(c)}g[c].push(b)});return order.map(c=>[c,g[c]])}
+VIEWFN.bc=function(){
+  const D=curDay(),ed=canBC(D),it=bcItem(D),b=bcSummary(D);
+  let h='<div class="toolbar">'+dateNav()+"</div>";
+  h+='<div class="toolbar"><div class="seg" role="group" aria-label="القسم">'+BC_SECS.map(x=>'<button type="button" data-bctab="'+x[0]+'" aria-pressed="'+(ui.bcTab===x[0])+'">'+x[1]+"</button>").join("")+'</div><span style="flex:1"></span>'+
+    (canAdmin()?'<label class="btn" for="bcImport" style="cursor:pointer">استيراد من Excel</label><input type="file" id="bcImport" accept=".xlsx,.xls" multiple hidden>':"")+
+    '<button type="button" class="btn primary" id="bcExport">'+svg("dl")+"تصدير Excel</button></div>";
+  h+='<div class="ttl">'+ttBox("البنوك — الفعلي",money(b.bankAct))+ttBox("البنوك — الأوائل",money(b.bankSys))+ttBox("فرق البنوك",nf2.format(r2(b.bankAct-b.bankSys)),r2(b.bankAct-b.bankSys)!==0)+ttBox("فرق وسيط المتحصلات",nf2.format(r2(b.medCol-b.medMed)),r2(b.medCol-b.medMed)<0)+ttBox("الصندوق — الفعلي",money(b.boxAct))+ttBox("فرق الصندوق",nf2.format(r2(b.boxAct-b.boxBook)),r2(b.boxAct-b.boxBook)!==0)+"</div>";
+  if(it){const st=IST.find(x=>x.k===it.status)||IST[0];
+    h+='<div class="banner" style="background:var(--accent-soft)"><span><b style="color:var(--accent)">'+esc(it.label)+"</b> — "+esc(memberName(it.assignee))+' <span class="chip '+st.c+'">'+st.l+"</span> · بنوك "+nf.format(b.bk)+"/"+nf.format(b.bkT)+" · صناديق "+nf.format(b.bx)+"/"+nf.format(b.bxT)+" · وسيط "+nf.format(b.md)+"/"+nf.format(b.mdT)+"</span>"+(it.status==="returned"&&it.retNote?'<span class="muted">سبب الإرجاع: '+esc(it.retNote)+"</span>":"")+(revLocked(it)?'<button type="button" class="btn sm" data-item="'+esc(it.date+"|"+it.id)+'">عرض البند</button>':canFill(it)?'<button type="button" class="btn sm primary" data-bcsub="'+esc(it.date+"|"+it.id)+'">إقفال وإرسال للاعتماد</button>':"")+"</div>"}
+  if(!ed)h+='<div class="muted" style="font-size:12.5px">'+(it&&revLocked(it)?"مُقفل — أُرسل هذا اليوم للاعتماد.":"للاطلاع فقط — الإدخال للمدير المالي ورؤساء الأقسام والمحاسب المسند إليه «إقفال البنوك والصندوق».")+"</div>";
+  return h+({banks:bcBanksView,med:bcMedView,col:bcColView,box:bcBoxView}[ui.bcTab]||bcBanksView)(D,ed);
+};
+function bcBanksView(D,ed){
+  const A=bcAccts(),add=canAdmin()?'<button type="button" class="btn sm" data-new="bankAccts">'+svg("plus")+"حساب بنكي</button>":"";
+  if(!A.length)return'<div class="empty">لا توجد حسابات بنكية. '+(canAdmin()?"أضف الحسابات، أو استورد ملف Excel لإضافتها تلقائياً. ":"")+add+"</div>";
+  let TA=0,TS=0;
+  const rows=A.map(a=>{const v=bcGet(D,"banks",a.id)||{},has=hasVal(v.actual)||hasVal(v.system),df=has?r2((+v.actual||0)-(+v.system||0)):null;if(has){TA+=+v.actual||0;TS+=+v.system||0}
+    return bcTr(D,"banks",a.id)+'<td class="l">'+esc(a.company)+"</td><td>"+esc(a.bank)+'</td><td class="num">'+esc(a.acct)+'</td><td class="l">'+esc(a.desc||"")+"</td>"+bcIn(D,"banks",a.id,"actual",v.actual,ed)+bcIn(D,"banks",a.id,"system",v.system,ed)+'<td class="calc num" data-c="diff">'+(has?sgn(df):"")+'</td><td data-c="st">'+(has?stChip(df):"")+"</td>"+bcIn(D,"banks",a.id,"notes",v.notes,ed,"note")+"<td>"+(canAdmin()?'<button type="button" class="btn sm ghost" data-open="bankAccts:'+esc(a.id)+'">تعديل</button>':"")+"</td></tr>"}).join("");
+  return'<div class="toolbar"><h3 class="bcsub">مطابقة أرصدة البنوك</h3><span style="flex:1"></span>'+add+'</div><div class="tablewrap"><table class="bctable"><thead><tr><th>المنشأة</th><th>البنك</th><th>مختصر الحساب</th><th>بيان الحساب</th><th>رصيد البنك (الفعلي)</th><th>رصيد البنك (الأوائل)</th><th>الفرق</th><th>الحالة</th><th>ملاحظات</th><th></th></tr></thead><tbody>'+rows+
+    '</tbody><tfoot><tr><td colspan="4">الإجمالي</td><td class="num">'+fm(TA)+'</td><td class="num">'+fm(TS)+'</td><td class="num">'+sgn(r2(TA-TS))+"</td><td>"+stChip(r2(TA-TS))+"</td><td></td><td></td></tr></tfoot></table></div>";
+}
+function bcMedView(D,ed){
+  const G=bcBranchGroups();if(!G.length)return'<div class="empty">لا توجد فروع. أضفها من «إعداد الإقفال» أو استورد ملف Excel.</div>';
+  let rows="",GT={c:0,m:0};
+  G.forEach(([co,bs])=>{const S={c:0,m:0};
+    bs.forEach((b,i)=>{const v=bcGet(D,"med",b.id)||{},has=hasVal(v.collected)||hasVal(v.mediator),df=has?r2((+v.collected||0)-(+v.mediator||0)):null;if(has){S.c+=+v.collected||0;S.m+=+v.mediator||0}
+      rows+=bcTr(D,"med",b.id)+'<td class="l">'+(i?"":esc(co))+'</td><td class="l"><b>'+esc(b.name)+"</b></td>"+bcIn(D,"med",b.id,"closeDate",v.closeDate,ed,"date")+bcIn(D,"med",b.id,"collected",v.collected,ed)+bcIn(D,"med",b.id,"mediator",v.mediator,ed)+'<td class="calc num" data-c="diff">'+(has?sgn(df):"")+'</td><td data-c="st">'+(has?stChip(df):"")+"</td>"+bcIn(D,"med",b.id,"notes",v.notes,ed,"note")+"</tr>"});
+    GT.c+=S.c;GT.m+=S.m;rows+='<tr class="co"><td colspan="3">الإجمالي — '+esc(co)+'</td><td class="num">'+fm(S.c)+'</td><td class="num">'+fm(S.m)+'</td><td class="num">'+sgn(r2(S.c-S.m))+"</td><td></td><td></td></tr>"});
+  return'<h3 class="bcsub">إغلاق وسيط المتحصلات النقدية</h3><div class="tablewrap"><table class="bctable"><thead><tr><th>المنشأة</th><th>الفرع</th><th>تاريخ الإقفال</th><th>تحصيل الصندوق</th><th>رصيد الوسيط</th><th>الفرق</th><th>حالة الحساب</th><th>ملاحظات</th></tr></thead><tbody>'+rows+'</tbody><tfoot><tr><td colspan="3">الإجمالي العام</td><td class="num">'+fm(GT.c)+'</td><td class="num">'+fm(GT.m)+'</td><td class="num">'+sgn(r2(GT.c-GT.m))+"</td><td>"+stChip(r2(GT.c-GT.m))+"</td><td></td></tr></tfoot></table></div>";
+}
+function bcColTotals(D){const out=[];bcBranchGroups().forEach(([co,bs])=>{let c=0,m=0;bs.forEach(b=>{const v=bcGet(D,"col",b.id)||{};c+=+v.cash||0;const d=medBal(D,b.id);if(d!==null)m+=d});out.push([co,r2(c),r2(m)])});return out}
+function bcColView(D,ed){
+  const G=bcBranchGroups();if(!G.length)return'<div class="empty">لا توجد فروع.</div>';
+  let rows="",GT={c:0,m:0};
+  G.forEach(([co,bs])=>{const S={c:0,m:0};
+    bs.forEach((b,i)=>{const v=bcGet(D,"col",b.id)||{},der=medBal(D,b.id),has=hasVal(v.cash)||der!==null,df=has?r2((+v.cash||0)-(der||0)):null;if(has){S.c+=+v.cash||0;S.m+=der||0}
+      rows+=bcTr(D,"col",b.id,' data-der="'+(der===null?"":der)+'"')+'<td class="l">'+(i?"":esc(co))+'</td><td class="l"><b>'+esc(b.name)+"</b></td>"+bcIn(D,"col",b.id,"lastDeposit",v.lastDeposit,ed,"date")+bcIn(D,"col",b.id,"lastCollect",v.lastCollect,ed,"date")+bcIn(D,"col",b.id,"cash",v.cash,ed)+'<td class="calc num">'+(der===null?'<span class="muted">—</span>':fm(der))+'</td><td class="calc num" data-c="diff">'+(has?sgn(df):"")+'</td><td data-c="st">'+(has?stChip(df):"")+"</td>"+bcIn(D,"col",b.id,"notes",v.notes,ed,"note")+"</tr>"});
+    GT.c+=S.c;GT.m+=S.m;rows+='<tr class="co"><td colspan="4">الإجمالي — '+esc(co)+'</td><td class="num">'+fm(S.c)+'</td><td class="num">'+fm(S.m)+'</td><td class="num">'+sgn(r2(S.c-S.m))+"</td><td></td><td></td></tr>"});
+  return'<h3 class="bcsub">إغلاق تحصيل النقدية بالفروع</h3><div class="tablewrap"><table class="bctable"><thead><tr><th>المنشأة</th><th>الفرع</th><th>تاريخ آخر إيداع</th><th>تاريخ آخر تحصيل</th><th>التحصيل النقدي</th><th>رصيد الوسيط</th><th>الفرق</th><th>حالة الحساب</th><th>ملاحظات</th></tr></thead><tbody>'+rows+'</tbody><tfoot><tr><td colspan="4">الإجمالي العام</td><td class="num">'+fm(GT.c)+'</td><td class="num">'+fm(GT.m)+'</td><td class="num">'+sgn(r2(GT.c-GT.m))+"</td><td>"+stChip(r2(GT.c-GT.m))+'</td><td></td></tr></tfoot></table></div><div class="muted" style="font-size:12.5px">رصيد الوسيط هنا يُحسب تلقائياً من قسم «إغلاق وسيط المتحصلات النقدية» (رصيد الوسيط − تحصيل الصندوق).</div>';
+}
+function bcBoxTable(D,ed,g,title){
+  const X=bcBoxes(g);if(!X.length&&g==="other")return"";
+  let TA=0,TB=0;
+  const rows=X.map(x=>{const v=bcGet(D,"box",x.id)||{},has=hasVal(v.actual)||hasVal(v.book),df=has?r2((+v.actual||0)-(+v.book||0)):null;if(has){TA+=+v.actual||0;TB+=+v.book||0}
+    return bcTr(D,"box",x.id)+'<td class="l"><b>'+esc(x.entity)+"</b></td>"+bcIn(D,"box",x.id,"closeDate",v.closeDate,ed,"date")+bcIn(D,"box",x.id,"actual",v.actual,ed)+bcIn(D,"box",x.id,"book",v.book,ed)+'<td class="calc num" data-c="diff">'+(has?sgn(df):"")+'</td><td data-c="st">'+(has?stChip(df):"")+"</td>"+bcIn(D,"box",x.id,"notes",v.notes,ed,"note")+"<td>"+(canAdmin()?'<button type="button" class="btn sm ghost" data-open="cashBoxes:'+esc(x.id)+'">تعديل</button>':"")+"</td></tr>"}).join("");
+  return'<h3 class="bcsub">'+title+'</h3><div class="tablewrap"><table class="bctable" style="min-width:900px"><thead><tr><th>الجهة</th><th>تاريخ الإقفال</th><th>الرصيد الفعلي</th><th>الرصيد الدفتري</th><th>الفرق</th><th>حالة الحساب</th><th>ملاحظات</th><th></th></tr></thead><tbody>'+(rows||'<tr><td colspan="8" class="muted">لا توجد صناديق</td></tr>')+'</tbody><tfoot><tr><td colspan="2">الإجمالي</td><td class="num">'+fm(TA)+'</td><td class="num">'+fm(TB)+'</td><td class="num">'+sgn(r2(TA-TB))+"</td><td>"+stChip(r2(TA-TB))+"</td><td></td><td></td></tr></tfoot></table></div>";
+}
+function bcBoxView(D,ed){
+  const add=canAdmin()?'<button type="button" class="btn sm" data-new="cashBoxes">'+svg("plus")+"صندوق</button>":"";
+  let h='<div class="toolbar"><span style="flex:1"></span>'+add+"</div>"+bcBoxTable(D,ed,"main","إقفال الصندوق الرئيسي (الخزينة)")+bcBoxTable(D,ed,"other","جهات أخرى");
+  const ct=bcColTotals(D);let C=0,M=0;
+  h+='<h3 class="bcsub">إقفال إيداعات النقدية للفروع للصندوق</h3><div class="tablewrap"><table class="bctable" style="min-width:700px"><thead><tr><th>المنشأة</th><th>التحصيل النقدي</th><th>رصيد الوسيط</th><th>الفرق</th><th>حالة الحساب</th></tr></thead><tbody>'+
+    ct.map(([co,c,m])=>{C+=c;M+=m;return'<tr><td class="l"><b>'+esc(co)+'</b></td><td class="num">'+fm(c)+'</td><td class="num">'+fm(m)+'</td><td class="num">'+sgn(r2(c-m))+"</td><td>"+stChip(r2(c-m))+"</td></tr>"}).join("")+'</tbody><tfoot><tr><td>الإجمالي</td><td class="num">'+fm(C)+'</td><td class="num">'+fm(M)+'</td><td class="num">'+sgn(r2(C-M))+"</td><td>"+stChip(r2(C-M))+"</td></tr></tfoot></table></div>";
+  return h+'<div class="muted" style="font-size:12.5px">الجدول الأخير يُحسب تلقائياً من قسم «إغلاق تحصيل النقدية بالفروع».</div>';
+}
+async function bcSubmit(date,id){
+  await flushAll();const it=findItem(date,id);if(!it||!canFill(it))return;
+  const r=bcSubmitCheck(it);if(r.err){toast(r.err);return}
+  if(await updateItem(it,r.patch,"أقفل وأرسل للاعتماد «"+it.label+"» ("+fmtDate(date)+")"))toast("أُرسل للاعتماد");
+}
+/* ---- export ---- */
+async function bcExport(){
+  const D=curDay();let X;try{X=await loadXLSX()}catch(e){toast("تعذّر تحميل مكتبة Excel — تحقق من الاتصال");return}
+  const R=v=>hasVal(v)?r2(v):"",st=df=>df===0?"مطابق":"-",wb=X.utils.book_new();
+  const sh=(name,aoa,cols)=>{const ws=X.utils.aoa_to_sheet(aoa);ws["!cols"]=cols.map(w=>({wch:w}));X.utils.book_append_sheet(wb,ws,name)};
+  let TA=0,TS=0;const bk=bcAccts().map(a=>{const v=bcGet(D,"banks",a.id)||{};TA+=+v.actual||0;TS+=+v.system||0;const df=r2((+v.actual||0)-(+v.system||0));return[a.company,a.bank,a.acct,a.desc||"",R(v.actual),R(v.system),df,v.notes||""]});
+  sh("تقرير مطابقة ارصدة البنوك",[["مطابقة أرصدة البنوك — "+D],[],["المنشأة","البنك","مختصر الحساب","بيان الحساب","رصيد البنك (الفعلي)","رصيد البنك (الاوائل)","الفرق","ملاحظات"]].concat(bk,[["الإجمالي","","","",r2(TA),r2(TS),r2(TA-TS),""]]),[34,10,12,28,16,16,10,30]);
+  const med=[],col=[];let g1=[0,0],g2=[0,0];
+  bcBranchGroups().forEach(([co,bs])=>{let s1=[0,0],s2=[0,0];
+    bs.forEach((b,i)=>{const v=bcGet(D,"med",b.id)||{},c=bcGet(D,"col",b.id)||{},der=medBal(D,b.id);s1[0]+=+v.collected||0;s1[1]+=+v.mediator||0;s2[0]+=+c.cash||0;s2[1]+=der||0;
+      const d1=r2((+v.collected||0)-(+v.mediator||0)),d2=r2((+c.cash||0)-(der||0));
+      med.push([i?"":co,b.name,v.closeDate||"",R(v.collected),R(v.mediator),d1,st(d1),v.notes||""]);col.push([i?"":co,b.name,c.lastDeposit||"",c.lastCollect||"",R(c.cash),der===null?"":der,d2,st(d2),c.notes||""])});
+    med.push(["الإجمالي","","",r2(s1[0]),r2(s1[1]),r2(s1[0]-s1[1]),"",""]);col.push(["الإجمالي","","","",r2(s2[0]),r2(s2[1]),r2(s2[0]-s2[1]),"",""]);
+    g1[0]+=s1[0];g1[1]+=s1[1];g2[0]+=s2[0];g2[1]+=s2[1]});
+  med.push(["الإجمالي العام","","",r2(g1[0]),r2(g1[1]),r2(g1[0]-g1[1]),st(r2(g1[0]-g1[1])),""]);col.push(["الإجمالي العام","","","",r2(g2[0]),r2(g2[1]),r2(g2[0]-g2[1]),st(r2(g2[0]-g2[1])),""]);
+  sh("إغلاق وسيط المتحصلات النقدية",[["إغلاق وسيط المتحصلات النقدية — "+D],[],["المنشأة","الفرع","تاريخ الإقفال","تحصيل الصندوق","رصيد الوسيط","الفرق","حالة الحساب","ملاحظات"]].concat(med),[34,18,12,15,15,12,11,30]);
+  sh("إغلاق تحصيل النقدية بالفروع",[["إغلاق إيداعات النقدية بالفروع — "+D],[],["المنشأة","الفرع","تاريخ أخر إيداع","تاريخ أخر تحصيل","التحصيل النقدي","رصيد الوسيط","الفرق","حالة الحساب","ملاحظات"]].concat(col),[34,18,13,13,14,14,12,11,30]);
+  const boxRows=g=>{let a=0,b=0;const r=bcBoxes(g).map(x=>{const v=bcGet(D,"box",x.id)||{};a+=+v.actual||0;b+=+v.book||0;const df=r2((+v.actual||0)-(+v.book||0));return[x.entity,v.closeDate||"",R(v.actual),R(v.book),df,st(df),v.notes||""]});return r.concat([["الإجمالي","",r2(a),r2(b),r2(a-b),"",""]])};
+  const hdr=["الفرع","تاريخ الإقفال","الرصيد الفعلي","الرصيد الدفتري","الفرق","حالة الحساب","ملاحظات"];
+  const ct=bcColTotals(D);let C=0,M=0;const ctr=ct.map(([co,c,m])=>{C+=c;M+=m;return[co,D,c,m,r2(c-m),st(r2(c-m))]});
+  sh("اقفال الصندوق",[["إقفال الصندوق الرئيسي (الخزينة) — "+D],[],hdr].concat(boxRows("main"),[[]],bcBoxes("other").length?[hdr].concat(boxRows("other"),[[]]):[],[["إقفال إيداعات النقدية للفروع للصندوق"],[],["الفرع","تاريخ الإقفال","التحصيل النقدي","رصيد الوسيط","الفرق","حالة الحساب"]],ctr,[["الإجمالي","",r2(C),r2(M),r2(C-M),st(r2(C-M))]]),[38,12,15,15,12,11,30]);
+  wb.Workbook={Views:[{RTL:true}]};
+  X.writeFile(wb,"إقفالات-البنوك-والصندوق-"+D+".xlsx");
+}
+/* ---- import ---- */
+const stripPar=x=>normAr(String(x||"").replace(/\(.*?\)/g,""));
+const findBranch2=name=>findBranch(name)||state.branches.find(b=>stripPar(b.name)===stripPar(name));
+const xlD=v=>typeof v==="number"&&v>30000&&v<80000?xlDate(v):(/^\d{4}-\d{2}-\d{2}/.test(String(v))?String(v).slice(0,10):"");
+function parseBcBook(X,buf,name){
+  const wb=X.read(buf,{type:"array"}),res={name,date:"",banks:[],med:[],col:[],box:[],warn:[]},dates=[];
+  const sheet=k=>{const n=wb.SheetNames.find(x=>normAr(x).includes(k));return n?X.utils.sheet_to_json(wb.Sheets[n],{header:1,raw:true,defval:""}):null};
+  const hdrDate=S=>{for(let i=0;i<4;i++)for(const v of S[i]||[]){const d=xlD(v);if(d)return d}return""};
+  const col=(H,pred)=>H.findIndex(x=>pred(normAr(x)));
+  const B=sheet("البنوك");
+  if(B){const d=hdrDate(B);if(d)dates.push(["البنوك",d]);const hr=findHeader(B,r=>r.includes("البنك")&&r.some(x=>x.includes("مختصر")),8);
+    if(hr>=0){const H=B[hr],cC=col(H,x=>x.includes("المنشا")),cB=col(H,x=>x==="البنك"),cA=col(H,x=>x.includes("مختصر")),cD=col(H,x=>x.includes("بيان")),cR=col(H,x=>x.includes("الفعلي")),cS=col(H,x=>x.includes("الاوائل")),cN=col(H,x=>x.includes("ملاحظات"));let co="";
+      for(let i=hr+1;i<B.length;i++){const r=B[i]||[];if(normAr(r[cC])==="الاجمالي")break;if(normAr(r[cC]))co=String(r[cC]).trim();const acct=String(r[cA]==null?"":r[cA]).trim();if(!acct||!normAr(r[cB]))continue;
+        res.banks.push({company:co,bank:String(r[cB]).trim(),acct,desc:cD>=0?String(r[cD]||"").trim():"",actual:isNum(r[cR])?r2(num(r[cR])):"",system:isNum(r[cS])?r2(num(r[cS])):"",notes:cN>=0?String(r[cN]||"").trim():""})}}}
+  const parseBr=(S,kind)=>{if(!S)return;const d=hdrDate(S);if(d)dates.push([kind==="med"?"وسيط المتحصلات":"تحصيل النقدية",d]);
+    const hr=findHeader(S,r=>r.includes("الفرع")&&(kind==="med"?r.some(x=>x.includes("تحصيل الصندوق")):r.some(x=>x.includes("ايداع"))),8);if(hr<0)return;
+    const H=S[hr],cC=col(H,x=>x.includes("المنشا")),cB=col(H,x=>x==="الفرع"),cN=col(H,x=>x.includes("ملاحظات"));let co="";
+    const c1=kind==="med"?col(H,x=>x.includes("تاريخ")):col(H,x=>x.includes("ايداع")),c2=kind==="med"?col(H,x=>x.includes("تحصيل الصندوق")):col(H,x=>x.includes("تاريخ")&&x.includes("تحصيل")),c3=kind==="med"?col(H,x=>x.includes("رصيد الوسيط")):col(H,x=>x==="التحصيل النقدي");
+    for(let i=hr+1;i<S.length;i++){const r=S[i]||[];const a=normAr(r[cC]);if(a&&!a.startsWith("الاجم"))co=String(r[cC]).trim();const br=String(r[cB]||"").trim();if(!br)continue;
+      if(kind==="med")res.med.push({company:co,branch:br,closeDate:xlD(r[c1]),collected:isNum(r[c2])?r2(num(r[c2])):"",mediator:isNum(r[c3])?r2(num(r[c3])):"",notes:cN>=0?String(r[cN]||"").trim():""});
+      else res.col.push({company:co,branch:br,lastDeposit:xlD(r[c1]),lastCollect:xlD(r[c2]),cash:isNum(r[c3])?r2(num(r[c3])):"",notes:cN>=0?String(r[cN]||"").trim():""})}};
+  parseBr(sheet("وسيط"),"med");parseBr(sheet("تحصيل النقديه")||sheet("تحصيل النقدية"),"col");
+  const S=sheet("الصندوق");
+  if(S){const d=hdrDate(S);if(d)dates.push(["الصندوق",d]);let grp="main",H=null;
+    for(let i=0;i<S.length;i++){const r=S[i]||[],n=r.map(x=>normAr(x));
+      if(n.some(x=>x.includes("التحصيل النقدي")))break;
+      if(n.some(x=>x.includes("الرصيد الفعلي"))&&n.some(x=>x.includes("الرصيد الدفتري"))){if(H)grp="other";H={e:0,d:n.findIndex(x=>x.includes("تاريخ")),a:n.findIndex(x=>x.includes("الرصيد الفعلي")),b:n.findIndex(x=>x.includes("الرصيد الدفتري")),nt:n.findIndex(x=>x.includes("ملاحظات"))};continue}
+      if(!H||!n[0]||n[0].startsWith("الاجم"))continue;if(!(isNum(r[H.a])||isNum(r[H.b])))continue;
+      res.box.push({entity:String(r[0]).trim(),group:grp,closeDate:xlD(r[H.d]),actual:isNum(r[H.a])?r2(num(r[H.a])):"",book:isNum(r[H.b])?r2(num(r[H.b])):"",notes:H.nt>=0?String(r[H.nt]||"").trim():""})}}
+  res.date=(dates[0]||[])[1]||"";
+  const nm=String(name).match(/(\d{1,2})\s*[-_.]\s*(\d{1,2})(?!\d)/);
+  if(!res.date&&nm)res.date=(new Date().getFullYear())+"-"+String(+nm[2]).padStart(2,"0")+"-"+String(+nm[1]).padStart(2,"0");
+  const uniq=[...new Set(dates.map(x=>x[1]))];
+  if(uniq.length>1)res.warn.push("تواريخ الأوراق مختلفة: "+dates.map(x=>x[0]+" "+x[1]).join("، ")+" — اعتُمد تاريخ ورقة البنوك");
+  if(nm&&res.date){const fd=+nm[1],fm2=+nm[2];if(!(+res.date.slice(8,10)===fd&&+res.date.slice(5,7)===fm2))res.warn.push("اسم الملف يشير إلى "+fd+"/"+fm2+" بينما تاريخ التقرير داخله "+res.date)}
+  return res;
+}
+async function bcImportFiles(files){
+  let X;try{X=await loadXLSX()}catch(e){toast("تعذّر تحميل مكتبة Excel — تحقق من الاتصال");return}
+  const out=[];
+  for(const f of files){try{out.push(parseBcBook(X,new Uint8Array(await f.arrayBuffer()),f.name))}catch(e){console.warn(e);out.push({name:f.name,date:"",banks:[],med:[],col:[],box:[],warn:["تعذّرت قراءة الملف"]})}}
+  out.sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+  modal={kind:"bcimp",files:out,busy:""};paintBcImport();
+}
+const acctKey=(co,bank,acct)=>normAr(co)+"|"+normAr(bank)+"|"+String(acct).trim();
+function paintBcImport(){
+  const M=modal;if(!M||M.kind!=="bcimp")return;
+  const body=M.files.map((f,i)=>{
+    const newA=f.banks.filter(a=>!state.bankAccts.some(x=>acctKey(x.company,x.bank,x.acct)===acctKey(a.company,a.bank,a.acct))).length;
+    const newB=[...new Set(f.med.concat(f.col).map(x=>x.branch))].filter(n=>!findBranch2(n));
+    const newX=f.box.filter(b=>!state.cashBoxes.some(x=>normAr(x.entity)===normAr(b.entity)&&(x.group||"main")===b.group)).length;
+    const exist=f.date&&state.bc[f.date];
+    const ta=f.banks.reduce((s,a)=>s+(+a.actual||0),0),ts=f.banks.reduce((s,a)=>s+(+a.system||0),0);
+    return'<div class="imp-file"><div class="hd"><span class="fx fx-xl">XLS</span><b>'+esc(f.name)+'</b><label class="muted" for="bcd_'+i+'">تاريخ التقرير</label><input class="input num" type="date" id="bcd_'+i+'" data-bcd="'+i+'" value="'+esc(f.date||"")+'" max="'+today()+'"></div>'+
+      '<div class="muted" style="font-size:12.5px">'+nf.format(f.banks.length)+" حساب بنكي (فعلي "+money(r2(ta))+" · الأوائل "+money(r2(ts))+") · "+nf.format(f.med.length)+" فرع في الوسيط · "+nf.format(f.col.length)+" فرع في التحصيل · "+nf.format(f.box.length)+" صندوق</div>"+
+      (newA||newB.length||newX?'<div class="imp-warn">ستُضاف تلقائياً: '+[newA?newA+" حساب بنكي":"",newX?newX+" صندوق":"",newB.length?"الفروع: "+newB.join("، "):""].filter(Boolean).join(" · ")+"</div>":"")+
+      (exist?'<div class="imp-warn">يوجد تسجيل سابق لهذا اليوم — ستُستبدل القيم الموجودة في الملف</div>':"")+
+      (f.date&&M.files.filter(x=>x.date===f.date).length>1?'<div class="imp-warn" style="color:var(--bad)">أكثر من ملف بنفس التاريخ ('+esc(f.date)+') — سيستبدل الملف الأخير ما قبله. صحّح التاريخ أو احذف أحدهما من الاختيار</div>':"")+f.warn.map(w=>'<div class="imp-warn">'+esc(w)+"</div>").join("")+"</div>";
+  }).join("");
+  $("#layer").innerHTML='<div class="overlay" id="ov"><div class="modal" role="dialog" aria-label="استيراد إقفالات البنوك والصندوق" style="max-width:780px"><header><h3>استيراد إقفالات البنوك والصندوق ('+nf.format(M.files.length)+')</h3><button type="button" class="btn ghost sm" data-close aria-label="إغلاق">'+svg("x")+'</button></header><div class="body" style="grid-template-columns:1fr">'+body+(M.busy?'<div class="att-busy" role="status">'+esc(M.busy)+"</div>":"")+'</div><footer><button type="button" class="btn primary" id="bcImpRun"'+(M.busy?" disabled":"")+'>استيراد</button><button type="button" class="btn" data-close>إلغاء</button></footer></div></div>';
+}
+async function runBcImport(){
+  const M=modal;if(!M||M.kind!=="bcimp"||M.busy)return;
+  document.querySelectorAll("[data-bcd]").forEach(el=>{M.files[+el.dataset.bcd].date=el.value});
+  const files=M.files.filter(f=>f.date&&f.date<=today()&&(f.banks.length||f.med.length||f.col.length||f.box.length));
+  if(!files.length){toast("لا توجد ملفات صالحة بتاريخ محدد");return}
+  const madeA={},madeX={},madeB={};let done=0;
+  const getA=async a=>{const k=acctKey(a.company,a.bank,a.acct);if(madeA[k])return madeA[k];const x=state.bankAccts.find(y=>acctKey(y.company,y.bank,y.acct)===k);if(x)return x.id;
+    const id=await save("bankAccts",{company:a.company,bank:a.bank,acct:a.acct,desc:a.desc,active:true,order:state.bankAccts.length+Object.keys(madeA).length});if(id)madeA[k]=id;return id};
+  const getX=async b=>{const k=normAr(b.entity)+"|"+b.group;if(madeX[k])return madeX[k];const x=state.cashBoxes.find(y=>normAr(y.entity)===normAr(b.entity)&&(y.group||"main")===b.group);if(x)return x.id;
+    const id=await save("cashBoxes",{entity:b.entity,group:b.group,active:true,order:state.cashBoxes.length+Object.keys(madeX).length});if(id)madeX[k]=id;return id};
+  const getB=async r=>{const k=stripPar(r.branch);if(madeB[k])return madeB[k];const b=findBranch2(r.branch);if(b)return b.id;
+    const id=await save("branches",{name:r.branch,company:r.company||"",terminals:[],active:true,order:state.branches.length+Object.keys(madeB).length});if(id)madeB[k]=id;return id};
+  try{
+    for(const f of files){
+      M.busy="جارٍ استيراد "+f.name+" ("+(done+1)+"/"+files.length+")…";paintBcImport();
+      const st={by:me||"",at:Date.now(),imported:true},patch={banks:{},med:{},col:{},box:{}};
+      for(const a of f.banks){const id=await getA(a);if(id)patch.banks[id]=Object.assign({actual:a.actual,system:a.system,notes:a.notes},st)}
+      for(const r of f.med){const id=await getB(r);if(id)patch.med[id]=Object.assign({closeDate:r.closeDate,collected:r.collected,mediator:r.mediator,notes:r.notes},st)}
+      for(const r of f.col){const id=await getB(r);if(id)patch.col[id]=Object.assign({lastDeposit:r.lastDeposit,lastCollect:r.lastCollect,cash:r.cash,notes:r.notes},st)}
+      for(const b of f.box){const id=await getX(b);if(id)patch.box[id]=Object.assign({closeDate:b.closeDate,actual:b.actual,book:b.book,notes:b.notes},st)}
+      await bcWrite(f.date,patch);done++;
+    }
+    log("استورد "+done+" تقرير إقفالات بنوك وصندوق من Excel");closeModal();toast("تم استيراد "+nf.format(done)+" تقرير");
+  }catch(e){writeErr(e);M.busy="";paintBcImport()}
+}
+
 /* ================= attachments ================= */
 const MAXF=5*1024*1024,CH=700000,ACCEPT_EXT=["xlsx","xls","xlsm","csv","docx","doc","pdf","png","jpg","jpeg"];
 const clipI='<svg viewBox="0 0 24 24" aria-hidden="true">'+ICONS.clip+"</svg>";
@@ -2101,6 +2406,11 @@ document.addEventListener("click",e=>{
   if(d.new&&t.matches("[data-new]")){openForm(d.new);return}
   if(d.export){exportCsv(d.export);return}
   if(d.ia){itemAction(d.ia);return}
+  if(d.bctab){ui.bcTab=d.bctab;render();return}
+  if(d.gobc){ui.view="bc";lsSet("crm_view","bc");closeModal();setDay(d.gobc);window.scrollTo(0,0);return}
+  if(d.bcsub){const p=d.bcsub.split("|");bcSubmit(p[0],p[1]);return}
+  if(t.id==="bcExport"){bcExport();return}
+  if(t.id==="bcImpRun"){runBcImport();return}
   if(d.rq){ui.repQuick=d.rq;if(d.rq==="custom"){const[f,to]=repRange();ui.repFrom=f;ui.repTo=to}render();return}
   if(d.rby){ui.repBy=d.rby;render();return}
   if(d.rtab){ui.repTab=d.rtab;render();return}
@@ -2129,6 +2439,8 @@ document.addEventListener("change",e=>{
   if(el.id==="meSel"){chooseMe(el.value);return}
   if(el.id==="impFile"&&el.files&&el.files[0]){readImport(el.files[0]);el.value="";return}
   if(el.id==="revScope"){ui.revScope=el.value;render();return}
+  if(el.dataset&&el.dataset.bcd!==undefined&&modal&&modal.kind==="bcimp"){modal.files[+el.dataset.bcd].date=el.value;paintBcImport();return}
+  if(el.id==="bcImport"&&el.files&&el.files.length){const fl=[...el.files];el.value="";bcImportFiles(fl);return}
   if(el.id==="repFrom"||el.id==="repTo"){const[f,to]=repRange();ui.repFrom=f;ui.repTo=to;ui[el.id]=el.value;ui.repQuick="custom";render();return}
   if(el.id==="repCo"){ui.repCo=el.value;ui.repBr="all";render();return}
   if(el.id==="repBr"){ui.repBr=el.value;render();return}
@@ -2144,17 +2456,18 @@ document.addEventListener("change",e=>{
   if(map[el.id]){ui[map[el.id]]=el.value;if(el.id==="fDept")ui.member="all";if(el.id==="taskDept")ui.taskMember="all";render()}
 });
 document.addEventListener("input",e=>{const el=e.target;if(el.id==="taskQ"){ui.taskQ=el.value;schedule()}if(el.id==="fQ"){ui.fQ=el.value;schedule()}if(el.dataset&&el.dataset.ik)paintVar();
+  if(el.classList&&el.classList.contains("bcin")){const tr=el.closest("tr");revDirty.add(bcKey(tr));tr.classList.add("dirty");bcRecalc(tr)}
   if(el.classList&&el.classList.contains("rvin")){const tr=el.closest("tr");revDirty.add(tr.dataset.d+"|"+tr.dataset.b);tr.classList.add("dirty");recalcRow(tr)}
   if(el.classList&&el.classList.contains("tmin"))revDirty.add("t|"+el.id);
 });
 document.addEventListener("focusout",e=>{
-  const el=e.target;if(!el.classList||!el.classList.contains("rvin"))return;const tr=el.closest("tr");
-  setTimeout(()=>{if(!tr.isConnected||tr.contains(document.activeElement))return;flushRow(tr)},0);
+  const el=e.target;if(!el.classList||!(el.classList.contains("rvin")||el.classList.contains("bcin")))return;const tr=el.closest("tr"),bc=el.classList.contains("bcin");
+  setTimeout(()=>{if(!tr.isConnected||tr.contains(document.activeElement))return;bc?bcFlush(tr):flushRow(tr)},0);
 });
 window.addEventListener("beforeunload",e=>{if(revDirty.size){e.preventDefault();e.returnValue=""}});
 document.addEventListener("keydown",e=>{
-  if(e.key!=="Enter"||!e.target.classList||!(e.target.classList.contains("rvin")||e.target.classList.contains("tmin")))return;
-  e.preventDefault();const all=[...document.querySelectorAll(".rvin:not([disabled]),.tmin:not([disabled])")];const n=all[all.indexOf(e.target)+1];
+  if(e.key!=="Enter"||!e.target.classList||!(e.target.classList.contains("rvin")||e.target.classList.contains("bcin")||e.target.classList.contains("tmin")))return;
+  e.preventDefault();const all=[...document.querySelectorAll(".rvin:not([disabled]),.bcin:not([disabled]),.tmin:not([disabled])")];const n=all[all.indexOf(e.target)+1];
   if(n){n.focus();if(n.select)n.select()}else e.target.blur();
 });
 document.addEventListener("keydown",e=>{
