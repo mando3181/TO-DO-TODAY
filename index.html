@@ -295,6 +295,20 @@ tr.sub td{background:var(--sunken);font-weight:700;font-size:13px}
 .flow .arr{color:var(--ink-3)}
 .kbd{font-size:12px;background:var(--surface-2);border:1px solid var(--line-2);border-radius:5px;padding:0 6px;font-weight:600;color:var(--ink)}
 
+/* attachments */
+.att-list{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.att{display:flex;align-items:center;gap:10px;padding:8px 10px;border-bottom:1px solid var(--line);min-width:0}
+.att:last-child{border-bottom:0}
+.att .grow{flex:1;min-width:0}
+.att .t{font-weight:600;font-size:13px;overflow-wrap:anywhere}
+.att .s{font-size:11.5px;color:var(--ink-3)}
+.fx{flex:none;width:38px;height:26px;border-radius:5px;display:inline-grid;place-items:center;font-size:10.5px;font-weight:700;color:#fff;letter-spacing:.03em}
+.fx-xl{background:#1D6F42}.fx-wd{background:#2B579A}.fx-pdf{background:#B3261E}.fx-img{background:#6B5BA8}.fx-oth{background:var(--ink-3)}
+.att-busy{margin-top:8px;font-size:12.5px;color:var(--info);font-weight:600}
+.chip svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.linkish{border:0;background:none;padding:0;color:var(--accent);text-align:start;cursor:pointer;font-weight:600}
+.linkish:hover{text-decoration:underline}
+
 /* login gate */
 .gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;padding:24px 16px;overflow-y:auto}
 .gcard{width:100%;max-width:400px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px 24px;display:flex;flex-direction:column;gap:14px;box-shadow:var(--shadow)}
@@ -348,7 +362,7 @@ tr.sub td{background:var(--sunken);font-weight:700;font-size:13px}
 <template id="guideTpl">
 <div class="guide">
   <nav class="toc" aria-label="محتويات الدليل">
-    <a href="#g-idea">فكرة النظام</a><a href="#g-start">التجهيز لأول مرة</a><a href="#g-share">الدخول والصلاحيات</a><a href="#g-matrix">مصفوفة الإقفال</a><a href="#g-close">الإقفال اليومي</a><a href="#g-approve">الاعتماد والإرجاع</a><a href="#g-dash">لوحة المتابعة</a><a href="#g-tasks">المهام</a><a href="#g-perf">الإنجاز والأداء</a><a href="#g-routine">روتين العمل</a><a href="#g-faq">أسئلة شائعة</a>
+    <a href="#g-idea">فكرة النظام</a><a href="#g-start">التجهيز لأول مرة</a><a href="#g-share">الدخول والصلاحيات</a><a href="#g-matrix">مصفوفة الإقفال</a><a href="#g-close">الإقفال اليومي</a><a href="#g-approve">الاعتماد والإرجاع</a><a href="#g-dash">لوحة المتابعة</a><a href="#g-tasks">المهام</a><a href="#g-perf">الإنجاز والأداء</a><a href="#g-files">المرفقات والتقارير</a><a href="#g-routine">روتين العمل</a><a href="#g-faq">أسئلة شائعة</a>
   </nav>
   <article class="doc">
     <section id="g-idea">
@@ -464,6 +478,18 @@ tr.sub td{background:var(--sunken);font-weight:700;font-size:13px}
       </ul>
       <p>لا يدخل الحساب إلا الأيام التي مضى موعد تسليمها. ويمكنك تصدير الجدول إلى Excel.</p>
     </section>
+    <section id="g-files">
+      <h2>المرفقات والتقارير</h2>
+      <p>يمكن إرفاق ملفات <strong>Excel</strong> و<strong>Word</strong> و<strong>PDF</strong> (وصور المستندات) بأي <strong>بند إقفال</strong> أو <strong>مهمة</strong>، مثل كشف البنك، أو محضر جرد الصندوق، أو تقرير المصاريف، أو ملف التسوية.</p>
+      <ol>
+        <li>افتح بند الإقفال أو المهمة، ثم انزل إلى قسم «المرفقات».</li>
+        <li>اضغط «إرفاق ملف» واختر ملفاً أو أكثر. حجم الملف الواحد حتى 5 ميجابايت.</li>
+        <li>يظهر بجانب البند أو المهمة رمز مشبك مع عدد المرفقات.</li>
+      </ol>
+      <p>صفحة <strong>«المرفقات والتقارير»</strong> تجمع كل الملفات في مكان واحد، مع البحث بالاسم والتصفية حسب القسم ونوع الملف. اضغط اسم البند أو المهمة لفتحه مباشرة.</p>
+      <p><strong>الحذف:</strong> يحذف الملف من رفعه، أو رئيس قسمه، أو المدير المالي.</p>
+      <div class="tip">ملفات PDF والصور تُفتح مباشرة في المتصفح، وملفات Excel وWord تُنزَّل لتفتحها في برامجها.</div>
+    </section>
     <section id="g-routine">
       <h2>روتين العمل المقترح</h2>
       <h3>المحاسب — كل صباح</h3>
@@ -529,6 +555,7 @@ const ICONS={
   x:'<path d="M6 6l12 12M18 6L6 18"/>',
   dl:'<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
   prev:'<path d="M9 6l6 6-6 6"/>',
+  clip:'<path d="M21 11.5l-8.6 8.6a5 5 0 0 1-7.1-7.1l8.6-8.6a3.3 3.3 0 0 1 4.7 4.7l-8.6 8.6a1.7 1.7 0 0 1-2.4-2.4l7.9-7.9"/>',
   next:'<path d="M15 6l-6 6 6 6"/>'
 };
 const VIEWS=[
@@ -536,6 +563,7 @@ const VIEWS=[
   {k:"close",l:"الإقفال اليومي",i:"close",h:"إدخال الإقفالات واعتمادها لكل يوم عمل"},
   {k:"tasks",l:"المهام",i:"tasks",h:"الأعمال غير اليومية وتوزيعها على الفريق"},
   {k:"perf",l:"الإنجاز والأداء",i:"perf",h:"حجم الإنجاز والانضباط لكل محاسب وقسم"},
+  {k:"files",l:"المرفقات والتقارير",i:"clip",h:"كل ملفات Excel وWord وPDF المرفقة بالإقفالات والمهام"},
   {k:"org",l:"الهيكل التنظيمي",i:"org",h:"المدير المالي، والأقسام، ورؤساؤها، والمحاسبون"},
   {k:"setup",l:"إعداد الإقفال",i:"setup",h:"أنواع الإقفال، ومصفوفة المسؤوليات، والمواعيد"},
   {k:"activity",l:"سجل النشاط",i:"activity",h:"كل ما تم في النظام ومن قام به"},
@@ -572,9 +600,9 @@ const lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
 const numOrEmpty=v=>v===""||v==null||isNaN(+v)?"":+v;
 
 /* ================= state ================= */
-const state={team:[],depts:[],lines:[],tasks:[],activity:[],days:{},config:null};
+const state={team:[],depts:[],lines:[],tasks:[],activity:[],files:[],days:{},config:null};
 const ready={};
-const ui={view:(location.hash||"").slice(1)||lsGet("crm_view")||"dash",day:null,dept:"all",member:"all",ist:"all",taskMember:"all",taskDept:"all",taskPrio:"all",taskQ:"",period:"month",perfDept:"all",actMember:"all"};
+const ui={view:(location.hash||"").slice(1)||lsGet("crm_view")||"dash",day:null,dept:"all",member:"all",ist:"all",taskMember:"all",taskDept:"all",taskPrio:"all",taskQ:"",fKind:"all",fType:"all",fDept:"all",fQ:"",period:"month",perfDept:"all",actMember:"all"};
 if(!VIEWS.some(v=>v.k===ui.view))ui.view="dash";
 let me=lsGet("crm_me")||"";
 let canWrite=true,isOwnerV=false,fbAuth=null,authUser=null,ownerEmail="",ownerHash="",fbStarted=false,accessEmails=null,syncingAccess=false,pendingImport=null;
@@ -640,7 +668,7 @@ const Data={
       return;
     }
     this.mode="local";
-    try{const raw=JSON.parse(lsGet("crm_local2")||"{}");COLS.forEach(c=>{if(Array.isArray(raw[c]))state[c]=raw[c]});if(raw.days)state.days=raw.days;if(raw.config)state.config=raw.config}catch(e){}
+    try{const raw=JSON.parse(lsGet("crm_local2")||"{}");COLS.forEach(c=>{if(Array.isArray(raw[c]))state[c]=raw[c]});if(raw.days)state.days=raw.days;if(raw.config)state.config=raw.config;if(Array.isArray(raw.files))state.files=raw.files}catch(e){}
     COLS.forEach(c=>ready[c]=true);ready.config=true;daysReady=true;
     paintConn();afterData();
   },
@@ -982,7 +1010,7 @@ VIEWFN.close=function(){
       h+='<div class="mhead">'+avatar(mid)+esc(memberName(mid)||"غير مسند")+(mid===me?' <span class="chip acc">أنت</span>':"")+"</div>";
       byM[mid].sort((a,b)=>String(a.typeK).localeCompare(b.typeK)||String(a.label).localeCompare(b.label,"ar")).forEach(i=>{
         const st=IST.find(s=>s.k===i.status)||IST[0];const late=lateOf(i);
-        h+='<div class="irow" data-item="'+esc(i.date+"|"+i.id)+'" tabindex="0" role="button"><div class="c-main"><span class="tchip">'+esc(typeOf(i.typeK).l)+'</span><span class="t">'+esc(i.label)+'</span></div><div class="c-val">'+valSummary(i)+'</div><div class="c-st">'+(i.returns?'<span class="chip num" title="مرات الإرجاع">↺ '+nf.format(i.returns)+"</span>":"")+(late?'<span class="chip bad">متأخر</span>':"")+'<span class="chip '+st.c+'">'+st.l+"</span></div></div>";
+        h+='<div class="irow" data-item="'+esc(i.date+"|"+i.id)+'" tabindex="0" role="button"><div class="c-main"><span class="tchip">'+esc(typeOf(i.typeK).l)+'</span><span class="t">'+esc(i.label)+'</span></div><div class="c-val">'+valSummary(i)+'</div><div class="c-st">'+(i.files?'<span class="chip num" title="مرفقات">'+clipI+nf.format(i.files)+"</span>":"")+(i.returns?'<span class="chip num" title="مرات الإرجاع">↺ '+nf.format(i.returns)+"</span>":"")+(late?'<span class="chip bad">متأخر</span>':"")+'<span class="chip '+st.c+'">'+st.l+"</span></div></div>";
       });
     });
     h+="</div>";
@@ -1002,7 +1030,7 @@ VIEWFN.tasks=function(){
 };
 function taskCard(t){
   const p=PRIO.find(x=>x.k===t.priority)||PRIO[2];const done=t.status==="done";const od=!done&&t.due&&t.due<today();
-  return'<div class="card'+(done?" done":"")+'" draggable="true" data-drag="'+esc(t.id)+'" data-open="tasks:'+esc(t.id)+'"><div class="row"><button type="button" class="check'+(done?" on":"")+'" data-toggle="'+esc(t.id)+'" aria-label="تم الإنجاز"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><span class="chip '+p.c+'">'+p.l+"</span>"+(t.sample?'<span class="chip sample">مثال</span>':"")+'<span class="sp"></span>'+avatar(t.assignee)+'</div><div class="t">'+esc(t.title)+'</div><div class="row"><span class="tchip">'+esc(t.category||"أخرى")+'</span><span class="sp"></span><span class="chip '+(od?"bad":"")+' num">'+(t.due?(od?"متأخرة · ":"")+fmtDate(t.due):"بلا موعد")+"</span></div></div>";
+  return'<div class="card'+(done?" done":"")+'" draggable="true" data-drag="'+esc(t.id)+'" data-open="tasks:'+esc(t.id)+'"><div class="row"><button type="button" class="check'+(done?" on":"")+'" data-toggle="'+esc(t.id)+'" aria-label="تم الإنجاز"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><span class="chip '+p.c+'">'+p.l+"</span>"+(t.sample?'<span class="chip sample">مثال</span>':"")+(t.files?'<span class="chip num" title="مرفقات">'+clipI+nf.format(t.files)+"</span>":"")+'<span class="sp"></span>'+avatar(t.assignee)+'</div><div class="t">'+esc(t.title)+'</div><div class="row"><span class="tchip">'+esc(t.category||"أخرى")+'</span><span class="sp"></span><span class="chip '+(od?"bad":"")+' num">'+(t.due?(od?"متأخرة · ":"")+fmtDate(t.due):"بلا موعد")+"</span></div></div>";
 }
 
 /* ---- performance ---- */
@@ -1224,9 +1252,11 @@ function paintForm(){
   let extraHtml="";
   if(col==="team"&&Data.mode==="db")extraHtml='<div class="note info">بهذا البريد ينشئ الموظف حسابه ويسجّل الدخول. تغيير البريد أو حذف الموظف يوقف دخوله بالبريد القديم.</div>';
   if(col==="lines"&&!id)extraHtml='<div class="note info">يظهر البند في الإقفال اليومي ابتداءً من اليوم.</div>';
+  if(col==="tasks")extraHtml+=id?'<div class="field full"><label>المرفقات</label><div id="attBox"></div></div>':'<div class="note info">يمكنك إرفاق ملفات Excel وWord وPDF بعد حفظ المهمة.</div>';
   const canEditThis=col==="tasks"?canWrite:canAdmin();
   $("#layer").innerHTML='<div class="overlay" id="ov"><form class="modal" id="mform" novalidate><header><h3>'+(id?"تعديل ":"إضافة ")+S.t+'</h3><button type="button" class="btn ghost sm" data-close aria-label="إغلاق">'+svg("x")+'</button></header><div class="body">'+fields+extraHtml+"</div><footer>"+(canEditThis?'<button type="submit" class="btn primary">'+(id?"حفظ التعديلات":"إضافة")+"</button>":"")+'<button type="button" class="btn" data-close>إغلاق</button><span class="spacer"></span>'+(id&&canEditThis?'<button type="button" class="btn danger" id="delBtn">حذف</button>':"")+"</footer></form></div>";
   const first=$("#mform [data-k]");if(first&&!id)first.focus();
+  if(col==="tasks"&&id)attachOpen({key:"task:"+id,kind:"task",taskId:id,label:"مهمة: "+(rec.title||""),deptId:deptOf(rec.assignee),can:canWrite});
 }
 function readForm(){document.querySelectorAll("#mform [data-k]").forEach(el=>{modal.rec[el.dataset.k]=el.value})}
 async function submitForm(){
@@ -1244,6 +1274,7 @@ async function submitForm(){
   if(col==="team"&&rec.role==="cfo")rec.deptId="";
   if(col==="team"){rec.email=String(rec.email||"").trim().toLowerCase();if(rec.email&&state.team.some(x=>x.id!==id&&String(x.email||"").trim().toLowerCase()===rec.email)){toast("هذا البريد مسجّل لموظف آخر");return}}
   if(col==="lines"){rec.active=rec.active!=="0";if(!id)rec.startDate=today()}
+  if(col==="tasks"&&id){const cur=byId("tasks",id);rec.files=cur&&cur.files||0}
   if(col==="tasks"){const prev=id?byId("tasks",id):null;if(rec.status==="done"&&(!prev||prev.status!=="done"))rec.doneAt=today();if(rec.status!=="done")rec.doneAt="";if(!id)rec.createdBy=me}
   let text=(id?"عدّل ":"أضاف ")+S.t+" «"+nm+"»";
   if(col==="tasks"&&!id&&rec.assignee&&rec.assignee!==me)text+=" وأسندها إلى "+memberName(rec.assignee);
@@ -1258,7 +1289,7 @@ async function submitForm(){
   if(col==="lines"){delete ensured[today()];delete ensured[curDay()]}
   closeModal();toast(id?"تم حفظ التعديلات":"تمت الإضافة");
 }
-function closeModal(){modal=null;$("#layer").innerHTML="";schedule()}
+function closeModal(){attachClose();modal=null;$("#layer").innerHTML="";schedule()}
 async function deleteCurrent(){
   const {col,id}=modal;
   if(col==="types"){
@@ -1266,6 +1297,7 @@ async function deleteCurrent(){
     const c=cfg();try{await Data.setConfig(Object.assign({},c,{types:types().filter(t=>t.k!==id)}));closeModal();toast("تم الحذف")}catch(e){writeErr(e)}return;
   }
   if(col==="team"&&state.lines.some(l=>l.assignee===id&&l.active!==false)){toast("هذا الموظف مسؤول عن بنود إقفال فعّالة — انقلها لموظف آخر أولاً");return}
+  if(col==="tasks"&&!(await deleteFilesByKey("task:"+id)))return;
   if(col==="depts"&&state.team.some(m=>m.deptId===id)){toast("القسم يضم موظفين — انقلهم لقسم آخر أولاً");return}
   const r=byId(col,id);const nm=r&&(r.title||r.name||r.label);
   if(await removeRec(col,id,"حذف "+SCHEMA[col].t+" «"+nm+"»")){closeModal();toast("تم الحذف")}
@@ -1287,6 +1319,7 @@ function paintItem(){
   else body+=inp("amount","إجمالي المبلغ (ر.س)");
   body+='<div class="field full"><label for="i_note">'+(t.mode==="reconcile"?"تفسير الفرق / ملاحظات":"ملاحظات")+'</label><textarea class="input" id="i_note" data-ik="note"'+dis+">"+esc(it.note||"")+'</textarea><span class="err" id="itemErr" hidden></span></div>';
   if(appr&&modal.returning)body+='<div class="field full"><label for="i_ret">سبب الإرجاع والمطلوب تعديله <span class="req">*</span></label><textarea class="input" id="i_ret"></textarea></div>';
+  body+='<div class="field full"><label>المرفقات</label><div id="attBox"></div></div>';
   body+='<div class="meta"><span>موعد التسليم: '+fmtTs(dueTs(it.date))+"</span>"+(it.submittedAt?"<span>أُرسل: "+fmtTs(it.submittedAt)+(it.submittedBy?" — "+esc(memberName(it.submittedBy)):"")+"</span>":"")+(it.approvedAt&&it.status==="approved"?"<span>اعتُمد: "+fmtTs(it.approvedAt)+" — "+esc(memberName(it.approvedBy))+"</span>":"")+(it.returns?"<span>أُعيد للتعديل "+nf.format(it.returns)+" مرة</span>":"")+"</div>";
   let foot="";
   if(edit)foot+='<button type="button" class="btn primary" data-ia="submit">إقفال وإرسال للاعتماد</button><button type="button" class="btn" data-ia="draft">حفظ كمسودة</button><button type="button" class="btn" data-ia="noact">لا توجد حركة</button>';
@@ -1297,6 +1330,7 @@ function paintItem(){
   if(!edit&&!appr&&it.status!=="approved"&&it.status!=="submitted")foot+='<span class="muted" style="font-size:12.5px;align-self:center">يُدخل هذا البند '+esc(memberName(it.assignee)||"المسؤول عنه")+" أو رئيس قسمه</span>";
   $("#layer").innerHTML='<div class="overlay" id="ov"><div class="modal" role="dialog" aria-label="بند إقفال"><header><h3>'+esc(it.label)+'</h3><button type="button" class="btn ghost sm" data-close aria-label="إغلاق">'+svg("x")+'</button></header><div class="body">'+body+"</div><footer>"+foot+'<span class="spacer"></span><button type="button" class="btn" data-close>إغلاق</button></footer></div></div>';
   paintVar();
+  attachOpen({key:"item:"+it.date+":"+it.id,kind:"item",date:it.date,itemId:it.id,label:typeOf(it.typeK).l+" — "+it.label+" ("+fmtDate(it.date)+")",deptId:deptOf(it.assignee),can:canWrite&&(canFill(it)||canApprove(it)||isCFO())});
 }
 function itemInputs(){const o={};document.querySelectorAll("#layer [data-ik]").forEach(el=>{o[el.dataset.ik]=el.dataset.ik==="note"?el.value.trim():numOrEmpty(el.value)});return o}
 function paintVar(){
@@ -1367,6 +1401,135 @@ async function exportCsv(kind){
 }
 function setDay(d){if(d>today())d=today();ui.day=d===defaultDay()?null:d;render()}
 
+/* ================= attachments ================= */
+const MAXF=5*1024*1024,CH=700000,ACCEPT_EXT=["xlsx","xls","xlsm","csv","docx","doc","pdf","png","jpg","jpeg"];
+const clipI='<svg viewBox="0 0 24 24" aria-hidden="true">'+ICONS.clip+"</svg>";
+const fileKind=e=>/^(xlsx|xls|xlsm|csv)$/.test(e)?"xl":/^(docx|doc)$/.test(e)?"wd":e==="pdf"?"pdf":/^(png|jpe?g)$/.test(e)?"img":"oth";
+const FX={xl:"XLS",wd:"DOC",pdf:"PDF",img:"IMG",oth:"FILE"};
+const fmtSize=b=>b>=1048576?nf2.format(Math.round(b/104857.6)/10)+" م.ب":nf.format(Math.max(1,Math.round(b/1024)))+" ك.ب";
+const fileMeta={};
+let att=null,reports={list:null,loading:false};
+const IDB={h:null,
+  open(){return this.h||(this.h=new Promise((res,rej)=>{const r=indexedDB.open("masar-files",1);r.onupgradeneeded=()=>r.result.createObjectStore("chunks");r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}))},
+  async op(mode,fn){const d=await this.open();return new Promise((res,rej)=>{const tx=d.transaction("chunks",mode);const rq=fn(tx.objectStore("chunks"));tx.oncomplete=()=>res(rq.result);tx.onerror=()=>rej(tx.error)})},
+  put(k,v){return this.op("readwrite",st=>st.put(v,k))},get(k){return this.op("readonly",st=>st.get(k))},del(k){return this.op("readwrite",st=>st.delete(k))}};
+const Chunks={
+  put(fid,i,data){return Data.mode==="db"?db.collection("fileChunks").doc(fid+"_"+i).set({fileId:fid,i,data}):IDB.put(fid+"_"+i,data)},
+  async get(fid,i){if(Data.mode==="db"){const sn=await db.collection("fileChunks").doc(fid+"_"+i).get();if(!sn.exists)throw new Error("missing chunk");return sn.data().data}const v=await IDB.get(fid+"_"+i);if(v==null)throw new Error("missing chunk");return v},
+  del(fid,i){return Data.mode==="db"?db.collection("fileChunks").doc(fid+"_"+i).delete():IDB.del(fid+"_"+i)}};
+const canDelFile=f=>canWrite&&(f.by===me||isCFO()||isHeadOf(f.deptId));
+function fileRow(f){
+  fileMeta[f.id]=f;const k=fileKind(f.ext);const view=k==="pdf"||k==="img";
+  return'<div class="att"><span class="fx fx-'+k+'">'+FX[k]+'</span><div class="grow"><div class="t">'+esc(f.name)+'</div><div class="s num">'+fmtSize(f.size)+" · "+esc(memberName(f.by)||"—")+" · "+ago(f.at)+'</div></div><button type="button" class="btn sm" data-fopen="'+esc(f.id)+'">'+(view?"فتح":"تنزيل")+"</button>"+(canDelFile(f)?'<button type="button" class="btn sm ghost" data-fdel="'+esc(f.id)+'">حذف</button>':"")+"</div>";
+}
+function attachOpen(ctx){
+  if(att&&att.key===ctx.key){att.ctx=ctx;renderAtt();return}
+  attachClose();
+  const a={key:ctx.key,ctx,list:[],unsub:null,busy:""};att=a;
+  if(Data.mode==="db")a.unsub=db.collection("files").where("key","==",ctx.key).onSnapshot(sn=>{a.list=sn.docs.map(d=>Object.assign({},d.data(),{id:d.id}));if(att===a)renderAtt()},e=>console.warn(e));
+  renderAtt();
+}
+function attachClose(){if(att&&att.unsub)att.unsub();att=null}
+function renderAtt(){
+  const box=$("#attBox");if(!box||!att)return;
+  if(Data.mode!=="db")att.list=state.files.filter(f=>f.key===att.key);
+  const L=att.list.slice().sort((a,b)=>b.at-a.at);
+  box.innerHTML=(L.length?'<div class="att-list">'+L.map(fileRow).join("")+"</div>":'<div class="muted" style="font-size:12.5px">لا توجد مرفقات</div>')+
+    (att.ctx.can?'<div class="toolbar" style="margin-top:8px"><label class="btn sm" for="attInput" style="cursor:pointer">'+clipI.replace("<svg",'<svg width="15" height="15" style="stroke:currentColor;fill:none;stroke-width:2"')+'إرفاق ملف</label><input type="file" id="attInput" multiple accept=".'+ACCEPT_EXT.join(",.")+'" hidden><span class="muted" style="font-size:12px">Excel أو Word أو PDF أو صورة — حتى 5 ميجابايت للملف</span></div>':"")+
+    (att.busy?'<div class="att-busy" role="status">'+esc(att.busy)+"</div>":"");
+}
+const readB64=file=>new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result).split(",")[1]||"");r.onerror=()=>rej(r.error);r.readAsDataURL(file)});
+async function bumpCount(ctx,delta){
+  try{
+    if(ctx.kind==="item"){const it=findItem(ctx.date,ctx.itemId);if(it)await updateItem(it,{files:Math.max(0,(+it.files||0)+delta)},null)}
+    else if(ctx.kind==="task"){const t=byId("tasks",ctx.taskId);if(t)await save("tasks",Object.assign({},t,{files:Math.max(0,(+t.files||0)+delta)}))}
+  }catch(e){console.warn(e)}
+}
+async function uploadFiles(list){
+  if(!att||!att.ctx.can)return;
+  const a=att,ctx=a.ctx,files=[...list];let ok=0;
+  for(let n=0;n<files.length;n++){
+    const file=files[n];const ext=(file.name.split(".").pop()||"").toLowerCase();
+    if(!ACCEPT_EXT.includes(ext)){toast("نوع الملف غير مدعوم: "+file.name);continue}
+    if(file.size>MAXF){toast("الملف أكبر من 5 ميجابايت: "+file.name);continue}
+    if(!file.size){toast("الملف فارغ: "+file.name);continue}
+    const fid=uid();let parts=0;
+    try{
+      const b64=await readB64(file);parts=Math.max(1,Math.ceil(b64.length/CH));
+      for(let i=0;i<parts;i++){a.busy="جارٍ رفع «"+file.name+"» "+(files.length>1?"("+(n+1)+"/"+files.length+") ":"")+"— "+Math.round(i/parts*100)+"٪";if(att===a)renderAtt();await Chunks.put(fid,i,b64.slice(i*CH,(i+1)*CH))}
+      await Data.put("files",{id:fid,name:file.name,size:file.size,type:file.type||"",ext,chunks:parts,key:ctx.key,kind:ctx.kind,date:ctx.date||"",itemId:ctx.itemId||"",taskId:ctx.taskId||"",label:ctx.label||"",deptId:ctx.deptId||"",by:me||"",at:Date.now()});
+      await bumpCount(ctx,1);log("أرفق الملف «"+file.name+"» في "+ctx.label);ok++;
+    }catch(e){for(let i=0;i<parts;i++){try{await Chunks.del(fid,i)}catch(x){}}writeErr(e)}
+  }
+  a.busy="";reports.list=null;if(att===a)renderAtt();if(ok)toast(ok>1?"تم رفع "+nf.format(ok)+" ملفات":"تم رفع الملف");
+}
+async function fileBlob(f){
+  const parts=await Promise.all(Array.from({length:f.chunks||1},(_,i)=>Chunks.get(f.id,i)));
+  const bin=atob(parts.join(""));const u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
+  return new Blob([u],{type:f.type||"application/octet-stream"});
+}
+function saveUrl(url,name){const a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>a.remove(),500)}
+async function openFile(f){
+  if(!f)return;const view=/^(pdf|img)$/.test(fileKind(f.ext));
+  const w=view?window.open("","_blank"):null;
+  if(w)try{w.document.write('<p style="font-family:sans-serif;padding:24px" dir="rtl">جارٍ تحميل الملف…</p>')}catch(e){}
+  else toast("جارٍ تجهيز الملف…");
+  try{
+    const url=URL.createObjectURL(await fileBlob(f));
+    if(w)w.location.href=url;else saveUrl(url,f.name);
+    setTimeout(()=>URL.revokeObjectURL(url),120000);
+  }catch(e){console.warn(e);if(w)w.close();toast("تعذّر تحميل الملف")}
+}
+async function removeFile(f){
+  try{
+    for(let i=0;i<(f.chunks||1);i++){try{await Chunks.del(f.id,i)}catch(x){}}
+    await Data.del("files",f.id);return true;
+  }catch(e){writeErr(e);return false}
+}
+async function deleteFile(f){
+  if(!f||!canDelFile(f))return;
+  if(await removeFile(f)){
+    await bumpCount({kind:f.kind,date:f.date,itemId:f.itemId,taskId:f.taskId},-1);
+    log("حذف الملف «"+f.name+"» من "+f.label);toast("تم حذف الملف");
+    if(reports.list)reports.list=reports.list.filter(x=>x.id!==f.id);
+    renderAtt();schedule();
+  }
+}
+async function deleteFilesByKey(key){
+  try{
+    const list=Data.mode==="db"?(await db.collection("files").where("key","==",key).get()).docs.map(d=>Object.assign({},d.data(),{id:d.id})):state.files.filter(f=>f.key===key);
+    for(const f of list)if(!(await removeFile(f)))return false;
+    if(list.length)reports.list=null;
+    return true;
+  }catch(e){writeErr(e);return false}
+}
+async function loadReports(){
+  if(Data.mode!=="db"||reports.loading)return;
+  reports.loading=true;schedule();
+  try{const sn=await db.collection("files").orderBy("at","desc").limit(500).get();reports.list=sn.docs.map(d=>Object.assign({},d.data(),{id:d.id}))}
+  catch(e){console.warn(e);reports.list=reports.list||[];toast("تعذّر تحميل قائمة المرفقات")}
+  reports.loading=false;schedule();
+}
+VIEWFN.files=function(){
+  if(Data.mode==="db"&&!reports.list&&!reports.loading)setTimeout(loadReports,0);
+  const all=Data.mode==="db"?(reports.list||[]):state.files.slice().sort((a,b)=>b.at-a.at);
+  const q=ui.fQ.trim().toLowerCase();
+  const list=all.filter(f=>(ui.fKind==="all"||f.kind===ui.fKind)&&(ui.fType==="all"||fileKind(f.ext)===ui.fType)&&(ui.fDept==="all"||f.deptId===ui.fDept)&&(!q||(f.name+" "+(f.label||"")+" "+memberName(f.by)).toLowerCase().includes(q)));
+  let h='<div class="toolbar"><input class="input search" id="fQ" placeholder="ابحث باسم الملف أو البند أو الموظف" value="'+esc(ui.fQ)+'">'+deptSelect("fDeptSel",ui.fDept)+
+    '<select class="select" id="fKind" aria-label="مرتبط بـ"><option value="all">الإقفالات والمهام</option><option value="item"'+(ui.fKind==="item"?" selected":"")+'>الإقفالات فقط</option><option value="task"'+(ui.fKind==="task"?" selected":"")+">المهام فقط</option></select>"+
+    '<select class="select" id="fType" aria-label="نوع الملف"><option value="all">كل الأنواع</option>'+[["xl","Excel"],["wd","Word"],["pdf","PDF"],["img","صور"]].map(o=>'<option value="'+o[0]+'"'+(ui.fType===o[0]?" selected":"")+">"+o[1]+"</option>").join("")+"</select>"+
+    (Data.mode==="db"?'<button type="button" class="btn" id="fRefresh">تحديث</button>':"")+"</div>";
+  const totalSize=all.reduce((a,f)=>a+(+f.size||0),0);
+  h+='<div class="muted" style="font-size:12.5px">'+nf.format(all.length)+" ملف · "+fmtSize(totalSize)+(Data.mode==="db"&&all.length>=500?" · تُعرض آخر 500 ملف":"")+"</div>";
+  if(Data.mode==="db"&&!reports.list)return h+'<div class="empty">جارٍ تحميل المرفقات…</div>';
+  if(!list.length)return h+'<div class="empty">'+(all.length?"لا توجد ملفات مطابقة للتصفية":"لا توجد مرفقات بعد. افتح أي بند إقفال أو مهمة واضغط «إرفاق ملف».")+"</div>";
+  h+='<div class="tablewrap"><table><thead><tr><th>الملف</th><th>مرتبط بـ</th><th>القسم</th><th>رفعه</th><th>التاريخ</th><th>الحجم</th><th></th></tr></thead><tbody>'+
+    list.map(f=>{fileMeta[f.id]=f;const k=fileKind(f.ext);
+      const link=f.kind==="item"?'<button type="button" class="linkish" data-item="'+esc(f.date+"|"+f.itemId)+'">'+esc(f.label)+"</button>":byId("tasks",f.taskId)?'<button type="button" class="linkish" data-open="tasks:'+esc(f.taskId)+'">'+esc(f.label)+"</button>":esc(f.label);
+      return'<tr><td><div style="display:flex;align-items:center;gap:8px"><span class="fx fx-'+k+'">'+FX[k]+'</span><span class="t" style="overflow-wrap:anywhere">'+esc(f.name)+"</span></div></td><td>"+link+'</td><td class="s">'+esc(f.deptId?deptName(f.deptId):"—")+"</td><td>"+who(f.by)+'</td><td class="s num">'+fmtTs(f.at)+'</td><td class="s num">'+fmtSize(f.size)+'</td><td><div style="display:flex;gap:4px"><button type="button" class="btn sm" data-fopen="'+esc(f.id)+'">'+(k==="pdf"||k==="img"?"فتح":"تنزيل")+"</button>"+(canDelFile(f)?'<button type="button" class="btn sm ghost" data-fdel="'+esc(f.id)+'">حذف</button>':"")+"</div></td></tr>"}).join("")+"</tbody></table></div>";
+  return h;
+};
+
 /* ================= events ================= */
 document.addEventListener("click",e=>{
   const t=e.target.closest("button,[data-open],[data-item],a,#ov");if(!t)return;
@@ -1387,6 +1550,9 @@ document.addEventListener("click",e=>{
   if(d.new&&t.matches("[data-new]")){openForm(d.new);return}
   if(d.export){exportCsv(d.export);return}
   if(d.ia){itemAction(d.ia);return}
+  if(d.fopen){openFile(fileMeta[d.fopen]);return}
+  if(d.fdel){if(!t.classList.contains("armed")){t.classList.add("armed","danger");t.textContent="تأكيد الحذف";return}deleteFile(fileMeta[d.fdel]);return}
+  if(t.id==="fRefresh"){reports.list=null;loadReports();return}
   if(t.matches("[data-close]")){closeModal();return}
   if(t.id==="delBtn"){if(!t.classList.contains("armed")){t.classList.add("armed");t.textContent="اضغط مرة أخرى لتأكيد الحذف";return}deleteCurrent();return}
   if(t.id==="saveCfg"){saveCfg();return}
@@ -1400,12 +1566,14 @@ document.addEventListener("change",e=>{
   const el=e.target;
   if(el.id==="meSel"){chooseMe(el.value);return}
   if(el.id==="impFile"&&el.files&&el.files[0]){readImport(el.files[0]);el.value="";return}
+  if(el.id==="attInput"&&el.files&&el.files.length){const fl=[...el.files];el.value="";uploadFiles(fl);return}
+  if(el.id==="fKind"||el.id==="fType"||el.id==="fDeptSel"){ui[el.id==="fDeptSel"?"fDept":el.id]=el.value;render();return}
   if(el.id==="dayPick"){if(el.value)setDay(el.value);return}
   if(el.closest&&el.closest("#mform")&&el.hasAttribute("data-repaint")){readForm();paintForm();return}
   const map={fDept:"dept",fMember:"member",fIst:"ist",taskMember:"taskMember",taskDept:"taskDept",taskPrio:"taskPrio",perfDept:"perfDept",actMember:"actMember"};
   if(map[el.id]){ui[map[el.id]]=el.value;if(el.id==="fDept")ui.member="all";if(el.id==="taskDept")ui.taskMember="all";render()}
 });
-document.addEventListener("input",e=>{const el=e.target;if(el.id==="taskQ"){ui.taskQ=el.value;schedule()}if(el.dataset&&el.dataset.ik)paintVar()});
+document.addEventListener("input",e=>{const el=e.target;if(el.id==="taskQ"){ui.taskQ=el.value;schedule()}if(el.id==="fQ"){ui.fQ=el.value;schedule()}if(el.dataset&&el.dataset.ik)paintVar()});
 document.addEventListener("keydown",e=>{
   if(e.key==="Escape"&&modal)closeModal();
   if((e.key==="Enter"||e.key===" ")&&e.target.classList&&e.target.classList.contains("irow")){e.preventDefault();const p=e.target.dataset.item.split("|");openItem(p[0],p[1])}
