@@ -295,6 +295,18 @@ tr.sub td{background:var(--sunken);font-weight:700;font-size:13px}
 .flow .arr{color:var(--ink-3)}
 .kbd{font-size:12px;background:var(--surface-2);border:1px solid var(--line-2);border-radius:5px;padding:0 6px;font-weight:600;color:var(--ink)}
 
+/* permissions */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.pchk{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);cursor:pointer}
+.pchk:hover{border-color:var(--line-2)}
+.pchk input{margin-top:3px;flex:none}
+.pchk .d{font-size:11.5px;color:var(--ink-3);display:block}
+.pchk.on{border-color:var(--accent);background:var(--accent-soft)}
+.pchk.dis{opacity:.7;cursor:default}
+.pgroup{font-size:12.5px;font-weight:700;color:var(--ink-3);margin:14px 0 6px}
+tr.sel td{background:var(--accent-soft)}
+.permhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+
 /* banks & cash */
 .bcin{width:120px;border:1px solid var(--line-2);border-radius:6px;padding:5px 6px;background:var(--surface);text-align:end}
 .bcin[type="date"]{width:140px;text-align:start}
@@ -412,7 +424,7 @@ tr.sub td{background:var(--sunken);font-weight:700;font-size:13px}
 <template id="guideTpl">
 <div class="guide">
   <nav class="toc" aria-label="محتويات الدليل">
-    <a href="#g-idea">فكرة النظام</a><a href="#g-start">التجهيز لأول مرة</a><a href="#g-share">الدخول والصلاحيات</a><a href="#g-matrix">مصفوفة الإقفال</a><a href="#g-close">الإقفال اليومي</a><a href="#g-approve">الاعتماد والإرجاع</a><a href="#g-dash">لوحة المتابعة</a><a href="#g-tasks">المهام</a><a href="#g-perf">الإنجاز والأداء</a><a href="#g-rev">تسجيل الإيرادات</a><a href="#g-rrep">تقرير الإيرادات</a><a href="#g-bc">البنوك والصندوق</a><a href="#g-files">المرفقات والتقارير</a><a href="#g-routine">روتين العمل</a><a href="#g-faq">أسئلة شائعة</a>
+    <a href="#g-idea">فكرة النظام</a><a href="#g-start">التجهيز لأول مرة</a><a href="#g-share">الدخول والصلاحيات</a><a href="#g-matrix">مصفوفة الإقفال</a><a href="#g-close">الإقفال اليومي</a><a href="#g-approve">الاعتماد والإرجاع</a><a href="#g-dash">لوحة المتابعة</a><a href="#g-tasks">المهام</a><a href="#g-perf">الإنجاز والأداء</a><a href="#g-rev">تسجيل الإيرادات</a><a href="#g-rrep">تقرير الإيرادات</a><a href="#g-bc">البنوك والصندوق</a><a href="#g-perm">الصلاحيات</a><a href="#g-files">المرفقات والتقارير</a><a href="#g-routine">روتين العمل</a><a href="#g-faq">أسئلة شائعة</a>
   </nav>
   <article class="doc">
     <section id="g-idea">
@@ -587,6 +599,19 @@ tr.sub td{background:var(--sunken);font-weight:700;font-size:13px}
       </ul>
       <p><strong>كمهمة إقفال:</strong> أضف بنداً من نوع «إقفال البنوك والصندوق» للمحاسب المسؤول. لا يُرسل للاعتماد إلا بعد إدخال كل الحسابات والصناديق ووسيط كل الفروع، وكتابة ملاحظة لكل فرق في البنوك أو الصندوق.</p>
     </section>
+    <section id="g-perm">
+      <h2>الصلاحيات</h2>
+      <p>من صفحة <strong>«الصلاحيات»</strong> يحدد المدير المالي لكل مستخدم:</p>
+      <ul>
+        <li><strong>الصفحات التي تظهر له:</strong> الصفحات غير المسموحة تختفي من القائمة ولا يمكن فتحها. وتظهر صفحتا «تسجيل الإيرادات» و«البنوك والصندوق» تلقائياً لمن أُسند إليه بند منهما.</li>
+        <li><strong>الإجراءات المسموحة:</strong> الاعتماد، والإدخال نيابة عن الآخرين، وإسناد المهام، وتسجيل الإيرادات واستيرادها، والبنوك والصندوق، والتصدير، وحذف المرفقات، وإدارة الهيكل والإعداد والنسخ الاحتياطي والصلاحيات.</li>
+        <li><strong>نطاق البيانات:</strong> كل الإدارة المالية، أو قسمه فقط، أو بياناته فقط. ويطبَّق على لوحة المتابعة والإقفالات والمهام والأداء والمرفقات والسجل والإيرادات.</li>
+        <li><strong>الفروع المسموحة:</strong> لتقييد الموظف بفروع محددة في تسجيل الإيرادات وتقرير الإيرادات ووسيط المتحصلات. إذا لم تحدد فروعاً، يرى كل الفروع.</li>
+      </ul>
+      <h3>قوالب الأدوار</h3>
+      <p>كل موظف يأخذ تلقائياً صلاحيات <strong>قالب دوره</strong> (رئيس قسم، أو محاسب). عدّل القالب مرة واحدة فيُطبَّق على كل أصحاب الدور. ولموظف بعينه اختر <strong>«صلاحيات مخصّصة»</strong>. أما المدير المالي فيملك كل الصلاحيات دائماً.</p>
+      <div class="warnbox">قواعد قاعدة البيانات تمنع غير المصرّح لهم من تعديل الهيكل والإعداد والصلاحيات حتى لو تجاوزوا الواجهة. أما إخفاء الصفحات ونطاق البيانات فتطبّقه واجهة النظام.</div>
+    </section>
     <section id="g-files">
       <h2>المرفقات والتقارير</h2>
       <p>يمكن إرفاق ملفات <strong>Excel</strong> و<strong>Word</strong> و<strong>PDF</strong> (وصور المستندات) بأي <strong>بند إقفال</strong> أو <strong>مهمة</strong>، مثل كشف البنك، أو محضر جرد الصندوق، أو تقرير المصاريف، أو ملف التسوية.</p>
@@ -662,6 +687,7 @@ const ICONS={
   close:'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h4"/>',
   tasks:'<path d="M9 11l3 3 8-8"/><path d="M20 12v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h10"/>',
   perf:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  lock:'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
   org:'<rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-4h12v4"/>',
   setup:'<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>',
   activity:'<path d="M3 12h4l3-8 4 16 3-8h4"/>',
@@ -683,6 +709,7 @@ const VIEWS=[
   {k:"perf",l:"الإنجاز والأداء",i:"perf",h:"حجم الإنجاز والانضباط لكل محاسب وقسم"},
   {k:"files",l:"المرفقات والتقارير",i:"clip",h:"كل ملفات Excel وWord وPDF المرفقة بالإقفالات والمهام"},
   {k:"org",l:"الهيكل التنظيمي",i:"org",h:"المدير المالي، والأقسام، ورؤساؤها، والمحاسبون"},
+  {k:"perms",l:"الصلاحيات",i:"lock",h:"تحديد الصفحات التي تظهر لكل مستخدم، والإجراءات المسموحة له، ونطاق بياناته"},
   {k:"setup",l:"إعداد الإقفال",i:"setup",h:"أنواع الإقفال، ومصفوفة المسؤوليات، والمواعيد"},
   {k:"activity",l:"سجل النشاط",i:"activity",h:"كل ما تم في النظام ومن قام به"},
   {k:"guide",l:"دليل الاستخدام",i:"guide",h:"شرح تفصيلي لطريقة العمل"}
@@ -720,10 +747,10 @@ const numOrEmpty=v=>v===""||v==null||isNaN(+v)?"":+v;
 /* ================= state ================= */
 const state={team:[],depts:[],lines:[],tasks:[],activity:[],files:[],branches:[],bankAccts:[],cashBoxes:[],days:{},rev:{},bc:{},config:null};
 const ready={};
-const ui={view:(location.hash||"").slice(1)||lsGet("crm_view")||"dash",day:null,dept:"all",member:"all",ist:"all",taskMember:"all",taskDept:"all",taskPrio:"all",taskQ:"",bcTab:"banks",repFrom:"",repTo:"",repQuick:"month",repCo:"all",repBr:"all",repBy:"branch",repTab:"sales",revTab:"sales",revScope:"auto",abnPre:"",fKind:"all",fType:"all",fDept:"all",fQ:"",period:"month",perfDept:"all",actMember:"all"};
+const ui={view:(location.hash||"").slice(1)||lsGet("crm_view")||"dash",day:null,dept:"all",member:"all",ist:"all",taskMember:"all",taskDept:"all",taskPrio:"all",taskQ:"",permTab:"users",permSel:"",bcTab:"banks",repFrom:"",repTo:"",repQuick:"month",repCo:"all",repBr:"all",repBy:"branch",repTab:"sales",revTab:"sales",revScope:"auto",abnPre:"",fKind:"all",fType:"all",fDept:"all",fQ:"",period:"month",perfDept:"all",actMember:"all"};
 if(!VIEWS.some(v=>v.k===ui.view))ui.view="dash";
 let me=lsGet("crm_me")||"";
-let canWrite=true,isOwnerV=false,fbAuth=null,authUser=null,ownerEmail="",ownerHash="",fbStarted=false,accessEmails=null,syncingAccess=false,pendingImport=null;
+let canWrite=true,isOwnerV=false,fbAuth=null,authUser=null,ownerEmail="",ownerHash="",fbStarted=false,accessEmails=null,syncingAccess=false,accessAdmins=null,permDraft=null,pendingImport=null;
 const revDirty=new Set();
 const downloads={async save(o){const b=new Blob([o.data],{type:/\.json$/.test(o.filename)?"application/json":"text/csv;charset=utf-8"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=o.filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000);return{status:"saved"}}};
 const WIN=shiftD(today(),-75);
@@ -757,14 +784,51 @@ function variance(it){if(typeOf(it.typeK).mode!=="reconcile"||!hasVal(it.book)||
 function lateOf(it){const due=dueTs(it.date);return isClosed(it)?(it.submittedAt||0)>due:Date.now()>due}
 const deptOf=mid=>(byId("team",mid)||{}).deptId||"";
 
-/* ---- roles ---- */
+/* ---- roles & permissions ---- */
 const meM=()=>byId("team",me);
-const isCFO=()=>{const m=meM();return !!(m&&m.role==="cfo")||isOwnerV||(Data.mode!=="db"&&!state.team.some(x=>x.role==="cfo"))};
+const ACTIONS=[
+  ["الإقفال اليومي",[["close.approve","اعتماد الإقفالات وإرجاعها","للمستخدمين ضمن نطاقه"],["close.others","الإدخال نيابة عن الآخرين","مثلاً عند غياب المحاسب"]]],
+  ["المهام",[["tasks.assign","إنشاء مهام وإسنادها للآخرين","بدونها يُنشئ مهاماً لنفسه فقط"]]],
+  ["الإيرادات",[["rev.edit","تسجيل إيرادات الفروع","فروع غير مسندة إليه ضمن نطاقه"],["rev.import","استيراد تقارير الإيرادات من Excel",""]]],
+  ["البنوك والصندوق",[["bc.edit","إدخال إقفالات البنوك والصندوق",""],["bc.import","استيراد البنوك والصندوق من Excel",""]]],
+  ["عام",[["export","تصدير التقارير (Excel / CSV)",""],["files.delete","حذف مرفقات الآخرين","ضمن نطاقه"]]],
+  ["الإدارة",[["org.manage","إدارة الهيكل التنظيمي والموظفين",""],["setup.manage","إدارة إعداد الإقفال والفروع والحسابات",""],["data.backup","النسخ الاحتياطي والاسترجاع",""],["perms.manage","إدارة الصلاحيات","يغيّر صلاحيات المستخدمين — امنحها بحذر"]]]];
+const ADMIN_ACTS=["org.manage","setup.manage","perms.manage","rev.import","bc.import","data.backup"];
+const SCOPES=[{k:"all",l:"كل الإدارة المالية",d:"يرى إقفالات ومهام وبيانات كل الموظفين"},{k:"dept",l:"قسمه فقط",d:"يرى بيانات موظفي قسمه فقط"},{k:"own",l:"بياناته فقط",d:"يرى ما أُسند إليه وما أنشأه فقط"}];
+const PERM_PAGES=()=>VIEWS.filter(v=>v.k!=="guide"&&v.k!=="perms");
+const DEF_ROLE_PERMS={
+  head:{pages:["dash","close","rev","rrep","bc","tasks","perf","files","org","setup","activity"],actions:["close.approve","close.others","tasks.assign","rev.edit","rev.import","bc.edit","export","files.delete","setup.manage"],scope:"dept",branches:[]},
+  acc:{pages:["dash","close","rev","tasks","files","activity"],actions:["export"],scope:"own",branches:[]}};
+const roleTemplate=r=>{const c=(cfg().rolePerms||{})[r];return c&&Array.isArray(c.pages)?c:(DEF_ROLE_PERMS[r]||DEF_ROLE_PERMS.acc)};
+function permsOf(m){
+  if(!m||m.role==="cfo")return{full:true};
+  const p=m.permMode==="custom"&&m.perms?m.perms:roleTemplate(m.role);
+  return{full:false,pages:new Set(p.pages||[]),actions:new Set(p.actions||[]),scope:p.scope||"own",branches:p.branches||[]};
+}
+function myPerms(){
+  if(isOwnerV)return{full:true};
+  const m=meM();if(m)return permsOf(m);
+  if(Data.mode!=="db"&&!state.team.some(x=>x.role==="cfo"))return{full:true};
+  if(!state.team.length)return{full:true};
+  return{full:false,pages:new Set(["dash"]),actions:new Set(),scope:"own",branches:[]};
+}
+const isCFO=()=>myPerms().full;
+const can=k=>canWrite&&(myPerms().full||myPerms().actions.has(k));
+const hasLineMode=mode=>state.lines.some(l=>l.active!==false&&l.assignee===me&&typeOf(l.typeK).mode===mode);
+function canPage(k){
+  if(k==="guide")return true;
+  if(k==="perms")return can("perms.manage");
+  const p=myPerms();if(p.full||p.pages.has(k))return true;
+  return(k==="rev"&&hasLineMode("revform"))||(k==="bc"&&hasLineMode("bcform"));
+}
 function deptHead(d){if(!d)return"";if(d.headId&&byId("team",d.headId))return d.headId;const h=state.team.find(m=>m.role==="head"&&m.deptId===d.id);return h?h.id:""}
 function isHeadOf(deptId){if(!deptId||!me)return false;const d=byId("depts",deptId);return deptHead(d)===me}
-const canFill=it=>canWrite&&(it.assignee===me||isCFO()||isHeadOf(deptOf(it.assignee)));
-const canApprove=it=>canWrite&&it.status==="submitted"&&(isCFO()||(isHeadOf(deptOf(it.assignee))&&it.assignee!==me));
-const canAdmin=()=>canWrite&&(isCFO()||(!!meM()&&meM().role==="head"));
+const myDept=()=>{const m=meM();return(m&&m.deptId)||(state.depts.find(d=>deptHead(d)===me)||{}).id||""};
+function scopeMember(mid){const p=myPerms();if(p.full||p.scope==="all"||(mid&&mid===me))return true;return p.scope==="dept"&&!!myDept()&&deptOf(mid)===myDept()}
+const branchAllowed=bid=>{const p=myPerms();return p.full||!p.branches||!p.branches.length||p.branches.includes(bid)};
+const canFill=it=>canWrite&&(it.assignee===me||isCFO()||(can("close.others")&&scopeMember(it.assignee)));
+const canApprove=it=>canWrite&&it.status==="submitted"&&(isCFO()||(can("close.approve")&&scopeMember(it.assignee)&&it.assignee!==me));
+const canAdmin=()=>can("setup.manage")||can("org.manage");
 
 /* ================= data layer ================= */
 let db=null,daysReady=false,extra=null;
@@ -809,7 +873,7 @@ const Data={
     db.collection("rev").where("date",">=",WIN).onSnapshot(s=>{
       const m={};Object.keys(state.rev).forEach(k=>{if(k<WIN)m[k]=state.rev[k]});
       s.docs.forEach(d=>{m[d.id]=d.data()});state.rev=m;ready.rev=true;afterData()},subErr);
-    if(isOwnerV)db.doc("setup/access").onSnapshot(s=>{accessEmails=s.exists?(s.data().emails||[]):[];ready.access=true;afterData()},subErr);
+    if(isOwnerV)db.doc("setup/access").onSnapshot(s=>{accessEmails=s.exists?(s.data().emails||[]):[];accessAdmins=s.exists?(s.data().admins||[]):[];ready.access=true;afterData()},subErr);
     paintConn();schedule();
   },
   persist(){lsSet("crm_local2",JSON.stringify(state))},
@@ -905,16 +969,18 @@ async function ensureDay(date){
 function afterData(){
   if(Data.mode==="db"&&authUser){
     const em=String(authUser.email||"").toLowerCase();const m=state.team.find(x=>String(x.email||"").trim().toLowerCase()===em);me=m?m.id:"";
-    if(isOwnerV&&ready.team&&ready.access)syncAccess();
+    if(isOwnerV&&ready.team&&ready.access&&ready.config)syncAccess();
   }else if(me&&ready.team&&!byId("team",me)){me="";lsSet("crm_me","")}
   schedule();
 }
 async function syncAccess(){
-  const want=[...new Set(state.team.map(m=>String(m.email||"").trim().toLowerCase()).filter(Boolean))].sort();
-  const have=(accessEmails||[]).slice().sort();
-  if(syncingAccess||want.join("|")===have.join("|"))return;
+  const em=m=>String(m.email||"").trim().toLowerCase();
+  const want=[...new Set(state.team.map(em).filter(Boolean))].sort();
+  const admins=[...new Set(state.team.filter(m=>{const p=permsOf(m);return p.full||ADMIN_ACTS.some(a=>p.actions.has(a))}).map(em).filter(Boolean))].sort();
+  const have=(accessEmails||[]).slice().sort(),haveA=(accessAdmins||[]).slice().sort();
+  if(syncingAccess||(want.join("|")===have.join("|")&&admins.join("|")===haveA.join("|")))return;
   syncingAccess=true;
-  try{await db.doc("setup/access").set({emails:want,updatedAt:Date.now()})}catch(e){console.warn(e)}
+  try{await db.doc("setup/access").set({emails:want,admins,updatedAt:Date.now()})}catch(e){console.warn(e)}
   syncingAccess=false;
 }
 function chooseMe(id){me=id||"";lsSet("crm_me",me);schedule();if(id)toast("مرحباً "+memberName(id))}
@@ -983,29 +1049,30 @@ function paintConn(){
   else if(Data.mode==="local"){d.className="dot local";t.textContent="وضع محلي — البيانات على هذا الجهاز فقط"}
 }
 function navCounts(){
-  const its=dayItems(defaultDay());
+  const its=dayItems(defaultDay()).filter(i=>scopeMember(i.assignee));
   const appr=its.filter(canApprove).length;
   const mine=its.filter(i=>i.assignee===me&&!isClosed(i)).length;
-  const od=state.tasks.filter(t=>t.status!=="done"&&t.due&&t.due<today()).length;
+  const od=state.tasks.filter(t=>t.status!=="done"&&t.due&&t.due<today()&&scopeMember(t.assignee)).length;
   return{close:appr+mine,closeGold:appr>0&&!mine,tasks:od};
 }
 function renderNav(){
   const c=navCounts();
-  $("#nav").innerHTML=VIEWS.map(v=>{let b="";if(v.k==="close"&&c.close)b='<span class="count num'+(c.closeGold?" g":"")+'">'+nf.format(c.close)+"</span>";if(v.k==="tasks"&&c.tasks)b='<span class="count num">'+nf.format(c.tasks)+"</span>";
+  $("#nav").innerHTML=VIEWS.filter(v=>canPage(v.k)).map(v=>{let b="";if(v.k==="close"&&c.close)b='<span class="count num'+(c.closeGold?" g":"")+'">'+nf.format(c.close)+"</span>";if(v.k==="tasks"&&c.tasks)b='<span class="count num">'+nf.format(c.tasks)+"</span>";
     return'<button type="button" data-view="'+v.k+'"'+(ui.view===v.k?' aria-current="page"':"")+">"+svg(v.i)+"<span>"+v.l+"</span>"+b+"</button>"}).join("");
 }
 function render(){
   if((ui.view==="rev"||ui.view==="bc")&&revDirty.size){renderNav();return}
+  if(Data.mode!=="connecting"&&ready.team&&!canPage(ui.view)){const f=VIEWS.find(v=>canPage(v.k));ui.view=f?f.k:"guide"}
   const a=document.activeElement,fid=a&&a.id&&$("#main").contains(a)?a.id:null,sel=fid&&a.selectionStart!=null?[a.selectionStart,a.selectionEnd]:null;
   renderNav();
   const v=VIEWS.find(x=>x.k===ui.view);
   const A=canAdmin();
   const actions={
-    dash:"",close:(downloads?'<button class="btn" data-export="close">'+svg("dl")+"تصدير اليوم</button>":""),
+    dash:"",close:(can("export")?'<button class="btn" data-export="close">'+svg("dl")+"تصدير اليوم</button>":""),
     tasks:'<button class="btn primary" data-new="tasks">'+svg("plus")+"مهمة جديدة</button>",
-    perf:(downloads?'<button class="btn" data-export="perf">'+svg("dl")+"تصدير CSV</button>":""),
-    org:A?'<button class="btn" data-new="depts">'+svg("plus")+'قسم جديد</button><button class="btn primary" data-new="team">'+svg("plus")+"إضافة موظف</button>":"",
-    setup:A?'<button class="btn primary" data-new="lines">'+svg("plus")+"بند إقفال جديد</button>":"",
+    perf:(can("export")?'<button class="btn" data-export="perf">'+svg("dl")+"تصدير CSV</button>":""),
+    org:can("org.manage")?'<button class="btn" data-new="depts">'+svg("plus")+'قسم جديد</button><button class="btn primary" data-new="team">'+svg("plus")+"إضافة موظف</button>":"",
+    setup:can("setup.manage")?'<button class="btn primary" data-new="lines">'+svg("plus")+"بند إقفال جديد</button>":"",
     activity:"",guide:""
   }[v.k];
   const m=meM();
@@ -1044,7 +1111,7 @@ function activityList(arr){
   return'<div class="list">'+arr.map(a=>'<div class="li">'+avatar(a.who)+'<div class="grow act"><b>'+esc(memberName(a.who)||"عضو غير محدد")+"</b> "+esc(a.text)+'</div><span class="muted num" style="font-size:12px;white-space:nowrap">'+ago(a.at)+"</span></div>").join("")+"</div>";
 }
 function memberSelect(id,val,withMe,deptFilter){
-  return'<select class="select" id="'+id+'" aria-label="الموظف"><option value="all">كل الموظفين</option>'+(withMe&&me?'<option value="me"'+(val==="me"?" selected":"")+">الخاصة بي</option>":"")+sortedTeam().filter(m=>!deptFilter||deptFilter==="all"||m.deptId===deptFilter).map(m=>'<option value="'+esc(m.id)+'"'+(val===m.id?" selected":"")+">"+esc(m.name)+"</option>").join("")+"</select>";
+  return'<select class="select" id="'+id+'" aria-label="الموظف"><option value="all">كل الموظفين</option>'+(withMe&&me?'<option value="me"'+(val==="me"?" selected":"")+">الخاصة بي</option>":"")+sortedTeam().filter(m=>scopeMember(m.id)&&(!deptFilter||deptFilter==="all"||m.deptId===deptFilter)).map(m=>'<option value="'+esc(m.id)+'"'+(val===m.id?" selected":"")+">"+esc(m.name)+"</option>").join("")+"</select>";
 }
 function deptSelect(id,val){return'<select class="select" id="'+id+'" aria-label="القسم"><option value="all">كل الأقسام</option>'+state.depts.map(d=>'<option value="'+esc(d.id)+'"'+(val===d.id?" selected":"")+">"+esc(d.name)+"</option>").join("")+"</select>"}
 function valSummary(it){
@@ -1066,7 +1133,7 @@ function groupByDept(items){
 /* ================= views ================= */
 const VIEWFN={};
 VIEWFN.dash=function(){
-  const D=curDay();const items=dayItems(D);const due=dueTs(D);const pastDue=Date.now()>due;
+  const D=curDay();const items=dayItems(D).filter(i=>scopeMember(i.assignee));const due=dueTs(D);const pastDue=Date.now()>due;
   const closedN=items.filter(isClosed).length;const pct=items.length?Math.round(closedN/items.length*100):0;
   const sub=items.filter(i=>i.status==="submitted");const mineA=items.filter(canApprove).length;
   const lateOpen=items.filter(i=>!isClosed(i)&&pastDue).length;const lateDone=items.filter(i=>isClosed(i)&&lateOf(i)).length;
@@ -1087,19 +1154,19 @@ VIEWFN.dash=function(){
     const sum=its.reduce((s,i)=>s+(hasVal(i.amount)?+i.amount:0),0);return'<div class="tt"><span class="l">'+esc(t.l)+'</span><span class="v">'+money(sum)+'</span><span class="s num">'+nf.format(c)+"/"+nf.format(its.length)+" مُقفل</span></div>"}).join("");
   h+='<div class="grid-2"><div class="panel"><h2>الإقفال حسب القسم <span class="muted">'+fmtDay(D)+"</span></h2>"+deptRows+'</div><div class="panel"><h2>إجماليات اليوم حسب النوع</h2>'+(tt?'<div class="ttl">'+tt+"</div>":'<div class="empty">لا توجد بيانات</div>')+"</div></div>";
   h+='<div class="panel"><h2>خريطة الانضباط <span class="muted">آخر 12 يوم عمل — اضغط أي مربع لفتح ذلك اليوم</span></h2>'+heatmap()+"</div>";
-  const odTasks=state.tasks.filter(t=>t.status!=="done"&&t.due&&t.due<today()).sort((a,b)=>a.due.localeCompare(b.due));
+  const odTasks=state.tasks.filter(t=>t.status!=="done"&&t.due&&t.due<today()&&scopeMember(t.assignee)).sort((a,b)=>a.due.localeCompare(b.due));
   const myApprovals=items.filter(canApprove);
-  const reviewTasks=state.tasks.filter(t=>t.status==="review"&&(isCFO()||isHeadOf(deptOf(t.assignee))));
+  const reviewTasks=state.tasks.filter(t=>t.status==="review"&&(isCFO()||(can("close.approve")&&scopeMember(t.assignee)&&t.assignee!==me)));
   h+='<div class="grid-2"><div class="panel"><h2>بانتظار اعتمادي <span class="muted num">('+nf.format(myApprovals.length+reviewTasks.length)+")</span></h2>"+
     (myApprovals.length||reviewTasks.length?'<div class="list">'+myApprovals.slice(0,8).map(i=>'<div class="li" data-item="'+esc(i.date+"|"+i.id)+'" style="cursor:pointer"><span class="tchip">'+esc(typeOf(i.typeK).l)+'</span><div class="grow"><div class="t">'+esc(i.label)+'</div><div class="s">'+esc(memberName(i.assignee))+" · أُرسل "+fmtTs(i.submittedAt)+"</div></div>"+(variance(i)?'<span class="chip bad">فرق</span>':"")+"</div>").join("")+reviewTasks.slice(0,6).map(t=>'<div class="li" data-open="tasks:'+esc(t.id)+'" style="cursor:pointer"><span class="tchip">مهمة</span><div class="grow"><div class="t">'+esc(t.title)+'</div><div class="s">'+esc(memberName(t.assignee))+"</div></div></div>").join("")+"</div>":'<div class="empty">لا شيء بانتظار اعتمادك</div>')+
     '</div><div class="panel"><h2>مهام متأخرة <span class="muted num">('+nf.format(odTasks.length)+")</span></h2>"+taskList(odTasks.slice(0,8),"لا توجد مهام متأخرة")+"</div></div>";
-  h+='<div class="panel"><h2>آخر النشاطات</h2>'+activityList(state.activity.slice().sort((a,b)=>b.at-a.at).slice(0,8))+"</div>";
+  h+='<div class="panel"><h2>آخر النشاطات</h2>'+activityList(state.activity.filter(a=>scopeMember(a.who)).sort((a,b)=>b.at-a.at).slice(0,8))+"</div>";
   return h;
 };
 function heatmap(){
   const end=isWork(today())?today():prevWork(today());const days=lastNWork(12,end);
   const cache={};days.forEach(d=>cache[d]=dayItems(d));
-  const members=sortedTeam().filter(m=>state.lines.some(l=>l.assignee===m.id)||days.some(d=>cache[d].some(i=>i.assignee===m.id)));
+  const members=sortedTeam().filter(m=>scopeMember(m.id)).filter(m=>state.lines.some(l=>l.assignee===m.id)||days.some(d=>cache[d].some(i=>i.assignee===m.id)));
   if(!members.length)return'<div class="empty">تظهر الخريطة بعد إضافة بنود الإقفال</div>';
   const byDept={};members.forEach(m=>{const k=m.deptId||"_";(byDept[k]=byDept[k]||[]).push(m)});
   const order=state.depts.map(d=>d.id).concat(["_"]);
@@ -1124,11 +1191,11 @@ function taskList(arr,emptyMsg){
 }
 
 VIEWFN.close=function(){
-  const D=curDay();let items=dayItems(D);
+  const D=curDay();let items=dayItems(D).filter(i=>scopeMember(i.assignee));
   let h='<div class="toolbar">'+dateNav()+"</div>";
   h+='<div class="toolbar">'+deptSelect("fDept",ui.dept)+memberSelect("fMember",ui.member,true,ui.dept)+'<select class="select" id="fIst" aria-label="الحالة"><option value="all">كل الحالات</option>'+IST.map(s=>'<option value="'+s.k+'"'+(ui.ist===s.k?" selected":"")+">"+s.l+"</option>").join("")+'<option value="late"'+(ui.ist==="late"?" selected":"")+'>متأخرة</option><option value="var"'+(ui.ist==="var"?" selected":"")+">بها فرق</option></select></div>";
   if(!isWork(D))return h+'<div class="empty">هذا اليوم عطلة أسبوعية — لا توجد إقفالات. يمكنك تعديل أيام العطلة من «إعداد الإقفال».</div>';
-  if(!items.length)return h+'<div class="empty">لا توجد بنود إقفال لهذا اليوم.'+(canAdmin()?" أضفها من «إعداد الإقفال».":"")+"</div>";
+  if(!items.length)return h+'<div class="empty">لا توجد بنود إقفال لهذا اليوم.'+(can("setup.manage")?" أضفها من «إعداد الإقفال».":"")+"</div>";
   const all=items;
   items=items.filter(i=>(ui.dept==="all"||deptOf(i.assignee)===ui.dept)&&(ui.member==="all"||(ui.member==="me"?i.assignee===me:i.assignee===ui.member))&&(ui.ist==="all"||(ui.ist==="late"?lateOf(i):ui.ist==="var"?variance(i)!==0:i.status===ui.ist)));
   const c=all.filter(isClosed).length;
@@ -1153,7 +1220,7 @@ VIEWFN.close=function(){
 
 VIEWFN.tasks=function(){
   const q=ui.taskQ.trim().toLowerCase();
-  const list=state.tasks.filter(t=>(ui.taskDept==="all"||deptOf(t.assignee)===ui.taskDept)&&(ui.taskMember==="all"||(ui.taskMember==="me"?t.assignee===me:t.assignee===ui.taskMember))&&(ui.taskPrio==="all"||t.priority===ui.taskPrio)&&(!q||(t.title+" "+(t.description||"")+" "+(t.category||"")).toLowerCase().includes(q)));
+  const list=state.tasks.filter(t=>scopeMember(t.assignee)||t.createdBy===me).filter(t=>(ui.taskDept==="all"||deptOf(t.assignee)===ui.taskDept)&&(ui.taskMember==="all"||(ui.taskMember==="me"?t.assignee===me:t.assignee===ui.taskMember))&&(ui.taskPrio==="all"||t.priority===ui.taskPrio)&&(!q||(t.title+" "+(t.description||"")+" "+(t.category||"")).toLowerCase().includes(q)));
   let h='<div class="toolbar"><input class="input search" id="taskQ" placeholder="ابحث في المهام" value="'+esc(ui.taskQ)+'">'+deptSelect("taskDept",ui.taskDept)+memberSelect("taskMember",ui.taskMember,true,ui.taskDept)+
     '<select class="select" id="taskPrio" aria-label="الأولوية"><option value="all">كل الأولويات</option>'+PRIO.map(p=>'<option value="'+p.k+'"'+(ui.taskPrio===p.k?" selected":"")+">"+p.l+"</option>").join("")+"</select></div>";
   const prank={urgent:0,high:1,medium:2,low:3};
@@ -1188,7 +1255,7 @@ function perfData(){
 VIEWFN.perf=function(){
   const {P,days,from,to}=perfData();
   let h='<div class="toolbar"><div class="seg" role="group" aria-label="الفترة">'+[["week","هذا الأسبوع"],["month","هذا الشهر"],["last","الشهر الماضي"],["30","آخر 30 يوماً"]].map(p=>'<button type="button" data-period="'+p[0]+'" aria-pressed="'+(ui.period===p[0])+'">'+p[1]+"</button>").join("")+"</div>"+deptSelect("perfDept",ui.perfDept)+'<span class="muted" style="font-size:12.5px">'+fmtDate(from)+" — "+fmtDate(to)+" · "+nf.format(days.length)+" يوم عمل مضى موعده</span></div>";
-  const members=sortedTeam().filter(m=>ui.perfDept==="all"||m.deptId===ui.perfDept);
+  const members=sortedTeam().filter(m=>scopeMember(m.id)&&(ui.perfDept==="all"||m.deptId===ui.perfDept));
   if(!members.length)return h+'<div class="empty">لا يوجد موظفون</div>';
   const depts=state.depts.filter(d=>ui.perfDept==="all"||d.id===ui.perfDept);
   if(depts.length)h+='<div class="kpis" style="grid-template-columns:repeat(auto-fill,minmax(230px,1fr))">'+depts.map(d=>{const ms=state.team.filter(m=>m.deptId===d.id).map(m=>P[m.id]).filter(Boolean);
@@ -1217,7 +1284,7 @@ VIEWFN.org=function(){
   let h='<div class="orgtop">'+(cfos.length?cfos.map(m=>pcard(m,"cfo")).join(""):'<div class="empty" style="max-width:440px">لم يُضف المدير المالي بعد — اضغط «إضافة موظف» واختر الدور «المدير المالي».</div>')+'</div><div class="orgline"></div>';
   if(!state.depts.length)h+='<div class="empty">لا توجد أقسام بعد. اضغط «قسم جديد».</div>';
   else h+='<div class="depts">'+state.depts.map(d=>{const hd=deptHead(d);const accs=sortedTeam().filter(m=>m.deptId===d.id&&m.id!==hd);
-    return'<div class="dept"><div class="dh"><h3>'+esc(d.name)+"</h3>"+(d.sample?'<span class="chip sample">مثال</span>':"")+'<span class="chip num">'+nf.format(accs.length+(hd?1:0))+" موظف</span>"+(canAdmin()?'<button type="button" class="btn sm ghost" data-open="depts:'+esc(d.id)+'">تعديل</button>':"")+"</div>"+
+    return'<div class="dept"><div class="dh"><h3>'+esc(d.name)+"</h3>"+(d.sample?'<span class="chip sample">مثال</span>':"")+'<span class="chip num">'+nf.format(accs.length+(hd?1:0))+" موظف</span>"+(can("org.manage")?'<button type="button" class="btn sm ghost" data-open="depts:'+esc(d.id)+'">تعديل</button>':"")+"</div>"+
       (hd?'<div class="headp" data-open="team:'+esc(hd)+'" style="cursor:pointer">'+avatar(hd)+'<div class="grow"><div style="font-weight:700">'+esc(memberName(hd))+'</div><div class="s">رئيس القسم · '+stat(hd)+"</div></div></div>":'<div class="headp"><span class="muted">لم يُعيَّن رئيس للقسم</span></div>')+
       (accs.length?accs.map(m=>'<div class="mem" data-open="team:'+esc(m.id)+'">'+avatar(m.id)+'<div class="grow"><div style="font-weight:600">'+esc(m.name)+(m.id===me?' <span class="chip acc">أنت</span>':"")+'</div><div class="s">'+esc(m.title||lbl(ROLES,m.role))+" · "+stat(m.id)+"</div></div></div>").join(""):'<div class="mem" style="cursor:default"><span class="muted">لا يوجد محاسبون</span></div>')+"</div>"}).join("")+"</div>";
   const orphans=state.team.filter(m=>m.role!=="cfo"&&!byId("depts",m.deptId));
@@ -1227,7 +1294,7 @@ VIEWFN.org=function(){
 
 /* ---- setup ---- */
 VIEWFN.setup=function(){
-  const A=canAdmin();const c=cfg();
+  const A=can("setup.manage");const c=cfg();
   let h='<div class="panel"><h2>مصفوفة الإقفال <span class="muted">ما يُقفل يومياً ومن المسؤول عنه'+(A?" — اضغط أي بند لتعديله":"")+"</span></h2>";
   if(!state.lines.length)h+='<div class="empty">لا توجد بنود. '+(A?"اضغط «بند إقفال جديد».":"")+"</div>";
   else{
@@ -1244,7 +1311,7 @@ VIEWFN.setup=function(){
   return h;
 };
 function dataPanel(){
-  const samples=COLS.reduce((a,c)=>a+state[c].filter(r=>r.sample).length,0)+Object.values(state.days).filter(d=>d.sample).length;const C=isCFO();
+  const samples=COLS.reduce((a,c)=>a+state[c].filter(r=>r.sample).length,0)+Object.values(state.days).filter(d=>d.sample).length;const C=can("data.backup");
   let h='<div class="panel"><h2>البيانات والنسخ الاحتياطي</h2><p class="muted" style="margin:0 0 12px">'+(Data.mode==="db"?"البيانات محفوظة في قاعدة بيانات Firebase المشتركة، وكل موظف يرى التحديثات لحظياً.":"الوضع المحلي: البيانات محفوظة في هذا المتصفح فقط ولا يراها باقي الفريق. لتشغيل النظام للفريق كله اربطه بـ Firebase كما في ملف README.")+"</p>";
   h+='<div class="toolbar"><button type="button" class="btn" id="expBackup">'+svg("dl")+"تنزيل نسخة احتياطية</button>"+(C?'<label class="btn" for="impFile" style="cursor:pointer">استرجاع من نسخة احتياطية</label><input type="file" id="impFile" accept=".json,application/json" hidden>':"")+(Data.mode==="local"&&!state.team.length?'<button type="button" class="btn" id="loadDemo">تحميل بيانات تجريبية</button>':"")+"</div>";
   if(pendingImport)h+='<div class="banner" style="margin-top:12px"><span>استرجاع «'+esc(pendingImport.name)+"» ("+nf.format(pendingImport.n)+" سجل). "+(Data.mode==="local"?"ستُستبدل كل البيانات الحالية.":"ستُكتب السجلات فوق السجلات المطابقة لها.")+'</span><button type="button" class="btn danger armed" id="impGo">تأكيد الاسترجاع</button><button type="button" class="btn" id="impCancel">إلغاء</button></div>';
@@ -1343,7 +1410,7 @@ function genDemo(){
 }
 
 VIEWFN.activity=function(){
-  const list=state.activity.filter(a=>ui.actMember==="all"||a.who===ui.actMember).sort((a,b)=>b.at-a.at).slice(0,200);
+  const list=state.activity.filter(a=>scopeMember(a.who)&&(ui.actMember==="all"||a.who===ui.actMember)).sort((a,b)=>b.at-a.at).slice(0,200);
   return'<div class="toolbar"><select class="select" id="actMember" aria-label="الموظف"><option value="all">كل الموظفين</option>'+sortedTeam().map(m=>'<option value="'+esc(m.id)+'"'+(ui.actMember===m.id?" selected":"")+">"+esc(m.name)+"</option>").join("")+'</select><span class="muted" style="font-size:12.5px">يُحتفظ بآخر 450 نشاطاً تقريباً</span></div><div class="panel">'+activityList(list)+"</div>";
 };
 VIEWFN.guide=function(){return document.getElementById("guideTpl").innerHTML};
@@ -1387,7 +1454,7 @@ const SCHEMA={
     {k:"b",l:"الرصيد الثاني",ph:"الرصيد الفعلي",showIf:r=>r.mode==="reconcile"}]},
   tasks:{t:"مهمة",f:[
     {k:"title",l:"عنوان المهمة",req:1,full:1,ph:"مثال: التسوية البنكية الشهرية لبنك الراجحي"},
-    {k:"assignee",l:"مسندة إلى",type:"select",opts:teamOpts,def:()=>me},
+    {k:"assignee",l:"مسندة إلى",type:"select",opts:()=>can("tasks.assign")?teamOpts().filter(o=>!o[0]||scopeMember(o[0])):[[me,memberName(me)||"أنا"]],def:()=>me},
     {k:"category",l:"التصنيف",type:"select",opts:()=>TCAT.map(c=>[c,c]),def:"أخرى"},
     {k:"priority",l:"الأولوية",type:"select",opts:()=>PRIO.map(p=>[p.k,p.l]),def:"medium"},
     {k:"due",l:"تاريخ الاستحقاق",type:"date",def:()=>shiftD(today(),3)},
@@ -1418,7 +1485,7 @@ function paintForm(){
   if(col==="team"&&Data.mode==="db")extraHtml='<div class="note info">بهذا البريد ينشئ الموظف حسابه ويسجّل الدخول. تغيير البريد أو حذف الموظف يوقف دخوله بالبريد القديم.</div>';
   if(col==="lines"&&!id)extraHtml='<div class="note info">يظهر البند في الإقفال اليومي ابتداءً من اليوم.</div>';
   if(col==="tasks")extraHtml+=id?'<div class="field full"><label>المرفقات</label><div id="attBox"></div></div>':'<div class="note info">يمكنك إرفاق ملفات Excel وWord وPDF بعد حفظ المهمة.</div>';
-  const canEditThis=col==="tasks"?canWrite:canAdmin();
+  const canEditThis=col==="tasks"?canWrite:(col==="team"||col==="depts")?can("org.manage"):can("setup.manage");
   $("#layer").innerHTML='<div class="overlay" id="ov"><form class="modal" id="mform" novalidate><header><h3>'+(id?"تعديل ":"إضافة ")+S.t+'</h3><button type="button" class="btn ghost sm" data-close aria-label="إغلاق">'+svg("x")+'</button></header><div class="body">'+fields+extraHtml+"</div><footer>"+(canEditThis?'<button type="submit" class="btn primary">'+(id?"حفظ التعديلات":"إضافة")+"</button>":"")+'<button type="button" class="btn" data-close>إغلاق</button><span class="spacer"></span>'+(id&&canEditThis?'<button type="button" class="btn danger" id="delBtn">حذف</button>':"")+"</footer></form></div>";
   const first=$("#mform [data-k]");if(first&&!id)first.focus();
   if(col==="tasks"&&id)attachOpen({key:"task:"+id,kind:"task",taskId:id,label:"مهمة: "+(rec.title||""),deptId:deptOf(rec.assignee),can:canWrite});
@@ -1627,9 +1694,10 @@ function canEditBranch(date,bid){
   if(!canWrite||date>today())return false;
   const o=branchOwner(date)[bid];
   if(o&&revLocked(o.item))return false;
-  if(isCFO())return true;
-  if(!o)return canAdmin();
-  return o.assignee===me||isHeadOf(deptOf(o.assignee));
+  if(!branchAllowed(bid))return false;
+  if(isCFO()||(o&&o.assignee===me))return true;
+  if(!can("rev.edit"))return false;
+  return o?scopeMember(o.assignee):myPerms().scope!=="own";
 }
 function revSubmitCheck(it){
   const sm=revSummary(it);
@@ -1732,14 +1800,14 @@ function branchesPanel(A){
 VIEWFN.rev=function(){
   const D=curDay();
   let h='<div class="toolbar">'+dateNav()+"</div>";
-  if(!state.branches.length)return h+'<div class="empty">لا توجد فروع بعد. '+(canAdmin()?"أضفها من «إعداد الإقفال» ← «الفروع وأجهزة الشبكة»، أو استورد ملف الفروع.":"اطلب من المدير المالي إضافتها.")+"</div>";
+  if(!state.branches.length)return h+'<div class="empty">لا توجد فروع بعد. '+(can("setup.manage")?"أضفها من «إعداد الإقفال» ← «الفروع وأجهزة الشبكة»، أو استورد ملف الفروع.":"اطلب من المدير المالي إضافتها.")+"</div>";
   const own=branchOwner(D);
   const mine=state.branches.filter(b=>own[b.id]&&own[b.id].assignee===me);
   let scope=ui.revScope;if(scope==="auto")scope=mine.length?"mine":"all";
-  let bs=state.branches.filter(b=>b.active!==false||salesOf(D,b.id)).sort(sortBr);
+  let bs=state.branches.filter(b=>(b.active!==false||salesOf(D,b.id))&&branchAllowed(b.id)&&(myPerms().full||myPerms().scope==="all"||(own[b.id]&&scopeMember(own[b.id].assignee)))).sort(sortBr);
   if(scope==="mine")bs=bs.filter(b=>own[b.id]&&own[b.id].assignee===me);else if(scope!=="all")bs=bs.filter(b=>own[b.id]&&own[b.id].assignee===scope);
-  const assignees=[...new Set(Object.values(own).map(o=>o.assignee))].filter(a=>a&&a!==me);
-  h+='<div class="toolbar"><select class="select" id="revScope" aria-label="الفروع المعروضة"><option value="mine"'+(scope==="mine"?" selected":"")+'>فروعي</option><option value="all"'+(scope==="all"?" selected":"")+">كل الفروع</option>"+assignees.map(a=>'<option value="'+esc(a)+'"'+(scope===a?" selected":"")+">فروع "+esc(memberName(a))+"</option>").join("")+'</select><div class="seg" role="group" aria-label="القسم">'+[["sales","الإيرادات اليومية"],["terms","سحب الشبكات"],["abn","العجز والفائض غير الطبيعي"]].map(x=>'<button type="button" data-revtab="'+x[0]+'" aria-pressed="'+(ui.revTab===x[0])+'">'+x[1]+"</button>").join("")+'</div><span style="flex:1"></span><button type="button" class="btn" data-export="rev">'+svg("dl")+"تصدير اليوم</button></div>";
+  const assignees=[...new Set(Object.values(own).map(o=>o.assignee))].filter(a=>a&&a!==me&&scopeMember(a));
+  h+='<div class="toolbar"><select class="select" id="revScope" aria-label="الفروع المعروضة"><option value="mine"'+(scope==="mine"?" selected":"")+'>فروعي</option><option value="all"'+(scope==="all"?" selected":"")+">كل الفروع</option>"+assignees.map(a=>'<option value="'+esc(a)+'"'+(scope===a?" selected":"")+">فروع "+esc(memberName(a))+"</option>").join("")+'</select><div class="seg" role="group" aria-label="القسم">'+[["sales","الإيرادات اليومية"],["terms","سحب الشبكات"],["abn","العجز والفائض غير الطبيعي"]].map(x=>'<button type="button" data-revtab="'+x[0]+'" aria-pressed="'+(ui.revTab===x[0])+'">'+x[1]+"</button>").join("")+'</div><span style="flex:1"></span>'+(can("export")?'<button type="button" class="btn" data-export="rev">'+svg("dl")+"تصدير اليوم</button>":"")+"</div>";
   const T={sys:0,act:0,net:0,abn:0,done:0};bs.forEach(b=>{const r=salesOf(D,b.id);if(!r)return;const c=calcRev(r);T.done++;T.sys+=c.sysT;T.act+=c.actT;T.net+=c.net;if(isAbn(c.cls))T.abn++});
   h+='<div class="ttl">'+ttBox("الفروع المسجّلة",nf.format(T.done)+"/"+nf.format(bs.length))+ttBox("إجمالي النظام",money(T.sys))+ttBox("الإجمالي الفعلي",money(T.act))+ttBox("صافي الفرق",nf2.format(r2(T.net)),T.net<0)+ttBox("حالات غير طبيعية",nf.format(T.abn),T.abn>0)+"</div>";
   dayItems(D).filter(i=>typeOf(i.typeK).mode==="revform"&&(i.assignee===me||canFill(i))&&(scope==="all"||scope==="mine"?i.assignee===me||scope==="all":i.assignee===scope)).forEach(i=>{
@@ -1818,8 +1886,10 @@ function repDocs(f,to){
   }
   return null;
 }
-const repCompanies=()=>[...new Set(state.branches.map(b=>String(b.company||"").trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"ar"));
-function repBranchFilter(){return b=>(ui.repCo==="all"||String((b||{}).company||"").trim()===ui.repCo)&&(ui.repBr==="all"||(b&&b.id===ui.repBr))}
+const lineOwner=bid=>{const l=state.lines.find(l=>l.active!==false&&typeOf(l.typeK).mode==="revform"&&(l.branchIds||[]).includes(bid));return l?l.assignee:""};
+const repBranchOk=b=>!!b&&branchAllowed(b.id)&&(myPerms().full||myPerms().scope==="all"||(!!lineOwner(b.id)&&scopeMember(lineOwner(b.id))));
+const repCompanies=()=>[...new Set(state.branches.filter(repBranchOk).map(b=>String(b.company||"").trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"ar"));
+function repBranchFilter(){return b=>repBranchOk(b)&&(ui.repCo==="all"||String((b||{}).company||"").trim()===ui.repCo)&&(ui.repBr==="all"||(b&&b.id===ui.repBr))}
 const ACC0=()=>({sys_cash:0,sys_net:0,sysT:0,act_cash:0,act_net:0,act_transfer:0,act_credit:0,actT:0,lc:0,ln:0,net:0,sn:0,sa:0,hn:0,ha:0,rc:0,rv:0,days:new Set()});
 function repAggregate(docs){
   const ok=repBranchFilter(),rows={},T=ACC0();
@@ -1844,13 +1914,13 @@ function repRowLabel(key){
 }
 VIEWFN.rrep=function(){
   const[f,to]=repRange();const docs=repDocs(f,to);const cos=repCompanies();
-  const brs=state.branches.filter(b=>ui.repCo==="all"||String(b.company||"").trim()===ui.repCo).sort(sortBr);
+  const brs=state.branches.filter(repBranchOk).filter(b=>ui.repCo==="all"||String(b.company||"").trim()===ui.repCo).sort(sortBr);
   if(ui.repBr!=="all"&&!brs.some(b=>b.id===ui.repBr))ui.repBr="all";
   let h='<div class="toolbar"><div class="seg" role="group" aria-label="الفترة">'+[["today","اليوم"],["week","هذا الأسبوع"],["month","هذا الشهر"],["last","الشهر الماضي"],["custom","فترة محددة"]].map(x=>'<button type="button" data-rq="'+x[0]+'" aria-pressed="'+(ui.repQuick===x[0])+'">'+x[1]+"</button>").join("")+'</div><label class="muted" for="repFrom">من</label><input class="input num" type="date" id="repFrom" value="'+f+'" max="'+today()+'"><label class="muted" for="repTo">إلى</label><input class="input num" type="date" id="repTo" value="'+to+'" max="'+today()+'"></div>';
   h+='<div class="toolbar"><select class="select" id="repCo" aria-label="المنشأة"><option value="all">كل المنشآت</option>'+cos.map(c=>'<option value="'+esc(c)+'"'+(ui.repCo===c?" selected":"")+">"+esc(c)+"</option>").join("")+'</select><select class="select" id="repBr" aria-label="الفرع"><option value="all">كل الفروع</option>'+brs.map(b=>'<option value="'+esc(b.id)+'"'+(ui.repBr===b.id?" selected":"")+">"+esc(b.name)+"</option>").join("")+'</select><div class="seg" role="group" aria-label="عرض حسب">'+[["branch","حسب الفرع"],["company","حسب المنشأة"],["day","حسب اليوم"]].map(x=>'<button type="button" data-rby="'+x[0]+'" aria-pressed="'+(ui.repBy===x[0])+'">'+x[1]+"</button>").join("")+'</div><span style="flex:1"></span>'+
     (Data.mode==="db"&&f<WIN?'<button type="button" class="btn" id="repRefresh">تحديث</button>':"")+
-    (canAdmin()?'<label class="btn" for="repImport" style="cursor:pointer">استيراد تقارير يومية (Excel)</label><input type="file" id="repImport" accept=".xlsx,.xls" multiple hidden>':"")+
-    '<button type="button" class="btn primary" id="repExport">'+svg("dl")+"تصدير Excel</button></div>";
+    (can("rev.import")?'<label class="btn" for="repImport" style="cursor:pointer">استيراد تقارير يومية (Excel)</label><input type="file" id="repImport" accept=".xlsx,.xls" multiple hidden>':"")+
+    (can("export")?'<button type="button" class="btn primary" id="repExport">'+svg("dl")+"تصدير Excel</button>":"")+"</div>";
   if(!docs)return h+'<div class="empty">جارٍ تحميل بيانات الفترة…</div>';
   const A=repAggregate(docs);const T=A.T;
   const calDays=Math.round((parseD(to)-parseD(f))/864e5)+1;
@@ -1860,7 +1930,7 @@ VIEWFN.rrep=function(){
   h+='<div class="seg" role="group" aria-label="القسم">'+[["sales","المبيعات"],["terms","الشبكات"],["abn","العجز والفائض"]].map(x=>'<button type="button" data-rtab="'+x[0]+'" aria-pressed="'+(ui.repTab===x[0])+'">'+x[1]+"</button>").join("")+"</div>";
   if(ui.repTab==="terms")return h+repTermsTable(docs);
   if(ui.repTab==="abn")return h+repAbnTable(docs);
-  if(!A.keys.length)return h+'<div class="empty">لا توجد إيرادات مسجّلة في هذه الفترة'+(canAdmin()?" — يمكنك استيراد تقارير Excel اليومية السابقة من زر «استيراد تقارير يومية».":"")+"</div>";
+  if(!A.keys.length)return h+'<div class="empty">لا توجد إيرادات مسجّلة في هذه الفترة'+(can("rev.import")?" — يمكنك استيراد تقارير Excel اليومية السابقة من زر «استيراد تقارير يومية».":"")+"</div>";
   const fx=(v,sg)=>{v=r2(v);return sg?sgn(v):v?nf2.format(v):"-"};
   const lead=ui.repBy==="branch"?["م","المنشأة","الفرع"]:ui.repBy==="company"?["م","المنشأة"]:["م","اليوم"];
   const ln=lead.length;
@@ -2021,12 +2091,12 @@ const bcGet=(d,sec,k)=>(bcDoc(d)[sec]||{})[k];
 const sortOrd=(a,b)=>(+a.order||0)-(+b.order||0);
 const bcAccts=()=>state.bankAccts.filter(a=>a.active!==false).sort(sortOrd);
 const bcBoxes=g=>state.cashBoxes.filter(x=>x.active!==false&&(x.group||"main")===g).sort(sortOrd);
-const bcBranches=()=>state.branches.filter(b=>b.active!==false).sort((a,b)=>String(a.company||"").localeCompare(String(b.company||""),"ar")||sortBr(a,b));
+const bcBranches=()=>state.branches.filter(b=>b.active!==false&&branchAllowed(b.id)).sort((a,b)=>String(a.company||"").localeCompare(String(b.company||""),"ar")||sortBr(a,b));
 const bcItem=date=>dayItems(date).find(i=>typeOf(i.typeK).mode==="bcform");
 function canBC(date){
   if(!canWrite||date>today())return false;
   const it=bcItem(date);if(it&&revLocked(it))return false;
-  return canAdmin()||state.lines.some(l=>l.active!==false&&typeOf(l.typeK).mode==="bcform"&&l.assignee===me);
+  return can("bc.edit")||hasLineMode("bcform");
 }
 const medBal=(d,bid)=>{const m=bcGet(d,"med",bid);return m&&(hasVal(m.mediator)||hasVal(m.collected))?r2((+m.mediator||0)-(+m.collected||0)):null};
 const stChip=df=>df===0?'<span class="chip ok">مطابق</span>':'<span class="chip bad">فرق</span>';
@@ -2090,8 +2160,8 @@ VIEWFN.bc=function(){
   const D=curDay(),ed=canBC(D),it=bcItem(D),b=bcSummary(D);
   let h='<div class="toolbar">'+dateNav()+"</div>";
   h+='<div class="toolbar"><div class="seg" role="group" aria-label="القسم">'+BC_SECS.map(x=>'<button type="button" data-bctab="'+x[0]+'" aria-pressed="'+(ui.bcTab===x[0])+'">'+x[1]+"</button>").join("")+'</div><span style="flex:1"></span>'+
-    (canAdmin()?'<label class="btn" for="bcImport" style="cursor:pointer">استيراد من Excel</label><input type="file" id="bcImport" accept=".xlsx,.xls" multiple hidden>':"")+
-    '<button type="button" class="btn primary" id="bcExport">'+svg("dl")+"تصدير Excel</button></div>";
+    (can("bc.import")?'<label class="btn" for="bcImport" style="cursor:pointer">استيراد من Excel</label><input type="file" id="bcImport" accept=".xlsx,.xls" multiple hidden>':"")+
+    (can("export")?'<button type="button" class="btn primary" id="bcExport">'+svg("dl")+"تصدير Excel</button>":"")+"</div>";
   h+='<div class="ttl">'+ttBox("البنوك — الفعلي",money(b.bankAct))+ttBox("البنوك — الأوائل",money(b.bankSys))+ttBox("فرق البنوك",nf2.format(r2(b.bankAct-b.bankSys)),r2(b.bankAct-b.bankSys)!==0)+ttBox("فرق وسيط المتحصلات",nf2.format(r2(b.medCol-b.medMed)),r2(b.medCol-b.medMed)<0)+ttBox("الصندوق — الفعلي",money(b.boxAct))+ttBox("فرق الصندوق",nf2.format(r2(b.boxAct-b.boxBook)),r2(b.boxAct-b.boxBook)!==0)+"</div>";
   if(it){const st=IST.find(x=>x.k===it.status)||IST[0];
     h+='<div class="banner" style="background:var(--accent-soft)"><span><b style="color:var(--accent)">'+esc(it.label)+"</b> — "+esc(memberName(it.assignee))+' <span class="chip '+st.c+'">'+st.l+"</span> · بنوك "+nf.format(b.bk)+"/"+nf.format(b.bkT)+" · صناديق "+nf.format(b.bx)+"/"+nf.format(b.bxT)+" · وسيط "+nf.format(b.md)+"/"+nf.format(b.mdT)+"</span>"+(it.status==="returned"&&it.retNote?'<span class="muted">سبب الإرجاع: '+esc(it.retNote)+"</span>":"")+(revLocked(it)?'<button type="button" class="btn sm" data-item="'+esc(it.date+"|"+it.id)+'">عرض البند</button>':canFill(it)?'<button type="button" class="btn sm primary" data-bcsub="'+esc(it.date+"|"+it.id)+'">إقفال وإرسال للاعتماد</button>':"")+"</div>"}
@@ -2099,11 +2169,11 @@ VIEWFN.bc=function(){
   return h+({banks:bcBanksView,med:bcMedView,col:bcColView,box:bcBoxView}[ui.bcTab]||bcBanksView)(D,ed);
 };
 function bcBanksView(D,ed){
-  const A=bcAccts(),add=canAdmin()?'<button type="button" class="btn sm" data-new="bankAccts">'+svg("plus")+"حساب بنكي</button>":"";
-  if(!A.length)return'<div class="empty">لا توجد حسابات بنكية. '+(canAdmin()?"أضف الحسابات، أو استورد ملف Excel لإضافتها تلقائياً. ":"")+add+"</div>";
+  const A=bcAccts(),add=can("setup.manage")?'<button type="button" class="btn sm" data-new="bankAccts">'+svg("plus")+"حساب بنكي</button>":"";
+  if(!A.length)return'<div class="empty">لا توجد حسابات بنكية. '+(can("setup.manage")?"أضف الحسابات، أو استورد ملف Excel لإضافتها تلقائياً. ":"")+add+"</div>";
   let TA=0,TS=0;
   const rows=A.map(a=>{const v=bcGet(D,"banks",a.id)||{},has=hasVal(v.actual)||hasVal(v.system),df=has?r2((+v.actual||0)-(+v.system||0)):null;if(has){TA+=+v.actual||0;TS+=+v.system||0}
-    return bcTr(D,"banks",a.id)+'<td class="l">'+esc(a.company)+"</td><td>"+esc(a.bank)+'</td><td class="num">'+esc(a.acct)+'</td><td class="l">'+esc(a.desc||"")+"</td>"+bcIn(D,"banks",a.id,"actual",v.actual,ed)+bcIn(D,"banks",a.id,"system",v.system,ed)+'<td class="calc num" data-c="diff">'+(has?sgn(df):"")+'</td><td data-c="st">'+(has?stChip(df):"")+"</td>"+bcIn(D,"banks",a.id,"notes",v.notes,ed,"note")+"<td>"+(canAdmin()?'<button type="button" class="btn sm ghost" data-open="bankAccts:'+esc(a.id)+'">تعديل</button>':"")+"</td></tr>"}).join("");
+    return bcTr(D,"banks",a.id)+'<td class="l">'+esc(a.company)+"</td><td>"+esc(a.bank)+'</td><td class="num">'+esc(a.acct)+'</td><td class="l">'+esc(a.desc||"")+"</td>"+bcIn(D,"banks",a.id,"actual",v.actual,ed)+bcIn(D,"banks",a.id,"system",v.system,ed)+'<td class="calc num" data-c="diff">'+(has?sgn(df):"")+'</td><td data-c="st">'+(has?stChip(df):"")+"</td>"+bcIn(D,"banks",a.id,"notes",v.notes,ed,"note")+"<td>"+(can("setup.manage")?'<button type="button" class="btn sm ghost" data-open="bankAccts:'+esc(a.id)+'">تعديل</button>':"")+"</td></tr>"}).join("");
   return'<div class="toolbar"><h3 class="bcsub">مطابقة أرصدة البنوك</h3><span style="flex:1"></span>'+add+'</div><div class="tablewrap"><table class="bctable"><thead><tr><th>المنشأة</th><th>البنك</th><th>مختصر الحساب</th><th>بيان الحساب</th><th>رصيد البنك (الفعلي)</th><th>رصيد البنك (الأوائل)</th><th>الفرق</th><th>الحالة</th><th>ملاحظات</th><th></th></tr></thead><tbody>'+rows+
     '</tbody><tfoot><tr><td colspan="4">الإجمالي</td><td class="num">'+fm(TA)+'</td><td class="num">'+fm(TS)+'</td><td class="num">'+sgn(r2(TA-TS))+"</td><td>"+stChip(r2(TA-TS))+"</td><td></td><td></td></tr></tfoot></table></div>";
 }
@@ -2130,11 +2200,11 @@ function bcBoxTable(D,ed,g,title){
   const X=bcBoxes(g);if(!X.length&&g==="other")return"";
   let TA=0,TB=0;
   const rows=X.map(x=>{const v=bcGet(D,"box",x.id)||{},has=hasVal(v.actual)||hasVal(v.book),df=has?r2((+v.actual||0)-(+v.book||0)):null;if(has){TA+=+v.actual||0;TB+=+v.book||0}
-    return bcTr(D,"box",x.id)+'<td class="l"><b>'+esc(x.entity)+"</b></td>"+bcIn(D,"box",x.id,"closeDate",v.closeDate,ed,"date")+bcIn(D,"box",x.id,"actual",v.actual,ed)+bcIn(D,"box",x.id,"book",v.book,ed)+'<td class="calc num" data-c="diff">'+(has?sgn(df):"")+'</td><td data-c="st">'+(has?stChip(df):"")+"</td>"+bcIn(D,"box",x.id,"notes",v.notes,ed,"note")+"<td>"+(canAdmin()?'<button type="button" class="btn sm ghost" data-open="cashBoxes:'+esc(x.id)+'">تعديل</button>':"")+"</td></tr>"}).join("");
+    return bcTr(D,"box",x.id)+'<td class="l"><b>'+esc(x.entity)+"</b></td>"+bcIn(D,"box",x.id,"closeDate",v.closeDate,ed,"date")+bcIn(D,"box",x.id,"actual",v.actual,ed)+bcIn(D,"box",x.id,"book",v.book,ed)+'<td class="calc num" data-c="diff">'+(has?sgn(df):"")+'</td><td data-c="st">'+(has?stChip(df):"")+"</td>"+bcIn(D,"box",x.id,"notes",v.notes,ed,"note")+"<td>"+(can("setup.manage")?'<button type="button" class="btn sm ghost" data-open="cashBoxes:'+esc(x.id)+'">تعديل</button>':"")+"</td></tr>"}).join("");
   return'<h3 class="bcsub">'+title+'</h3><div class="tablewrap"><table class="bctable" style="min-width:900px"><thead><tr><th>الجهة</th><th>تاريخ الإقفال</th><th>الرصيد الفعلي</th><th>الرصيد الدفتري</th><th>الفرق</th><th>حالة الحساب</th><th>ملاحظات</th><th></th></tr></thead><tbody>'+(rows||'<tr><td colspan="8" class="muted">لا توجد صناديق</td></tr>')+'</tbody><tfoot><tr><td colspan="2">الإجمالي</td><td class="num">'+fm(TA)+'</td><td class="num">'+fm(TB)+'</td><td class="num">'+sgn(r2(TA-TB))+"</td><td>"+stChip(r2(TA-TB))+"</td><td></td><td></td></tr></tfoot></table></div>";
 }
 function bcBoxView(D,ed){
-  const add=canAdmin()?'<button type="button" class="btn sm" data-new="cashBoxes">'+svg("plus")+"صندوق</button>":"";
+  const add=can("setup.manage")?'<button type="button" class="btn sm" data-new="cashBoxes">'+svg("plus")+"صندوق</button>":"";
   let h='<div class="toolbar"><span style="flex:1"></span>'+add+"</div>"+bcBoxTable(D,ed,"main","إقفال الصندوق الرئيسي (الخزينة)")+bcBoxTable(D,ed,"other","جهات أخرى");
   const ct=bcColTotals(D);let C=0,M=0;
   h+='<h3 class="bcsub">إقفال إيداعات النقدية للفروع للصندوق</h3><div class="tablewrap"><table class="bctable" style="min-width:700px"><thead><tr><th>المنشأة</th><th>التحصيل النقدي</th><th>رصيد الوسيط</th><th>الفرق</th><th>حالة الحساب</th></tr></thead><tbody>'+
@@ -2257,6 +2327,66 @@ async function runBcImport(){
   }catch(e){writeErr(e);M.busy="";paintBcImport()}
 }
 
+/* ================= permissions page (الصلاحيات) ================= */
+function permDraftFor(target){
+  if(target.startsWith("role:")){const t=roleTemplate(target.slice(5));return{target,mode:"custom",pages:new Set(t.pages||[]),actions:new Set(t.actions||[]),scope:t.scope||"own",branches:new Set(t.branches||[])}}
+  const m=byId("team",target.slice(5));if(!m)return null;const custom=m.permMode==="custom"&&m.perms,p=custom?m.perms:roleTemplate(m.role);
+  return{target,mode:custom?"custom":"role",pages:new Set(p.pages||[]),actions:new Set(p.actions||[]),scope:p.scope||"own",branches:new Set(p.branches||[])};
+}
+const scopeLbl=k=>(SCOPES.find(x=>x.k===k)||SCOPES[2]).l;
+function permSummary(m){
+  if(m.role==="cfo")return'<span class="chip acc">كل الصلاحيات</span>';
+  const p=permsOf(m);
+  return'<span class="chip">'+nf.format(PERM_PAGES().filter(v=>p.pages.has(v.k)).length)+" صفحة</span>"+'<span class="chip">'+nf.format(p.actions.size)+" إجراء</span>"+'<span class="chip info">'+scopeLbl(p.scope)+"</span>"+(p.branches.length?'<span class="chip warn">'+nf.format(p.branches.length)+" فرع</span>":"");
+}
+VIEWFN.perms=function(){
+  let h='<div class="seg" role="group" aria-label="القسم">'+[["users","المستخدمون"],["roles","قوالب الأدوار"]].map(x=>'<button type="button" data-ptab="'+x[0]+'" aria-pressed="'+(ui.permTab===x[0])+'">'+x[1]+"</button>").join("")+"</div>";
+  if(ui.permTab==="roles"){
+    h+='<div class="muted" style="font-size:13px">كل موظف يأخذ صلاحيات قالب دوره ما لم تُخصَّص له صلاحيات خاصة. المدير المالي يملك كل الصلاحيات دائماً.</div><div class="team">'+
+      [["head","رئيس قسم"],["acc","محاسب"]].map(([r,l])=>{const n=state.team.filter(m=>m.role===r&&m.permMode!=="custom").length;const fake={role:r};return'<div class="member" data-psel="role:'+r+'" style="cursor:pointer'+(ui.permSel==="role:"+r?";border-color:var(--accent)":"")+'"><div class="nm">قالب «'+l+'»</div><div class="toolbar">'+permSummary(fake)+'</div><div class="muted" style="font-size:12.5px">مُطبَّق على '+nf.format(n)+" موظف</div></div>"}).join("")+"</div>";
+  }else{
+    const team=sortedTeam();
+    if(!team.length)return h+'<div class="empty">لا يوجد موظفون. أضفهم من «الهيكل التنظيمي».</div>';
+    h+='<div class="tablewrap"><table style="min-width:760px"><thead><tr><th>الموظف</th><th>الدور</th><th>القسم</th><th>طريقة الصلاحيات</th><th>الملخص</th></tr></thead><tbody>'+
+      team.map(m=>'<tr class="cl'+(ui.permSel==="user:"+m.id?" sel":"")+'" data-psel="user:'+esc(m.id)+'"><td>'+who(m.id)+(m.id===me?' <span class="chip acc">أنت</span>':"")+'</td><td class="s">'+lbl(ROLES,m.role)+'</td><td class="s">'+esc(m.role==="cfo"?"—":deptName(m.deptId))+"</td><td>"+(m.role==="cfo"?'<span class="chip acc">كاملة</span>':m.permMode==="custom"?'<span class="chip gold">مخصّصة</span>':'<span class="chip">قالب الدور</span>')+'</td><td><div class="toolbar" style="gap:4px">'+permSummary(m)+"</div></td></tr>").join("")+"</tbody></table></div>";
+  }
+  if(ui.permSel&&(ui.permTab==="roles")===ui.permSel.startsWith("role:"))h+=permEditor();
+  else h+='<div class="empty">'+(ui.permTab==="roles"?"اختر قالباً لتعديله":"اختر موظفاً لعرض صلاحياته وتعديلها")+"</div>";
+  return h;
+};
+function permEditor(){
+  if(!permDraft||permDraft.target!==ui.permSel)permDraft=permDraftFor(ui.permSel);
+  const d=permDraft;if(!d)return"";
+  const isRole=d.target.startsWith("role:"),m=isRole?null:byId("team",d.target.slice(5));
+  if(m&&m.role==="cfo")return'<div class="panel"><h2>'+esc(m.name)+'</h2><div class="muted">المدير المالي يملك كل الصلاحيات ويرى كل شيء. لتقييد شخص، غيّر دوره إلى «رئيس قسم» أو «محاسب» من الهيكل التنظيمي.</div></div>';
+  const dis=!isRole&&d.mode==="role";
+  const chk=(attr,key,label,desc,on)=>'<label class="pchk'+(on?" on":"")+(dis?" dis":"")+'"><input type="checkbox" '+attr+'="'+esc(key)+'"'+(on?" checked":"")+(dis?" disabled":"")+"><span>"+esc(label)+(desc?'<span class="d">'+esc(desc)+"</span>":"")+"</span></label>";
+  const title=isRole?"قالب «"+lbl(ROLES,d.target.slice(5))+"»":m.name;
+  let h='<div class="panel" id="permEditor"><div class="permhead"><h2 style="margin:0">صلاحيات: '+esc(title)+"</h2>"+(m?'<span class="chip">'+lbl(ROLES,m.role)+"</span>":"")+"</div>";
+  if(!isRole)h+='<div class="seg" role="group" aria-label="طريقة الصلاحيات" style="margin-top:12px"><button type="button" data-pmode="role" aria-pressed="'+(d.mode==="role")+'">حسب قالب الدور</button><button type="button" data-pmode="custom" aria-pressed="'+(d.mode==="custom")+'">صلاحيات مخصّصة</button></div>'+(dis?'<div class="muted" style="font-size:12.5px;margin-top:6px">يأخذ صلاحيات قالب «'+lbl(ROLES,m.role)+'». اختر «صلاحيات مخصّصة» لتعديلها لهذا الموظف وحده.</div>':"");
+  h+='<div class="pgroup">الصفحات التي تظهر له</div><div class="pgrid">'+PERM_PAGES().map(v=>chk("data-pp",v.k,v.l,"",d.pages.has(v.k))).join("")+"</div>";
+  h+=ACTIONS.map(([g,list])=>'<div class="pgroup">'+esc(g)+'</div><div class="pgrid">'+list.map(a=>chk("data-pa",a[0],a[1],a[2],d.actions.has(a[0]))).join("")+"</div>").join("");
+  h+='<div class="pgroup">نطاق البيانات</div><div class="pgrid">'+SCOPES.map(x=>'<label class="pchk'+(d.scope===x.k?" on":"")+(dis?" dis":"")+'"><input type="radio" name="permScope" data-pscope="'+x.k+'"'+(d.scope===x.k?" checked":"")+(dis?" disabled":"")+"><span>"+x.l+'<span class="d">'+x.d+"</span></span></label>").join("")+"</div>";
+  const brs=state.branches.slice().sort(sortBr);
+  if(brs.length)h+='<div class="pgroup">الفروع المسموحة <span class="muted" style="font-weight:400">— بدون تحديد = كل الفروع</span></div><div class="toolbar" style="margin-bottom:6px"><label class="pchk'+(!d.branches.size?" on":"")+(dis?" dis":"")+'"><input type="checkbox" data-pball="1"'+(!d.branches.size?" checked":"")+(dis?" disabled":"")+"><span>كل الفروع</span></label></div>"+
+    '<div class="pgrid">'+brs.map(b=>chk("data-pb",b.id,b.name,b.company||"",d.branches.has(b.id))).join("")+"</div>";
+  h+='<div class="toolbar" style="margin-top:16px"><button type="button" class="btn primary" id="permSave"'+(canWrite?"":" disabled")+'>حفظ الصلاحيات</button><button type="button" class="btn" id="permReset">تراجع عن التعديلات</button><span class="muted" style="font-size:12.5px">'+nf.format(d.pages.size)+" صفحة · "+nf.format(d.actions.size)+" إجراء · "+scopeLbl(d.scope)+" · "+(d.branches.size?nf.format(d.branches.size)+" فرع":"كل الفروع")+"</span></div></div>";
+  return h;
+}
+async function permSave(){
+  const d=permDraft;if(!d||!can("perms.manage"))return;
+  const body={pages:[...d.pages],actions:[...d.actions],scope:d.scope,branches:[...d.branches]};
+  if(d.target.startsWith("role:")){
+    const r=d.target.slice(5);
+    try{await Data.setConfig(Object.assign({},cfg(),{rolePerms:Object.assign({},cfg().rolePerms||{},{[r]:body})}));log("عدّل قالب صلاحيات «"+lbl(ROLES,r)+"»");toast("تم حفظ القالب")}catch(e){writeErr(e)}
+  }else{
+    const m=byId("team",d.target.slice(5));if(!m)return;
+    const rec=Object.assign({},m,{permMode:d.mode});if(d.mode==="custom")rec.perms=body;
+    if(await save("team",rec,"عدّل صلاحيات «"+m.name+"»"))toast("تم حفظ الصلاحيات");
+  }
+  permDraft=null;render();
+}
+
 /* ================= attachments ================= */
 const MAXF=5*1024*1024,CH=700000,ACCEPT_EXT=["xlsx","xls","xlsm","csv","docx","doc","pdf","png","jpg","jpeg"];
 const clipI='<svg viewBox="0 0 24 24" aria-hidden="true">'+ICONS.clip+"</svg>";
@@ -2273,7 +2403,7 @@ const Chunks={
   put(fid,i,data){return Data.mode==="db"?db.collection("fileChunks").doc(fid+"_"+i).set({fileId:fid,i,data}):IDB.put(fid+"_"+i,data)},
   async get(fid,i){if(Data.mode==="db"){const sn=await db.collection("fileChunks").doc(fid+"_"+i).get();if(!sn.exists)throw new Error("missing chunk");return sn.data().data}const v=await IDB.get(fid+"_"+i);if(v==null)throw new Error("missing chunk");return v},
   del(fid,i){return Data.mode==="db"?db.collection("fileChunks").doc(fid+"_"+i).delete():IDB.del(fid+"_"+i)}};
-const canDelFile=f=>canWrite&&(f.by===me||isCFO()||isHeadOf(f.deptId));
+const canDelFile=f=>canWrite&&(f.by===me||isCFO()||(can("files.delete")&&(myPerms().scope==="all"||(!!f.deptId&&f.deptId===myDept()))));
 function fileRow(f){
   fileMeta[f.id]=f;const k=fileKind(f.ext);const view=k==="pdf"||k==="img";
   return'<div class="att"><span class="fx fx-'+k+'">'+FX[k]+'</span><div class="grow"><div class="t">'+esc(f.name)+'</div><div class="s num">'+fmtSize(f.size)+" · "+esc(memberName(f.by)||"—")+" · "+ago(f.at)+'</div></div><button type="button" class="btn sm" data-fopen="'+esc(f.id)+'">'+(view?"فتح":"تنزيل")+"</button>"+(canDelFile(f)?'<button type="button" class="btn sm ghost" data-fdel="'+esc(f.id)+'">حذف</button>':"")+"</div>";
@@ -2370,7 +2500,7 @@ VIEWFN.files=function(){
   if(Data.mode==="db"&&!reports.list&&!reports.loading)setTimeout(loadReports,0);
   const all=Data.mode==="db"?(reports.list||[]):state.files.slice().sort((a,b)=>b.at-a.at);
   const q=ui.fQ.trim().toLowerCase();
-  const list=all.filter(f=>(ui.fKind==="all"||f.kind===ui.fKind)&&(ui.fType==="all"||fileKind(f.ext)===ui.fType)&&(ui.fDept==="all"||f.deptId===ui.fDept)&&(!q||(f.name+" "+(f.label||"")+" "+memberName(f.by)).toLowerCase().includes(q)));
+  const list=all.filter(f=>isCFO()||f.by===me||myPerms().scope==="all"||(myPerms().scope==="dept"&&!!f.deptId&&f.deptId===myDept())||(f.kind==="task"&&scopeMember((byId("tasks",f.taskId)||{}).assignee))).filter(f=>(ui.fKind==="all"||f.kind===ui.fKind)&&(ui.fType==="all"||fileKind(f.ext)===ui.fType)&&(ui.fDept==="all"||f.deptId===ui.fDept)&&(!q||(f.name+" "+(f.label||"")+" "+memberName(f.by)).toLowerCase().includes(q)));
   let h='<div class="toolbar"><input class="input search" id="fQ" placeholder="ابحث باسم الملف أو البند أو الموظف" value="'+esc(ui.fQ)+'">'+deptSelect("fDeptSel",ui.fDept)+
     '<select class="select" id="fKind" aria-label="مرتبط بـ"><option value="all">الإقفالات والمهام</option><option value="item"'+(ui.fKind==="item"?" selected":"")+'>الإقفالات فقط</option><option value="task"'+(ui.fKind==="task"?" selected":"")+">المهام فقط</option></select>"+
     '<select class="select" id="fType" aria-label="نوع الملف"><option value="all">كل الأنواع</option>'+[["xl","Excel"],["wd","Word"],["pdf","PDF"],["img","صور"]].map(o=>'<option value="'+o[0]+'"'+(ui.fType===o[0]?" selected":"")+">"+o[1]+"</option>").join("")+"</select>"+
@@ -2388,7 +2518,7 @@ VIEWFN.files=function(){
 
 /* ================= events ================= */
 document.addEventListener("click",e=>{
-  const t=e.target.closest("button,[data-open],[data-item],a,#ov");if(!t)return;
+  const t=e.target.closest("button,[data-open],[data-item],[data-psel],a,#ov");if(!t)return;
   if(t.id==="ov"){if(e.target===t)closeModal();return}
   const d=t.dataset;
   if(d.g){gateAction(d.g);return}
@@ -2406,6 +2536,10 @@ document.addEventListener("click",e=>{
   if(d.new&&t.matches("[data-new]")){openForm(d.new);return}
   if(d.export){exportCsv(d.export);return}
   if(d.ia){itemAction(d.ia);return}
+  if(d.ptab){ui.permTab=d.ptab;ui.permSel="";permDraft=null;render();return}
+  if(d.pmode&&permDraft){permDraft.mode=d.pmode;if(d.pmode==="role"){const m=byId("team",permDraft.target.slice(5));const t=roleTemplate(m.role);Object.assign(permDraft,{pages:new Set(t.pages||[]),actions:new Set(t.actions||[]),scope:t.scope||"own",branches:new Set(t.branches||[])})}render();return}
+  if(t.id==="permSave"){permSave();return}
+  if(t.id==="permReset"){permDraft=null;render();return}
   if(d.bctab){ui.bcTab=d.bctab;render();return}
   if(d.gobc){ui.view="bc";lsSet("crm_view","bc");closeModal();setDay(d.gobc);window.scrollTo(0,0);return}
   if(d.bcsub){const p=d.bcsub.split("|");bcSubmit(p[0],p[1]);return}
@@ -2429,6 +2563,7 @@ document.addEventListener("click",e=>{
   if(t.id==="delBtn"){if(!t.classList.contains("armed")){t.classList.add("armed");t.textContent="اضغط مرة أخرى لتأكيد الحذف";return}deleteCurrent();return}
   if(t.id==="saveCfg"){saveCfg();return}
   if(t.id==="purge"){if(!purgeArmed){purgeArmed=true;t.classList.add("armed");t.textContent="اضغط مرة أخرى للتأكيد";return}purgeArmed=false;purgeSamples();return}
+  if(t.dataset.psel){ui.permSel=t.dataset.psel;permDraft=null;render();const e=$("#permEditor");if(e)e.scrollIntoView({behavior:"smooth",block:"start"});return}
   if(d.item){const p=d.item.split("|");openItem(p[0],p[1]);return}
   if(d.open){const i=d.open.indexOf(":");openForm(d.open.slice(0,i),d.open.slice(i+1));return}
   if(t.matches(".toc a")){e.preventDefault();const el=document.getElementById(t.getAttribute("href").slice(1));if(el)el.scrollIntoView({behavior:"smooth",block:"start"});return}
@@ -2438,6 +2573,14 @@ document.addEventListener("change",e=>{
   const el=e.target;
   if(el.id==="meSel"){chooseMe(el.value);return}
   if(el.id==="impFile"&&el.files&&el.files[0]){readImport(el.files[0]);el.value="";return}
+  if(permDraft&&el.dataset){
+    const D2=permDraft,tg=(set,k)=>{el.checked?set.add(k):set.delete(k)};
+    if(el.dataset.pp){tg(D2.pages,el.dataset.pp);render();return}
+    if(el.dataset.pa){tg(D2.actions,el.dataset.pa);render();return}
+    if(el.dataset.pscope){D2.scope=el.dataset.pscope;render();return}
+    if(el.dataset.pball){D2.branches=new Set();render();return}
+    if(el.dataset.pb){tg(D2.branches,el.dataset.pb);render();return}
+  }
   if(el.id==="revScope"){ui.revScope=el.value;render();return}
   if(el.dataset&&el.dataset.bcd!==undefined&&modal&&modal.kind==="bcimp"){modal.files[+el.dataset.bcd].date=el.value;paintBcImport();return}
   if(el.id==="bcImport"&&el.files&&el.files.length){const fl=[...el.files];el.value="";bcImportFiles(fl);return}

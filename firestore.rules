@@ -5,7 +5,7 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // ⚠️ غيّر هذا البريد إلى بريد المدير المالي (نفس ownerEmail في config.js) — بأحرف صغيرة
+    // ⚠️ غيّر هذا البريد إلى بريد المدير المالي (مالك النظام) — بأحرف صغيرة
     function ownerEmail() { return 'cfo@example.com'; }
 
     // مستخدم سجّل الدخول وأكّد بريده
@@ -13,27 +13,32 @@ service cloud.firestore {
       return request.auth != null && request.auth.token.email_verified == true;
     }
     function myEmail() { return request.auth.token.email.lower(); }
-
     function isOwner() { return signedIn() && myEmail() == ownerEmail(); }
 
-    // موظف مضاف في الهيكل التنظيمي (يحدّث النظام هذه القائمة تلقائياً من حساب المالك)
-    function isMember() {
-      return signedIn()
-        && exists(/databases/$(database)/documents/setup/access)
-        && myEmail() in get(/databases/$(database)/documents/setup/access).data.emails;
-    }
-
+    // قائمة الدخول يحدّثها النظام تلقائياً من حساب المالك:
+    //   emails = كل الموظفين المضافين في الهيكل التنظيمي
+    //   admins = من يملك صلاحيات إدارية (الهيكل، الإعداد، الصلاحيات، الاستيراد، النسخ الاحتياطي)
+    function access() { return get(/databases/$(database)/documents/setup/access).data; }
+    function hasAccessDoc() { return exists(/databases/$(database)/documents/setup/access); }
+    function isMember() { return signedIn() && hasAccessDoc() && myEmail() in access().emails; }
+    function isAdmin() { return isOwner() || (isMember() && myEmail() in access().get('admins', [])); }
     function allowed() { return isOwner() || isMember(); }
 
-    // قائمة البريد المسموح له بالدخول: يقرؤها المصرّح لهم، ويكتبها المالك فقط
+    // بيانات إدارية: يقرؤها كل الموظفين، ويعدّلها أصحاب الصلاحيات الإدارية فقط
+    function adminOnly(collection) {
+      return collection in ['team', 'depts', 'lines', 'branches', 'bankAccts', 'cashBoxes', 'setup'];
+    }
+
     match /setup/access {
       allow read: if allowed();
       allow write: if isOwner();
     }
 
-    // باقي بيانات النظام: للمصرّح لهم فقط
     match /{collection}/{docId} {
-      allow read, write: if allowed() && !(collection == 'setup' && docId == 'access');
+      allow read: if allowed() && !(collection == 'setup' && docId == 'access');
+      allow write: if allowed()
+        && !(collection == 'setup' && docId == 'access')
+        && (!adminOnly(collection) || isAdmin());
     }
   }
 }
