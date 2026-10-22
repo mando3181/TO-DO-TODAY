@@ -1,0 +1,39 @@
+rules_version = '2';
+
+// قواعد حماية بيانات مَسار
+// انسخ هذا الملف كاملاً إلى: Firebase Console ← Firestore Database ← Rules ← Publish
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ⚠️ غيّر هذا البريد إلى بريد المدير المالي (نفس ownerEmail في config.js) — بأحرف صغيرة
+    function ownerEmail() { return 'cfo@example.com'; }
+
+    // مستخدم سجّل الدخول وأكّد بريده
+    function signedIn() {
+      return request.auth != null && request.auth.token.email_verified == true;
+    }
+    function myEmail() { return request.auth.token.email.lower(); }
+
+    function isOwner() { return signedIn() && myEmail() == ownerEmail(); }
+
+    // موظف مضاف في الهيكل التنظيمي (يحدّث النظام هذه القائمة تلقائياً من حساب المالك)
+    function isMember() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/setup/access)
+        && myEmail() in get(/databases/$(database)/documents/setup/access).data.emails;
+    }
+
+    function allowed() { return isOwner() || isMember(); }
+
+    // قائمة البريد المسموح له بالدخول: يقرؤها المصرّح لهم، ويكتبها المالك فقط
+    match /setup/access {
+      allow read: if allowed();
+      allow write: if isOwner();
+    }
+
+    // باقي بيانات النظام: للمصرّح لهم فقط
+    match /{collection}/{docId} {
+      allow read, write: if allowed() && !(collection == 'setup' && docId == 'access');
+    }
+  }
+}
