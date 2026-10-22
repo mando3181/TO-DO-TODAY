@@ -577,7 +577,7 @@ const ready={};
 const ui={view:(location.hash||"").slice(1)||lsGet("crm_view")||"dash",day:null,dept:"all",member:"all",ist:"all",taskMember:"all",taskDept:"all",taskPrio:"all",taskQ:"",period:"month",perfDept:"all",actMember:"all"};
 if(!VIEWS.some(v=>v.k===ui.view))ui.view="dash";
 let me=lsGet("crm_me")||"";
-let canWrite=true,isOwnerV=false,fbAuth=null,authUser=null,ownerEmail="",fbStarted=false,accessEmails=null,syncingAccess=false,pendingImport=null;
+let canWrite=true,isOwnerV=false,fbAuth=null,authUser=null,ownerEmail="",ownerHash="",fbStarted=false,accessEmails=null,syncingAccess=false,pendingImport=null;
 const downloads={async save(o){const b=new Blob([o.data],{type:/\.json$/.test(o.filename)?"application/json":"text/csv;charset=utf-8"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=o.filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000);return{status:"saved"}}};
 const WIN=shiftD(today(),-75);
 
@@ -626,7 +626,7 @@ const Data={
   async init(){
     const C=window.MASAR_CONFIG||{},f=C.firebase||{};
     if(f.apiKey&&f.projectId){
-      ownerEmail=String(C.ownerEmail||"").trim().toLowerCase();
+      ownerEmail=String(C.ownerEmail||"").trim().toLowerCase();ownerHash=String(C.ownerEmailSha256||"").trim().toLowerCase();
       gate("loading");
       try{await loadFirebase()}catch(e){gate("error");return}
       firebase.initializeApp(f);fbAuth=firebase.auth();db=firebase.firestore();
@@ -644,8 +644,11 @@ const Data={
     COLS.forEach(c=>ready[c]=true);ready.config=true;daysReady=true;
     paintConn();afterData();
   },
-  startFb(){
-    this.mode="db";isOwnerV=!!ownerEmail&&String(authUser.email||"").toLowerCase()===ownerEmail;
+  async startFb(){
+    const em=String(authUser.email||"").toLowerCase();
+    isOwnerV=!!ownerEmail&&em===ownerEmail;
+    if(!isOwnerV&&ownerHash&&window.crypto&&crypto.subtle){try{const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(em));isOwnerV=[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")===ownerHash}catch(e){}}
+    this.mode="db";
     const rows=s=>s.docs.map(d=>Object.assign({},d.data(),{id:d.id}));
     ["team","depts","lines","tasks"].forEach(c=>db.collection(c).onSnapshot(s=>{state[c]=rows(s);ready[c]=true;afterData()},subErr));
     db.collection("activity").orderBy("at","desc").limit(150).onSnapshot(s=>{state.activity=rows(s);ready.activity=true;afterData()},subErr);
