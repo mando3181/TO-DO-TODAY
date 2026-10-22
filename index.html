@@ -295,6 +295,24 @@ tr.sub td{background:var(--sunken);font-weight:700;font-size:13px}
 .flow .arr{color:var(--ink-3)}
 .kbd{font-size:12px;background:var(--surface-2);border:1px solid var(--line-2);border-radius:5px;padding:0 6px;font-weight:600;color:var(--ink)}
 
+/* revenue report */
+.reptable{min-width:1700px}
+.reptable th,.reptable td{padding:6px 8px;font-size:12.5px;white-space:nowrap;text-align:center}
+.reptable thead th{background:var(--sunken);line-height:1.35;white-space:normal;vertical-align:middle;border:1px solid var(--line)}
+.reptable thead tr.grp th{background:var(--surface-2);color:var(--ink);font-size:12.5px}
+.reptable td{border-inline-start:1px solid var(--line)}
+.reptable td.l{text-align:start;white-space:normal;min-width:130px}
+.reptable .rvname{position:sticky;inset-inline-start:0;background:var(--surface);z-index:1}
+.reptable tfoot td{font-weight:700;background:var(--surface-2);border-top:2px solid var(--line-2)}
+.reptable tfoot .rvname{background:var(--surface-2)}
+.reptable tr.co td{background:var(--sunken);font-weight:700}
+.rephead{display:flex;flex-direction:column;gap:2px}
+.rephead h2{margin:0;font-family:var(--display);font-size:19px}
+.imp-file{border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.imp-file .hd{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.imp-file .hd b{flex:1;min-width:0;overflow-wrap:anywhere}
+.imp-warn{font-size:12.5px;color:var(--warn)}
+
 /* revenue form */
 .revtable{min-width:1600px}
 .revtable th,.revtable td{padding:6px 8px;font-size:12.5px;white-space:nowrap}
@@ -379,7 +397,7 @@ tr.sub td{background:var(--sunken);font-weight:700;font-size:13px}
 <template id="guideTpl">
 <div class="guide">
   <nav class="toc" aria-label="محتويات الدليل">
-    <a href="#g-idea">فكرة النظام</a><a href="#g-start">التجهيز لأول مرة</a><a href="#g-share">الدخول والصلاحيات</a><a href="#g-matrix">مصفوفة الإقفال</a><a href="#g-close">الإقفال اليومي</a><a href="#g-approve">الاعتماد والإرجاع</a><a href="#g-dash">لوحة المتابعة</a><a href="#g-tasks">المهام</a><a href="#g-perf">الإنجاز والأداء</a><a href="#g-rev">تسجيل الإيرادات</a><a href="#g-files">المرفقات والتقارير</a><a href="#g-routine">روتين العمل</a><a href="#g-faq">أسئلة شائعة</a>
+    <a href="#g-idea">فكرة النظام</a><a href="#g-start">التجهيز لأول مرة</a><a href="#g-share">الدخول والصلاحيات</a><a href="#g-matrix">مصفوفة الإقفال</a><a href="#g-close">الإقفال اليومي</a><a href="#g-approve">الاعتماد والإرجاع</a><a href="#g-dash">لوحة المتابعة</a><a href="#g-tasks">المهام</a><a href="#g-perf">الإنجاز والأداء</a><a href="#g-rev">تسجيل الإيرادات</a><a href="#g-rrep">تقرير الإيرادات</a><a href="#g-files">المرفقات والتقارير</a><a href="#g-routine">روتين العمل</a><a href="#g-faq">أسئلة شائعة</a>
   </nav>
   <article class="doc">
     <section id="g-idea">
@@ -521,6 +539,23 @@ tr.sub td{background:var(--sunken);font-weight:700;font-size:13px}
       <p>بعد الإرسال يُقفل النموذج لهذه الفروع، ويعتمده رئيس القسم كأي إقفال. ولتعديل نموذج بعد إرساله، استخدم «سحب الإرسال للتعديل» من البند، أو يلغي المدير المالي الاعتماد.</p>
       <div class="tip">إذا كانت الفروع تعمل كل أيام الأسبوع، فألغِ أيام العطلة من «إعداد الإقفال» حتى تظهر مهمة الإيرادات يومياً. يمكن تسجيل الإيرادات في أي يوم، لكن مهمة الإقفال لا تُنشأ إلا في أيام العمل.</div>
     </section>
+    <section id="g-rrep">
+      <h2>تقرير الإيرادات</h2>
+      <p>يجمع إيرادات الفروع من نموذج «تسجيل الإيرادات» تلقائياً، بنفس شكل تقرير الإيرادات اليومي في Excel، ولأي فترة تختارها.</p>
+      <ul>
+        <li><strong>الفترة:</strong> اليوم، أو هذا الأسبوع، أو هذا الشهر، أو الشهر الماضي، أو من تاريخ إلى تاريخ.</li>
+        <li><strong>التصفية:</strong> حسب المنشأة (الشركة) و/أو الفرع.</li>
+        <li><strong>العرض:</strong> حسب الفروع، أو المنشآت، أو الأيام. في عرض الأيام، اضغط على اليوم لفتح نموذجه.</li>
+        <li><strong>الأقسام:</strong> المبيعات، والشبكات (مجموع كل جهاز ومطابقته مع الشبكة الفعلية)، والعجز والفائض غير الطبيعي.</li>
+      </ul>
+      <p>أعمدة «فائض طبيعي / غير طبيعي» و«عجز طبيعي / غير طبيعي» تُصنَّف يوماً بيوم ثم تُجمع، كما لو جمعت تقارير Excel اليومية للفترة.</p>
+      <h3>التصدير والاستيراد</h3>
+      <ul>
+        <li><strong>تصدير Excel:</strong> ينزّل ملفاً بثلاث أوراق (المبيعات، الشبكات، العجز والفائض) بنفس ترتيب أعمدة التقرير.</li>
+        <li><strong>استيراد تقارير يومية:</strong> للمدير المالي ورؤساء الأقسام. اختر ملفاً أو أكثر من تقارير Excel اليومية (مثل R 7-07-2026.xlsx)، فيقرأ النظام التاريخ من اسم الملف ويعرضه للتأكيد، ثم يسجّل المبيعات والشبكات والعجز والفائض لذلك اليوم. والفروع أو الأجهزة غير الموجودة تُضاف تلقائياً.</li>
+      </ul>
+      <div class="warnbox">التاريخ المكتوب داخل بعض ملفات Excel غير دقيق (مثلاً سنة 2027 أو شهر خاطئ)، لذلك يعتمد الاستيراد على اسم الملف وينبّهك عند الاختلاف. راجع التاريخ قبل الضغط على «استيراد».</div>
+    </section>
     <section id="g-files">
       <h2>المرفقات والتقارير</h2>
       <p>يمكن إرفاق ملفات <strong>Excel</strong> و<strong>Word</strong> و<strong>PDF</strong> (وصور المستندات) بأي <strong>بند إقفال</strong> أو <strong>مهمة</strong>، مثل كشف البنك، أو محضر جرد الصندوق، أو تقرير المصاريف، أو ملف التسوية.</p>
@@ -589,6 +624,7 @@ const DAYS3=["أحد","اثنين","ثلاثاء","أربعاء","خميس","ج�
 const PALETTE=["#0D6A59","#2D5B99","#A8701A","#8A3F8F","#B0452C","#3F7D2E","#5B5FA8","#1C7C8C","#9C3D5B","#6B6B2E"];
 const ICONS={
   dash:'<path d="M4 13h6V4H4zM14 20h6v-9h-6zM4 20h6v-4H4zM14 7h6V4h-6z"/>',
+  rrep:'<path d="M5 3h10l4 4v14H5z"/><path d="M9 17v-3M12 17v-6M15 17v-4"/>',
   rev:'<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6.5 9.5h.01M17.5 14.5h.01"/>',
   close:'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h4"/>',
   tasks:'<path d="M9 11l3 3 8-8"/><path d="M20 12v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h10"/>',
@@ -608,6 +644,7 @@ const VIEWS=[
   {k:"dash",l:"لوحة المتابعة",i:"dash",h:"صورة كاملة عن إقفالات الإدارة المالية ومهامها"},
   {k:"close",l:"الإقفال اليومي",i:"close",h:"إدخال الإقفالات واعتمادها لكل يوم عمل"},
   {k:"rev",l:"تسجيل الإيرادات",i:"rev",h:"نموذج إيرادات الفروع اليومية: المبيعات وسحب الشبكات والعجز والفائض"},
+  {k:"rrep",l:"تقرير الإيرادات",i:"rrep",h:"تجميع إيرادات الفروع لأي فترة، حسب الفرع أو المنشأة أو اليوم"},
   {k:"tasks",l:"المهام",i:"tasks",h:"الأعمال غير اليومية وتوزيعها على الفريق"},
   {k:"perf",l:"الإنجاز والأداء",i:"perf",h:"حجم الإنجاز والانضباط لكل محاسب وقسم"},
   {k:"files",l:"المرفقات والتقارير",i:"clip",h:"كل ملفات Excel وWord وPDF المرفقة بالإقفالات والمهام"},
@@ -649,7 +686,7 @@ const numOrEmpty=v=>v===""||v==null||isNaN(+v)?"":+v;
 /* ================= state ================= */
 const state={team:[],depts:[],lines:[],tasks:[],activity:[],files:[],branches:[],days:{},rev:{},config:null};
 const ready={};
-const ui={view:(location.hash||"").slice(1)||lsGet("crm_view")||"dash",day:null,dept:"all",member:"all",ist:"all",taskMember:"all",taskDept:"all",taskPrio:"all",taskQ:"",revTab:"sales",revScope:"auto",abnPre:"",fKind:"all",fType:"all",fDept:"all",fQ:"",period:"month",perfDept:"all",actMember:"all"};
+const ui={view:(location.hash||"").slice(1)||lsGet("crm_view")||"dash",day:null,dept:"all",member:"all",ist:"all",taskMember:"all",taskDept:"all",taskPrio:"all",taskQ:"",repFrom:"",repTo:"",repQuick:"month",repCo:"all",repBr:"all",repBy:"branch",repTab:"sales",revTab:"sales",revScope:"auto",abnPre:"",fKind:"all",fType:"all",fDept:"all",fQ:"",period:"month",perfDept:"all",actMember:"all"};
 if(!VIEWS.some(v=>v.k===ui.view))ui.view="dash";
 let me=lsGet("crm_me")||"";
 let canWrite=true,isOwnerV=false,fbAuth=null,authUser=null,ownerEmail="",ownerHash="",fbStarted=false,accessEmails=null,syncingAccess=false,pendingImport=null;
@@ -1694,6 +1731,227 @@ function revAbnView(D,bs){
     list.map(x=>{const d=r2((+x.act_rev||0)-(+x.sys_rev||0));return"<tr><td><b>"+esc(brName(x.branchId))+'</b></td><td class="num" dir="ltr">'+esc(x.emp_no||"—")+"</td><td>"+esc(x.emp_name||"—")+'</td><td class="s">'+esc(x.emp_title||"—")+'</td><td class="num">'+nf2.format(+x.sys_rev||0)+'</td><td class="num">'+nf2.format(+x.act_rev||0)+'</td><td class="num">'+sgn(d)+"</td><td>"+(d>0?'<span class="chip gold">فائض غير طبيعي</span>':d<0?'<span class="chip bad">عجز غير طبيعي</span>':"—")+'</td><td style="white-space:normal;min-width:200px">'+esc(x.notes||"")+'</td><td class="s">'+esc(memberName(x.by)||"—")+"</td><td>"+(canEditBranch(D,x.branchId)?'<button type="button" class="btn sm ghost" data-abndel="'+esc(D+"|"+x.id)+'">حذف</button>':"")+"</td></tr>"}).join("")+"</tbody></table></div>";
 }
 
+/* ================= revenue report (تقرير الإيرادات) ================= */
+let xlsxP=null;
+function loadXLSX(){return xlsxP||(xlsxP=new Promise((res,rej)=>{if(window.XLSX)return res(window.XLSX);const sc=document.createElement("script");sc.src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";sc.onload=()=>res(window.XLSX);sc.onerror=()=>{xlsxP=null;rej(new Error("xlsx"))};document.head.appendChild(sc)}))}
+const normAr=x=>String(x==null?"":x).replace(/[\u0640\u064B-\u0652]/g,"").replace(/[إأآ]/g,"ا").replace(/\s+/g," ").trim();
+function repRange(){
+  const t=today(),d=parseD(t);let f=ui.repFrom,to=ui.repTo;
+  if(ui.repQuick==="today"){f=t;to=t}
+  else if(ui.repQuick==="week"){f=shiftD(t,-d.getDay());to=t}
+  else if(ui.repQuick==="month"){f=t.slice(0,8)+"01";to=t}
+  else if(ui.repQuick==="last"){f=isoLocal(new Date(d.getFullYear(),d.getMonth()-1,1));to=isoLocal(new Date(d.getFullYear(),d.getMonth(),0))}
+  f=f||t.slice(0,8)+"01";to=to||t;if(f>to){const x=f;f=to;to=x}
+  return[f,to];
+}
+let repCache={key:"",docs:null,loading:false};
+function repDocs(f,to){
+  if(Data.mode!=="db"||f>=WIN)return Object.keys(state.rev).filter(k=>k>=f&&k<=to).map(k=>Object.assign({},state.rev[k],{date:k}));
+  const key=f+"|"+to;if(repCache.key===key&&repCache.docs)return repCache.docs;
+  if(repCache.key!==key||!repCache.loading){
+    repCache={key,docs:null,loading:true};
+    db.collection("rev").where("date",">=",f).where("date","<=",to).get()
+      .then(sn=>{if(repCache.key!==key)return;repCache.docs=sn.docs.map(d=>Object.assign({},d.data(),{date:d.id}));repCache.loading=false;schedule()})
+      .catch(e=>{console.warn(e);if(repCache.key===key){repCache.docs=[];repCache.loading=false}toast("تعذّر تحميل بيانات الفترة");schedule()});
+  }
+  return null;
+}
+const repCompanies=()=>[...new Set(state.branches.map(b=>String(b.company||"").trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"ar"));
+function repBranchFilter(){return b=>(ui.repCo==="all"||String((b||{}).company||"").trim()===ui.repCo)&&(ui.repBr==="all"||(b&&b.id===ui.repBr))}
+const ACC0=()=>({sys_cash:0,sys_net:0,sysT:0,act_cash:0,act_net:0,act_transfer:0,act_credit:0,actT:0,lc:0,ln:0,net:0,sn:0,sa:0,hn:0,ha:0,rc:0,rv:0,days:new Set()});
+function repAggregate(docs){
+  const ok=repBranchFilter(),rows={},T=ACC0();
+  docs.forEach(doc=>{const sales=doc.sales||{};Object.keys(sales).forEach(bid=>{
+    const b=byId("branches",bid);if(!ok(b||{id:bid,company:""}))return;
+    const r=sales[bid],c=calcRev(r);
+    const key=ui.repBy==="company"?(String((b||{}).company||"").trim()||"—"):ui.repBy==="day"?doc.date:bid;
+    const A=rows[key]||(rows[key]=ACC0());
+    [A,T].forEach(x=>{["sys_cash","sys_net","act_cash","act_net","act_transfer","act_credit"].forEach(k=>x[k]+=+r[k]||0);x.sysT+=c.sysT;x.actT+=c.actT;x.lc+=c.lc;x.ln+=c.ln;x.net+=c.net;x[c.cls]+=c.net;x.rc+=+r.returns_count||0;x.rv+=+r.returns_value||0;x.days.add(doc.date)});
+  })});
+  let keys=Object.keys(rows);
+  if(ui.repBy==="day")keys.sort();
+  else if(ui.repBy==="company")keys.sort((a,b)=>a.localeCompare(b,"ar"));
+  else keys.sort((a,b)=>{const A=byId("branches",a),B=byId("branches",b);if(!A||!B)return A?-1:B?1:0;return String(A.company||"").localeCompare(String(B.company||""),"ar")||sortBr(A,B)});
+  return{keys,rows,T};
+}
+const RCOLS=[["sys_cash"],["sys_net"],["sysT"],["act_cash"],["act_net"],["act_transfer"],["act_credit"],["actT"],["lc",1],["ln",1],["net",1],["sn"],["sa"],["hn"],["ha"]];
+function repRowLabel(key){
+  if(ui.repBy==="day")return[fmtDay(key),""];
+  if(ui.repBy==="company")return[key,""];
+  const b=byId("branches",key);return[b?b.company||"":"",b?b.name:"فرع محذوف"];
+}
+VIEWFN.rrep=function(){
+  const[f,to]=repRange();const docs=repDocs(f,to);const cos=repCompanies();
+  const brs=state.branches.filter(b=>ui.repCo==="all"||String(b.company||"").trim()===ui.repCo).sort(sortBr);
+  if(ui.repBr!=="all"&&!brs.some(b=>b.id===ui.repBr))ui.repBr="all";
+  let h='<div class="toolbar"><div class="seg" role="group" aria-label="الفترة">'+[["today","اليوم"],["week","هذا الأسبوع"],["month","هذا الشهر"],["last","الشهر الماضي"],["custom","فترة محددة"]].map(x=>'<button type="button" data-rq="'+x[0]+'" aria-pressed="'+(ui.repQuick===x[0])+'">'+x[1]+"</button>").join("")+'</div><label class="muted" for="repFrom">من</label><input class="input num" type="date" id="repFrom" value="'+f+'" max="'+today()+'"><label class="muted" for="repTo">إلى</label><input class="input num" type="date" id="repTo" value="'+to+'" max="'+today()+'"></div>';
+  h+='<div class="toolbar"><select class="select" id="repCo" aria-label="المنشأة"><option value="all">كل المنشآت</option>'+cos.map(c=>'<option value="'+esc(c)+'"'+(ui.repCo===c?" selected":"")+">"+esc(c)+"</option>").join("")+'</select><select class="select" id="repBr" aria-label="الفرع"><option value="all">كل الفروع</option>'+brs.map(b=>'<option value="'+esc(b.id)+'"'+(ui.repBr===b.id?" selected":"")+">"+esc(b.name)+"</option>").join("")+'</select><div class="seg" role="group" aria-label="عرض حسب">'+[["branch","حسب الفرع"],["company","حسب المنشأة"],["day","حسب اليوم"]].map(x=>'<button type="button" data-rby="'+x[0]+'" aria-pressed="'+(ui.repBy===x[0])+'">'+x[1]+"</button>").join("")+'</div><span style="flex:1"></span>'+
+    (Data.mode==="db"&&f<WIN?'<button type="button" class="btn" id="repRefresh">تحديث</button>':"")+
+    (canAdmin()?'<label class="btn" for="repImport" style="cursor:pointer">استيراد تقارير يومية (Excel)</label><input type="file" id="repImport" accept=".xlsx,.xls" multiple hidden>':"")+
+    '<button type="button" class="btn primary" id="repExport">'+svg("dl")+"تصدير Excel</button></div>";
+  if(!docs)return h+'<div class="empty">جارٍ تحميل بيانات الفترة…</div>';
+  const A=repAggregate(docs);const T=A.T;
+  const calDays=Math.round((parseD(to)-parseD(f))/864e5)+1;
+  const filt=(ui.repCo!=="all"?" · "+ui.repCo:"")+(ui.repBr!=="all"?" · "+brName(ui.repBr):"");
+  h+='<div class="rephead"><h2>تقرير الإيرادات — من '+fmtDate(f)+" إلى "+fmtDate(to)+" "+to.slice(0,4)+'</h2><span class="muted" style="font-size:13px">'+nf.format(T.days.size)+" يوم فيه بيانات من "+nf.format(calDays)+" يوم"+esc(filt)+"</span></div>";
+  h+='<div class="ttl">'+ttBox("مبيعات النظام",money(r2(T.sysT)))+ttBox("المبيعات الفعلية",money(r2(T.actT)))+ttBox("صافي الفرق",nf2.format(r2(T.net)),T.net<0)+ttBox("فائض غير طبيعي",nf2.format(r2(T.sa)))+ttBox("عجز غير طبيعي",nf2.format(r2(T.ha)),T.ha<0)+ttBox("المرتجعات",nf.format(T.rc)+" فاتورة · "+money(r2(T.rv)))+"</div>";
+  h+='<div class="seg" role="group" aria-label="القسم">'+[["sales","المبيعات"],["terms","الشبكات"],["abn","العجز والفائض"]].map(x=>'<button type="button" data-rtab="'+x[0]+'" aria-pressed="'+(ui.repTab===x[0])+'">'+x[1]+"</button>").join("")+"</div>";
+  if(ui.repTab==="terms")return h+repTermsTable(docs);
+  if(ui.repTab==="abn")return h+repAbnTable(docs);
+  if(!A.keys.length)return h+'<div class="empty">لا توجد إيرادات مسجّلة في هذه الفترة'+(canAdmin()?" — يمكنك استيراد تقارير Excel اليومية السابقة من زر «استيراد تقارير يومية».":"")+"</div>";
+  const fx=(v,sg)=>{v=r2(v);return sg?sgn(v):v?nf2.format(v):"-"};
+  const lead=ui.repBy==="branch"?["م","المنشأة","الفرع"]:ui.repBy==="company"?["م","المنشأة"]:["م","اليوم"];
+  const ln=lead.length;
+  let t='<div class="tablewrap"><table class="reptable"><thead><tr class="grp">'+lead.map((x,i)=>'<th rowspan="2"'+(i===ln-1?' class="rvname"':"")+">"+x+'</th>').join("")+'<th colspan="3">مبيعات النظام</th><th colspan="5">المبيعات الفعلية</th><th colspan="2">الفرق</th><th rowspan="2">صافي الفرق</th><th rowspan="2">فائض طبيعي</th><th rowspan="2">فائض غير طبيعي</th><th rowspan="2">عجز طبيعي</th><th rowspan="2">عجز غير طبيعي</th><th colspan="2">المرتجعات</th><th rowspan="2">أيام مسجّلة</th></tr><tr>'+["نقدي","شبكة","الإجمالي","نقدي","شبكة","تحويل بنكي","آجل","الإجمالي","نقدي","شبكة","عدد الفواتير","القيمة"].map(x=>"<th>"+x+"</th>").join("")+"</tr></thead><tbody>";
+  A.keys.forEach((k,i)=>{const R=A.rows[k],lb=repRowLabel(k);
+    const lc=ui.repBy==="branch"?'<td class="num">'+(i+1)+'</td><td class="l">'+esc(lb[0])+'</td><td class="l rvname"><b>'+esc(lb[1])+"</b></td>":ui.repBy==="company"?'<td class="num">'+(i+1)+'</td><td class="l rvname"><b>'+esc(lb[0])+"</b></td>":'<td class="num">'+(i+1)+'</td><td class="l rvname"><button type="button" class="linkish" data-gorev="'+esc(k+"|all")+'">'+esc(lb[0])+"</button></td>";
+    t+="<tr>"+lc+RCOLS.map(c=>'<td class="num">'+fx(R[c[0]],c[1])+"</td>").join("")+'<td class="num">'+nf.format(R.rc)+'</td><td class="num">'+fx(R.rv)+'</td><td class="num">'+nf.format(R.days.size)+"</td></tr>"});
+  t+='</tbody><tfoot><tr><td colspan="'+(ln-1)+'"></td><td class="rvname">الإجمالي</td>'+RCOLS.map(c=>'<td class="num">'+fx(T[c[0]],c[1])+"</td>").join("")+'<td class="num">'+nf.format(T.rc)+'</td><td class="num">'+fx(T.rv)+'</td><td class="num">'+nf.format(T.days.size)+"</td></tr></tfoot></table></div>";
+  return h+t+'<div class="muted" style="font-size:12.5px">التصنيف يُحسب يوماً بيوم بحد '+nf2.format(thr())+" ر.س ثم يُجمع للفترة · البيانات من نموذج «تسجيل الإيرادات»"+(Data.mode==="db"&&f<WIN?" · اضغط «تحديث» لجلب آخر التعديلات":" وتتحدث لحظياً")+"</div>";
+};
+function repTermsData(docs){
+  const ok=repBranchFilter(),by={};
+  docs.forEach(doc=>{const terms=doc.terms||{},sales=doc.sales||{};
+    Object.keys(Object.assign({},terms,sales)).forEach(bid=>{const b=byId("branches",bid);if(!ok(b||{id:bid,company:""}))return;
+      const X=by[bid]||(by[bid]={t:{},sum:0,net:0});const tv=terms[bid]||{};
+      Object.keys(tv).forEach(no=>{const v=+tv[no]||0;X.t[no]=(X.t[no]||0)+v;X.sum+=v});
+      if(sales[bid])X.net+=+sales[bid].act_net||0;
+    })});
+  return by;
+}
+function repTermsTable(docs){
+  const by=repTermsData(docs),ids=Object.keys(by).sort((a,b)=>{const A=byId("branches",a),B=byId("branches",b);return A&&B?sortBr(A,B):0});
+  if(!ids.length)return'<div class="empty">لا توجد بيانات شبكات في هذه الفترة</div>';
+  let rows="",i=0,TS=0,TN=0;
+  ids.forEach(bid=>{const X=by[bid],b=byId("branches",bid);TS+=X.sum;TN+=X.net;const d=r2(X.sum-X.net);
+    rows+='<tr class="co"><td></td><td class="l">'+esc(b?b.company||"":"")+'</td><td class="l rvname">'+esc(brName(bid))+'</td><td>مجموع الأجهزة</td><td class="num">'+nf2.format(r2(X.sum))+'</td><td class="num">'+nf2.format(r2(X.net))+"</td><td>"+(Math.abs(d)<0.005?'<span class="chip ok">مطابق</span>':'<span class="chip bad">فرق '+nf2.format(d)+"</span>")+"</td></tr>";
+    Object.keys(X.t).sort().forEach(no=>{i++;rows+='<tr><td class="num">'+i+'</td><td></td><td class="rvname"></td><td class="num" dir="ltr">'+esc(no)+'</td><td class="num">'+nf2.format(r2(X.t[no]))+"</td><td></td><td></td></tr>"});
+  });
+  return'<div class="tablewrap"><table class="reptable" style="min-width:900px"><thead><tr><th>م</th><th>المنشأة</th><th class="rvname">الفرع</th><th>الشبكة</th><th>القيمة</th><th>شبكة (فعلي) من المبيعات</th><th>المطابقة</th></tr></thead><tbody>'+rows+'</tbody><tfoot><tr><td colspan="2"></td><td class="rvname">الإجمالي</td><td></td><td class="num">'+nf2.format(r2(TS))+'</td><td class="num">'+nf2.format(r2(TN))+"</td><td>"+(Math.abs(TS-TN)<0.005?"مطابق":"فرق "+nf2.format(r2(TS-TN)))+"</td></tr></tfoot></table></div>";
+}
+function repAbnData(docs){
+  const ok=repBranchFilter(),list=[];
+  docs.forEach(doc=>{const ab=doc.abn||{};Object.keys(ab).forEach(id=>{const x=ab[id],b=byId("branches",x.branchId);if(!ok(b||{id:x.branchId,company:""}))return;list.push(Object.assign({date:doc.date,id},x))})});
+  return list.sort((a,b)=>a.date.localeCompare(b.date)||(a.at||0)-(b.at||0));
+}
+function repAbnTable(docs){
+  const list=repAbnData(docs);if(!list.length)return'<div class="empty">لا توجد حالات عجز أو فائض غير طبيعي مسجّلة في هذه الفترة</div>';
+  let S=0,H=0;
+  const rows=list.map(x=>{const d=r2((+x.act_rev||0)-(+x.sys_rev||0));if(d>0)S+=d;else H+=d;return'<tr><td class="num">'+fmtDate(x.date)+'</td><td class="l rvname"><b>'+esc(brName(x.branchId))+'</b></td><td class="num" dir="ltr">'+esc(x.emp_no||"")+'</td><td class="l">'+esc(x.emp_name||"")+'</td><td class="l">'+esc(x.emp_title||"")+'</td><td class="num">'+nf2.format(+x.sys_rev||0)+'</td><td class="num">'+nf2.format(+x.act_rev||0)+'</td><td class="num">'+sgn(d)+'</td><td class="num">'+(d>0?nf2.format(d):"-")+'</td><td class="num">'+(d<0?nf2.format(d):"-")+'</td><td class="l" style="min-width:220px">'+esc(x.notes||"")+"</td></tr>"}).join("");
+  return'<div class="tablewrap"><table class="reptable" style="min-width:1100px"><thead><tr class="grp"><th rowspan="2">التاريخ</th><th rowspan="2" class="rvname">الفرع</th><th rowspan="2">الرقم الوظيفي</th><th rowspan="2">الاسم</th><th rowspan="2">المسمى الوظيفي</th><th rowspan="2">إيراد النظام المحاسبي</th><th rowspan="2">الإيراد الفعلي</th><th rowspan="2">الفرق</th><th colspan="2">حركة العجز والفائض</th><th rowspan="2">ملاحظات</th></tr><tr><th>فائض غير طبيعي</th><th>عجز غير طبيعي</th></tr></thead><tbody>'+rows+'</tbody><tfoot><tr><td></td><td class="rvname">الإجمالي ('+nf.format(list.length)+')</td><td colspan="5"></td><td class="num">'+sgn(r2(S+H))+'</td><td class="num">'+nf2.format(r2(S))+'</td><td class="num">'+nf2.format(r2(H))+"</td><td></td></tr></tfoot></table></div>";
+}
+async function repExport(){
+  const[f,to]=repRange();const docs=repDocs(f,to);if(!docs){toast("انتظر حتى يكتمل تحميل البيانات");return}
+  let X;try{X=await loadXLSX()}catch(e){toast("تعذّر تحميل مكتبة Excel — تحقق من الاتصال");return}
+  const A=repAggregate(docs),T=A.T,R=v=>r2(v);
+  const title="تقرير الإيرادات — من "+f+" إلى "+to+(ui.repCo!=="all"?" — "+ui.repCo:"")+(ui.repBr!=="all"?" — "+brName(ui.repBr):"");
+  const lead=ui.repBy==="branch"?["م","المنشأة","الفرع"]:ui.repBy==="company"?["م","المنشأة"]:["م","اليوم"],L=lead.length;
+  const h1=lead.concat(["مبيعات النظام","","","المبيعات الفعلية","","","","","الفرق","","صافي الفرق","فائض طبيعي","فائض غير طبيعي","عجز طبيعي","عجز غير طبيعي","المرتجعات","","أيام مسجّلة"]);
+  const h2=lead.map(()=>"").concat(["نقدي","شبكة","الإجمالي","نقدي","شبكة","تحويل بنكي","آجل","الإجمالي","نقدي","شبكة","","","","","","عدد الفواتير","القيمة",""]);
+  const nums=x=>RCOLS.map(c=>R(x[c[0]])).concat([x.rc,R(x.rv),x.days.size]);
+  const body=A.keys.map((k,i)=>{const lb=repRowLabel(k);return(ui.repBy==="branch"?[i+1,lb[0],lb[1]]:ui.repBy==="company"?[i+1,lb[0]]:[i+1,k]).concat(nums(A.rows[k]))});
+  const foot=lead.map((x,i)=>i===L-1?"الإجمالي":"").concat(nums(T));
+  const ws1=X.utils.aoa_to_sheet([[title],h1,h2].concat(body,[foot]));
+  const m=[{s:{r:0,c:0},e:{r:0,c:L+17}}];lead.forEach((x,i)=>m.push({s:{r:1,c:i},e:{r:2,c:i}}));
+  [[L,3],[L+3,5],[L+8,2],[L+15,2]].forEach(([c,n])=>m.push({s:{r:1,c},e:{r:1,c:c+n-1}}));[L+10,L+11,L+12,L+13,L+14,L+17].forEach(c=>m.push({s:{r:1,c},e:{r:2,c}}));
+  ws1["!merges"]=m;ws1["!cols"]=lead.map((x,i)=>({wch:i===0?5:28})).concat(Array(18).fill({wch:13}));
+  const td=repTermsData(docs),trows=[];let ti=0;
+  Object.keys(td).forEach(bid=>{const b=byId("branches",bid),Xb=td[bid];Object.keys(Xb.t).sort().forEach(no=>trows.push([++ti,b?b.company||"":"",brName(bid),no,R(Xb.t[no]),""]));trows.push(["","",brName(bid)+" — المجموع","",R(Xb.sum),R(Xb.net)])});
+  const ws2=X.utils.aoa_to_sheet([["سحب الشبكات — من "+f+" إلى "+to],["م","المنشأة","الفرع","الشبكة","القيمة","شبكة (فعلي) من المبيعات"]].concat(trows));ws2["!cols"]=[{wch:5},{wch:34},{wch:26},{wch:20},{wch:13},{wch:16}];
+  const ab=repAbnData(docs);
+  const ws3=X.utils.aoa_to_sheet([["ملاحظات العجز والفائض غير الطبيعي — من "+f+" إلى "+to],["التاريخ","الفرع","الرقم الوظيفي","الاسم","المسمى الوظيفي","إيراد النظام المحاسبي","الإيراد الفعلي","الفرق","فائض غير طبيعي","عجز غير طبيعي","ملاحظات"]].concat(ab.map(x=>{const d=R((+x.act_rev||0)-(+x.sys_rev||0));return[x.date,brName(x.branchId),x.emp_no||"",x.emp_name||"",x.emp_title||"",R(x.sys_rev),R(x.act_rev),d,d>0?d:"",d<0?d:"",x.notes||""]})));
+  ws3["!cols"]=[{wch:11},{wch:18},{wch:12},{wch:16},{wch:14},{wch:14},{wch:14},{wch:10},{wch:12},{wch:12},{wch:40}];
+  const wb=X.utils.book_new();X.utils.book_append_sheet(wb,ws1,"المبيعات");X.utils.book_append_sheet(wb,ws2,"الشبكات");X.utils.book_append_sheet(wb,ws3,"العجز والفائض");
+  wb.Workbook={Views:[{RTL:true}]};
+  X.writeFile(wb,"تقرير-الإيرادات-"+f+"-"+to+".xlsx");
+}
+/* ---- import daily Excel reports ---- */
+function xlDate(n){return isoLocal(new Date(Math.round((n-25569)*864e5)+new Date().getTimezoneOffset()*6e4))}
+function dateFromName(name){const m=String(name).match(/(\d{1,2})\s*[-_.]\s*(\d{1,2})\s*[-_.]\s*(\d{4})/);if(!m)return"";const d=+m[1],mo=+m[2],y=+m[3];if(mo<1||mo>12||d<1||d>31)return"";return y+"-"+String(mo).padStart(2,"0")+"-"+String(d).padStart(2,"0")}
+const num=v=>{if(v===null||v===undefined||v==="")return 0;const n=typeof v==="number"?v:parseFloat(String(v).replace(/,/g,""));return isFinite(n)?n:0};
+const isNum=v=>v!==null&&v!==undefined&&v!==""&&isFinite(typeof v==="number"?v:parseFloat(String(v).replace(/,/g,"")));
+function findHeader(rows,test,limit){for(let i=0;i<Math.min(rows.length,limit||10);i++){const r=rows[i]||[];if(test(r.map(x=>normAr(x))))return i}return -1}
+function parseRevBook(X,buf,name){
+  const wb=X.read(buf,{type:"array"});const res={name,date:dateFromName(name),inFileDate:"",sales:[],terms:[],abn:[],warn:[]};
+  const sheet=k=>{const n=wb.SheetNames.find(x=>normAr(x).includes(k));return n?X.utils.sheet_to_json(wb.Sheets[n],{header:1,raw:true,defval:""}):null};
+  const S=sheet("المبيعات")||X.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1,raw:true,defval:""});
+  for(let i=0;i<4&&!res.inFileDate;i++)(S[i]||[]).forEach(v=>{if(typeof v==="number"&&v>40000&&v<60000)res.inFileDate=xlDate(v)});
+  if(!res.date)res.date=res.inFileDate;
+  if(res.inFileDate&&res.date&&res.inFileDate!==res.date)res.warn.push("التاريخ داخل الملف ("+res.inFileDate+") يختلف عن اسم الملف — اعتُمد تاريخ اسم الملف");
+  // sales columns
+  const hr=findHeader(S,r=>r.filter(x=>x==="نقدي").length>=2&&r.filter(x=>x==="شبكه"||x==="شبكة").length>=2,8);
+  const top=findHeader(S,r=>r.includes("الفرع"),8);
+  if(hr<0||top<0){res.warn.push("لم يُعثر على أعمدة ورقة المبيعات");return res}
+  const H=S[hr].map(normAr),T=S[top].map(normAr),idx=(arr,pred,from)=>{for(let i=from||0;i<arr.length;i++)if(pred(arr[i]))return i;return -1};
+  const cB=T.indexOf("الفرع"),cC=idx(T,x=>x.includes("المنشا")),c1=idx(H,x=>x==="نقدي"),c2=idx(H,x=>x.startsWith("شبك"),c1+1),c3=idx(H,x=>x==="نقدي",c2+1),c4=idx(H,x=>x.startsWith("شبك"),c3+1),c5=idx(H,x=>x.includes("تحويل"),c4+1),c6=idx(H,x=>x==="اجل"||x==="آجل",c4+1);
+  const colWhere=(pred,from)=>{for(let c=from||0;c<60;c++)for(let r=0;r<=hr;r++)if(pred(normAr((S[r]||[])[c])))return c;return -1};
+  const rc=colWhere(x=>x.startsWith("عدد"),c6+1),rv=colWhere(x=>x==="القيمه"||x==="القيمة",c6+1);
+  for(let i=hr+1;i<S.length;i++){const r=S[i]||[];const br=normAr(r[cB]);if(!br||br==="الاجمالي"||normAr(r[0])==="الاجمالي")continue;
+    const vals={sys_cash:num(r[c1]),sys_net:num(r[c2]),act_cash:num(r[c3]),act_net:num(r[c4]),act_transfer:c5>=0?num(r[c5]):0,act_credit:c6>=0?num(r[c6]):0,returns_count:rc>=0?Math.round(num(r[rc])):0,returns_value:rv>=0?num(r[rv]):0};
+    if(![c1,c2,c3,c4,c5,c6].some(c=>c>=0&&isNum(r[c])&&num(r[c])!==0))continue;
+    res.sales.push({branch:String(r[cB]).trim(),company:cC>=0?String(r[cC]||"").trim():"",vals});
+  }
+  // networks
+  const N=sheet("الشبكات");
+  if(N){const nh=findHeader(N,r=>r.includes("الشبكه")||r.includes("الشبكة"),8);
+    if(nh>=0){const NH=N[nh].map(normAr),nb=NH.indexOf("الفرع"),nc=idx(NH,x=>x.includes("المنشا")),nt=idx(NH,x=>x==="الشبكه"||x==="الشبكة"),nv=idx(NH,x=>x==="القيمه"||x==="القيمة");
+      for(let i=nh+1;i<N.length;i++){const r=N[i]||[];const no=String(r[nt]==null?"":r[nt]).trim();if(!no||!normAr(r[nb]))continue;res.terms.push({branch:String(r[nb]).trim(),company:nc>=0?String(r[nc]||"").trim():"",no,amount:num(r[nv])})}}}
+  // abnormal
+  const AB=sheet("العجز");
+  if(AB){const ah=findHeader(AB,r=>r.includes("الفرع")&&r.some(x=>x.includes("الرقم")),8);
+    if(ah>=0){const AH=AB[ah].map(normAr),ab=AH.indexOf("الفرع"),an=idx(AH,x=>x.includes("الرقم")),am=idx(AH,x=>x.includes("الاسم")),at=idx(AH,x=>x.includes("المسمي")||x.includes("المسمى")),as=idx(AH,x=>x.includes("النظام")),aa=idx(AH,x=>x.includes("الفعلي")),ak=idx(AH,x=>x.includes("ملاحظات"));
+      for(let i=ah+1;i<AB.length;i++){const r=AB[i]||[];if(!normAr(r[ab])||!(isNum(r[as])||isNum(r[aa])))continue;
+        res.abn.push({branch:String(r[ab]).trim(),emp_no:String(r[an]==null?"":r[an]).trim(),emp_name:am>=0?String(r[am]||"").trim():"",emp_title:at>=0?String(r[at]||"").trim():"",sys_rev:r2(num(r[as])),act_rev:r2(num(r[aa])),notes:ak>=0?String(r[ak]||"").trim():""})}}}
+  return res;
+}
+async function repImportFiles(files){
+  let X;try{X=await loadXLSX()}catch(e){toast("تعذّر تحميل مكتبة Excel — تحقق من الاتصال");return}
+  const out=[];
+  for(const f of files){try{out.push(parseRevBook(X,new Uint8Array(await f.arrayBuffer()),f.name))}catch(e){console.warn(e);out.push({name:f.name,date:"",sales:[],terms:[],abn:[],warn:["تعذّرت قراءة الملف"]})}}
+  out.sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+  modal={kind:"imp",files:out,busy:""};paintImport();
+}
+const findBranch=name=>{const n=normAr(name);return state.branches.find(b=>normAr(b.name)===n)};
+function paintImport(){
+  const M=modal;if(!M||M.kind!=="imp")return;
+  const body=M.files.map((f,i)=>{
+    const names=[...new Set(f.sales.map(x=>x.branch).concat(f.terms.map(x=>x.branch)))];const miss=names.filter(n=>!findBranch(n));
+    const exist=f.date&&state.rev[f.date]&&Object.keys(state.rev[f.date].sales||{}).length;
+    const tot=f.sales.reduce((a,x)=>a+x.vals.act_cash+x.vals.act_net+x.vals.act_transfer+x.vals.act_credit,0);
+    return'<div class="imp-file"><div class="hd"><span class="fx fx-xl">XLS</span><b>'+esc(f.name)+'</b><label class="muted" for="impd_'+i+'">التاريخ</label><input class="input num" type="date" id="impd_'+i+'" data-impd="'+i+'" value="'+esc(f.date||"")+'" max="'+today()+'"></div>'+
+      '<div class="muted" style="font-size:12.5px">'+nf.format(f.sales.length)+" فرع بمبيعات · إجمالي فعلي "+money(r2(tot))+" · "+nf.format(f.terms.length)+" جهاز شبكة · "+nf.format(f.abn.length)+" حالة عجز/فائض</div>"+
+      (miss.length?'<div class="imp-warn">فروع غير موجودة وستُضاف تلقائياً: '+esc(miss.join("، "))+"</div>":"")+
+      (exist?'<div class="imp-warn">يوجد تسجيل سابق لهذا اليوم — ستُستبدل بيانات الفروع الموجودة في الملف</div>':"")+
+      f.warn.map(w=>'<div class="imp-warn">'+esc(w)+"</div>").join("")+(!f.date?'<div class="imp-warn" style="color:var(--bad)">حدّد التاريخ وإلا سيُتجاهل هذا الملف</div>':"")+"</div>";
+  }).join("");
+  $("#layer").innerHTML='<div class="overlay" id="ov"><div class="modal" role="dialog" aria-label="استيراد تقارير الإيرادات" style="max-width:760px"><header><h3>استيراد تقارير الإيرادات اليومية ('+nf.format(M.files.length)+")</h3><button type=\"button\" class=\"btn ghost sm\" data-close aria-label=\"إغلاق\">"+svg("x")+'</button></header><div class="body" style="grid-template-columns:1fr">'+body+(M.busy?'<div class="att-busy" role="status">'+esc(M.busy)+"</div>":"")+'</div><footer><button type="button" class="btn primary" id="impRun"'+(M.busy?" disabled":"")+'>استيراد</button><button type="button" class="btn" data-close>إلغاء</button></footer></div></div>';
+}
+async function runRevImport(){
+  const M=modal;if(!M||M.kind!=="imp"||M.busy)return;
+  document.querySelectorAll("[data-impd]").forEach(el=>{M.files[+el.dataset.impd].date=el.value});
+  const files=M.files.filter(f=>f.date&&f.date<=today()&&(f.sales.length||f.terms.length||f.abn.length));
+  if(!files.length){toast("لا توجد ملفات صالحة بتاريخ محدد");return}
+  const created={},getB=async(name,company,terms)=>{const n=normAr(name);if(created[n])return created[n];const b=findBranch(name);if(b)return b.id;
+    const id=await save("branches",{name:String(name).trim(),company:company||"",terminals:[...new Set(terms)].map(no=>({no})),active:true,order:state.branches.length+Object.keys(created).length});if(id)created[n]=id;return id};
+  let done=0;
+  try{
+    for(const f of files){
+      M.busy="جارٍ استيراد "+f.name+" ("+(done+1)+"/"+files.length+")…";paintImport();
+      const patch={date:f.date,sales:{},terms:{},abn:{}};
+      for(const x of f.sales){const bid=await getB(x.branch,x.company,f.terms.filter(t=>normAr(t.branch)===normAr(x.branch)).map(t=>t.no));if(!bid)throw new Error("branch");patch.sales[bid]=Object.assign({},x.vals,{notes:"",by:me||"",at:Date.now(),imported:true})}
+      const newTerms={};
+      for(const t of f.terms){const bid=await getB(t.branch,t.company,[t.no]);if(!bid)continue;(patch.terms[bid]=patch.terms[bid]||{})[t.no]=r2(t.amount);
+        const b=byId("branches",bid);if(b&&!(b.terminals||[]).some(x=>String(x.no).trim()===t.no))(newTerms[bid]=newTerms[bid]||[]).push(t.no)}
+      for(const bid of Object.keys(newTerms)){const b=byId("branches",bid);if(b)await save("branches",Object.assign({},b,{terminals:(b.terminals||[]).concat(newTerms[bid].map(no=>({no})))}))}
+      f.abn.forEach((a,k)=>{const b=findBranch(a.branch);const bid=b?b.id:created[normAr(a.branch)];if(bid)patch.abn["imp_"+k]=Object.assign({branchId:bid,by:me||"",at:Date.now(),imported:true},a,{branch:undefined})});
+      Object.values(patch.abn).forEach(a=>delete a.branch);
+      await revWrite(f.date,patch);done++;
+    }
+    log("استورد "+done+" تقرير إيرادات يومي من Excel");repCache={key:"",docs:null,loading:false};
+    closeModal();toast("تم استيراد "+nf.format(done)+" تقرير");
+  }catch(e){writeErr(e);M.busy="";paintImport()}
+}
+
 /* ================= attachments ================= */
 const MAXF=5*1024*1024,CH=700000,ACCEPT_EXT=["xlsx","xls","xlsm","csv","docx","doc","pdf","png","jpg","jpeg"];
 const clipI='<svg viewBox="0 0 24 24" aria-hidden="true">'+ICONS.clip+"</svg>";
@@ -1843,6 +2101,12 @@ document.addEventListener("click",e=>{
   if(d.new&&t.matches("[data-new]")){openForm(d.new);return}
   if(d.export){exportCsv(d.export);return}
   if(d.ia){itemAction(d.ia);return}
+  if(d.rq){ui.repQuick=d.rq;if(d.rq==="custom"){const[f,to]=repRange();ui.repFrom=f;ui.repTo=to}render();return}
+  if(d.rby){ui.repBy=d.rby;render();return}
+  if(d.rtab){ui.repTab=d.rtab;render();return}
+  if(t.id==="repExport"){repExport();return}
+  if(t.id==="repRefresh"){repCache={key:"",docs:null,loading:false};render();return}
+  if(t.id==="impRun"){runRevImport();return}
   if(d.gorev){const p=d.gorev.split("|");ui.view="rev";lsSet("crm_view","rev");ui.revTab="sales";ui.revScope=p[1]===me?"mine":p[1];closeModal();setDay(p[0]);window.scrollTo(0,0);return}
   if(d.revtab){ui.revTab=d.revtab;render();return}
   if(d.revsub){const p=d.revsub.split("|");revSubmit(p[0],p[1]);return}
@@ -1865,6 +2129,10 @@ document.addEventListener("change",e=>{
   if(el.id==="meSel"){chooseMe(el.value);return}
   if(el.id==="impFile"&&el.files&&el.files[0]){readImport(el.files[0]);el.value="";return}
   if(el.id==="revScope"){ui.revScope=el.value;render();return}
+  if(el.id==="repFrom"||el.id==="repTo"){const[f,to]=repRange();ui.repFrom=f;ui.repTo=to;ui[el.id]=el.value;ui.repQuick="custom";render();return}
+  if(el.id==="repCo"){ui.repCo=el.value;ui.repBr="all";render();return}
+  if(el.id==="repBr"){ui.repBr=el.value;render();return}
+  if(el.id==="repImport"&&el.files&&el.files.length){const fl=[...el.files];el.value="";repImportFiles(fl);return}
   if(el.id==="brImport"&&el.files&&el.files[0]){importBranches(el.files[0]);el.value="";return}
   if(el.classList&&el.classList.contains("tmin")){saveTerm(el);return}
   if(el.id==="ab_b"){const D=curDay(),r=salesOf(D,el.value),c=r&&calcRev(r);if(c){$("#ab_sys").value=c.sysT;$("#ab_act").value=c.actT}return}
