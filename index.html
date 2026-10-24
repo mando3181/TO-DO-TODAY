@@ -618,7 +618,7 @@ tr.sel td{background:var(--accent-soft)}
       <ol>
         <li>من «الهيكل التنظيمي» اضغط <strong>«قطاع»</strong> لإضافة قطاع، مثل قطاع التجزئة والكماليات، أو قطاع الجملة، أو قطاع الصناعة.</li>
         <li>اضغط <strong>«شركة»</strong>، أو زر «+ شركة» داخل القطاع، وأدخل اسم الشركة وقطاعها والسجل التجاري والرقم الضريبي.</li>
-        <li>داخل كل شركة أضف <strong>أقسامها</strong> و<strong>فروعها</strong>. أقسام الإدارة المالية التي تخدم كل المجموعة تُترك «على مستوى المجموعة».</li>
+        <li>داخل كل شركة أضف <strong>أقسامها</strong> و<strong>فروعها</strong>. في حقل «يتبع» للقسم ثلاثة مستويات: <strong>على مستوى المجموعة</strong> (يخدم كل القطاعات)، أو <strong>على مستوى القطاع كاملاً</strong> (مثل قسم إيرادات القطاع، ومحاسبوه يُسند لهم فروع كل شركات القطاع)، أو <strong>شركة بعينها</strong>.</li>
       </ol>
       <p><strong>المسؤولون:</strong> لكل قطاع وشركة وفرع مسؤول تختاره من موظفي النظام، أو تكتب اسمه وجواله إن كان من خارج النظام (مثل مدير الفرع). يظهر المسؤول في رأس القطاع والشركة وعلى بطاقة الفرع، ويظهر تنبيه «لم يُحدَّد» حيث لا يوجد مسؤول.</p>
       <p>إذا كانت لديك فروع مستوردة من قبل، فاضغط <strong>«إنشاؤها كشركات وربط فروعها»</strong> لإنشاء الشركات من أسماء المنشآت في الفروع تلقائياً، ثم حدّد قطاع كل شركة. وفي «تقرير الإيرادات» يمكن التصفية حسب <strong>القطاع</strong> ثم الشركة ثم الفرع.</p>
@@ -1337,11 +1337,11 @@ VIEWFN.org=function(){
   const loose=[...new Set(state.branches.filter(b=>!companyOf(b)&&String(b.company||"").trim()).map(b=>String(b.company).trim()))];
   if(loose.length&&M)h+='<div class="banner"><span><b>شركات من بيانات الفروع غير مسجّلة:</b> '+esc(loose.join("، "))+'</span><button type="button" class="btn sm" id="orgMigrate">إنشاؤها كشركات وربط فروعها</button></div>';
   // group-level finance departments
-  const gd=state.depts.filter(d=>!byId("companies",d.companyId));
+  const gd=state.depts.filter(d=>!byId("companies",d.companyId)&&!byId("sectors",d.sectorId));
   h+='<div class="sector"><div class="sech"><h2>أقسام الإدارة المالية</h2><span class="muted" style="font-size:12.5px">على مستوى المجموعة</span></div>'+(gd.length?'<div class="depts" style="border-top:0;padding-top:0">'+gd.map(deptCard).join("")+"</div>":'<div class="muted" style="font-size:13px">لا توجد أقسام على مستوى المجموعة.</div>')+"</div>";
   state.sectors.forEach(x=>{const cs=state.companies.filter(c=>c.sectorId===x.id);
-    h+='<div class="sector"><div class="sech"><h2>'+esc(x.name)+"</h2>"+(x.sample?'<span class="chip sample">مثال</span>':"")+mgrChip(x,"مسؤول القطاع")+'<span class="chip info num">'+nf.format(cs.length)+' شركة</span><span style="flex:1"></span>'+(M?'<button type="button" class="btn sm" data-newin="companies|'+esc(x.id)+'">'+svg("plus")+'شركة</button><button type="button" class="btn sm ghost" data-open="sectors:'+esc(x.id)+'">تعديل</button>':"")+"</div>"+
-      (x.desc?'<div class="muted" style="font-size:13px">'+esc(x.desc)+"</div>":"")+(cs.length?cs.map(compBox).join(""):'<div class="muted" style="font-size:13px">لا توجد شركات في هذا القطاع.</div>')+"</div>"});
+    h+='<div class="sector"><div class="sech"><h2>'+esc(x.name)+"</h2>"+(x.sample?'<span class="chip sample">مثال</span>':"")+mgrChip(x,"مسؤول القطاع")+'<span class="chip info num">'+nf.format(cs.length)+' شركة</span><span style="flex:1"></span>'+(M?'<button type="button" class="btn sm" data-newin="depts|sec:'+esc(x.id)+'">'+svg("plus")+'قسم للقطاع</button><button type="button" class="btn sm" data-newin="companies|'+esc(x.id)+'">'+svg("plus")+'شركة</button><button type="button" class="btn sm ghost" data-open="sectors:'+esc(x.id)+'">تعديل</button>':"")+"</div>"+
+      (x.desc?'<div class="muted" style="font-size:13px">'+esc(x.desc)+"</div>":"")+(sd=>sd.length?'<div class="company" style="background:var(--accent-soft);border-color:transparent"><div class="comph"><h3>أقسام القطاع</h3><span class="muted" style="font-size:12.5px">تخدم كل شركات القطاع وفروعها</span></div><div class="depts">'+sd.map(deptCard).join("")+"</div></div>":"")(state.depts.filter(d=>d.sectorId===x.id&&!byId("companies",d.companyId)))+(cs.length?cs.map(compBox).join(""):'<div class="muted" style="font-size:13px">لا توجد شركات في هذا القطاع.</div>')+"</div>"});
   const nos=state.companies.filter(c=>!byId("sectors",c.sectorId));
   if(nos.length)h+='<div class="sector"><div class="sech"><h2>شركات بدون قطاع</h2></div>'+nos.map(compBox).join("")+"</div>";
   if(!state.sectors.length&&!state.companies.length)h+='<div class="empty">ابدأ بإضافة <b>قطاع</b>، ثم <b>شركات</b> تحته، ثم أضف لكل شركة أقسامها وفروعها.'+(M?" استخدم الأزرار في أعلى الصفحة.":"")+"</div>";
@@ -1513,14 +1513,14 @@ const SCHEMA={
     {k:"shortName",l:"الاسم المختصر",ph:"مثال: الرزيحي تجزئة"},{k:"crNo",l:"رقم السجل التجاري",ltr:1},{k:"vatNo",l:"الرقم الضريبي",ltr:1}].concat(mgrFields("مسؤول الشركة"))},
   depts:{t:"قسم",f:[
     {k:"name",l:"اسم القسم",req:1,full:1,ph:"مثال: الخزينة والبنوك"},
-    {k:"companyId",l:"يتبع",type:"select",opts:companyOpts("— الإدارة المالية (على مستوى المجموعة) —"),full:1},
+    {k:"parentKey",l:"يتبع",type:"select",opts:()=>[["","— الإدارة المالية (على مستوى المجموعة) —"]].concat(state.sectors.map(x=>["sec:"+x.id,x.name+" (على مستوى القطاع كاملاً)"]),state.companies.map(c=>{const x=sectorOfCompany(c);return["co:"+c.id,(x?x.name+" › ":"")+c.name]})),full:1},
     {k:"headId",l:"رئيس القسم",type:"select",opts:()=>[["","— لم يُعيَّن —"]].concat(sortedTeam().filter(m=>m.role!=="cfo").map(m=>[m.id,m.name])),full:1},
     {k:"desc",l:"مهام القسم",type:"textarea",full:1}]},
   lines:{t:"بند إقفال",f:[
     {k:"typeK",l:"نوع الإقفال",type:"select",opts:()=>types().map(t=>[t.k,t.l]),req:1,repaint:1},
     {k:"assignee",l:"المحاسب المسؤول",type:"select",opts:teamOpts,req:1},
     {k:"label",l:"وصف البند",req:1,full:1,ph:"مثال: بنك الراجحي — الحساب الجاري 1234"},
-    {k:"branchIds",l:"الفروع المسندة لهذا المحاسب",type:"multi",opts:()=>state.branches.filter(b=>b.active!==false).sort(sortBr).map(b=>[b.id,b.name]),showIf:r=>typeOf(r.typeK).mode==="revform",full:1},
+    {k:"branchIds",l:"الفروع المسندة لهذا المحاسب",type:"multi",opts:()=>state.branches.filter(b=>b.active!==false).sort((a,b)=>String(a.company||"").localeCompare(String(b.company||""),"ar")||sortBr(a,b)).map(b=>[b.id,b.name+(b.company?" — "+b.company:"")]),showIf:r=>typeOf(r.typeK).mode==="revform",full:1},
     {k:"active",l:"الحالة",type:"select",opts:()=>[["1","فعّال — يظهر في الإقفال اليومي"],["0","موقوف"]],def:"1",full:1}]},
   bankAccts:{t:"حساب بنكي",f:[
     {k:"company",l:"المنشأة",req:1,full:1},{k:"bank",l:"البنك",req:1,ph:"مثال: الراجحي"},{k:"acct",l:"مختصر الحساب",req:1,ph:"آخر أرقام الحساب"},
@@ -1557,6 +1557,7 @@ function openForm(col,id,preset){
   if(col==="types")rec=id?Object.assign({},types().find(t=>t.k===id)):{};
   else rec=id?Object.assign({},byId(col,id)):Object.assign({},preset||{});
   if(col==="lines"&&id)rec.active=rec.active===false?"0":"1";
+  if(col==="depts"&&rec.parentKey==null)rec.parentKey=rec.companyId?"co:"+rec.companyId:rec.sectorId?"sec:"+rec.sectorId:"";
   if((col==="bankAccts"||col==="cashBoxes")&&id)rec.active=rec.active===false?"0":"1";
   if(col==="branches"&&id){rec.active=rec.active===false?"0":"1";rec.termsText=(rec.terminals||[]).map(x=>x.no).join("\n")}
   if(!id)SCHEMA[col].f.forEach(f=>{if(rec[f.k]==null&&f.def!=null)rec[f.k]=typeof f.def==="function"?f.def():f.def});
@@ -1597,6 +1598,7 @@ async function submitForm(){
     return;
   }
   if(col==="team"&&rec.role==="cfo")rec.deptId="";
+  if(col==="depts"){const pk=String(rec.parentKey||"");rec.companyId=pk.startsWith("co:")?pk.slice(3):"";rec.sectorId=pk.startsWith("sec:")?pk.slice(4):(rec.companyId?((byId("companies",rec.companyId)||{}).sectorId||""):"");delete rec.parentKey}
   if(col==="team"){rec.email=String(rec.email||"").trim().toLowerCase();if(rec.email&&state.team.some(x=>x.id!==id&&String(x.email||"").trim().toLowerCase()===rec.email)){toast("هذا البريد مسجّل لموظف آخر");return}}
   if(col==="lines"){rec.active=rec.active!=="0";if(!id)rec.startDate=today()}
   if(col==="bankAccts"||col==="cashBoxes"){rec.active=rec.active!=="0";if(!id)rec.order=state[col].length}
@@ -1634,6 +1636,7 @@ async function deleteCurrent(){
   if(col==="tasks"&&!(await deleteFilesByKey("task:"+id)))return;
   if(col==="branches"&&state.lines.some(l=>l.active!==false&&(l.branchIds||[]).includes(id))){toast("الفرع مسند في مصفوفة الإقفال — أزله من البند أولاً، أو أوقفه بدلاً من حذفه");return}
   if(col==="sectors"&&state.companies.some(c=>c.sectorId===id)){toast("القطاع يضم شركات — انقلها لقطاع آخر أولاً");return}
+  if(col==="sectors"&&state.depts.some(d=>d.sectorId===id&&!d.companyId)){toast("القطاع يضم أقساماً — انقلها أولاً");return}
   if(col==="companies"&&(state.depts.some(d=>d.companyId===id)||state.branches.some(b=>b.companyId===id))){toast("الشركة تضم أقساماً أو فروعاً — انقلها أولاً");return}
   if(col==="depts"&&state.team.some(m=>m.deptId===id)){toast("القسم يضم موظفين — انقلهم لقسم آخر أولاً");return}
   const r=byId(col,id);const nm=r&&(r.title||r.name||r.label);
@@ -2632,7 +2635,7 @@ document.addEventListener("click",e=>{
   if(d.new&&t.matches("[data-new]")){openForm(d.new);return}
   if(d.export){exportCsv(d.export);return}
   if(d.ia){itemAction(d.ia);return}
-  if(d.newin){const p=d.newin.split("|");openForm(p[0],null,p[0]==="companies"?{sectorId:p[1]}:{companyId:p[1]});return}
+  if(d.newin){const p=d.newin.split("|");openForm(p[0],null,p[0]==="companies"?{sectorId:p[1]}:p[1].startsWith("sec:")?{parentKey:p[1]}:p[0]==="depts"?{parentKey:"co:"+p[1]}:{companyId:p[1]});return}
   if(t.id==="orgMigrate"){orgMigrate();return}
   if(d.ptab){ui.permTab=d.ptab;ui.permSel="";permDraft=null;render();return}
   if(d.pmode&&permDraft){permDraft.mode=d.pmode;if(d.pmode==="role"){const m=byId("team",permDraft.target.slice(5));const t=roleTemplate(m.role);Object.assign(permDraft,{pages:new Set(t.pages||[]),actions:new Set(t.actions||[]),scope:t.scope||"own",branches:new Set(t.branches||[])})}render();return}
