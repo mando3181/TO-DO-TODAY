@@ -232,6 +232,19 @@ tr.sub td{background:var(--sunken);font-weight:700;font-size:13px}
 .pcard .nm{font-weight:700}
 .pcard .rl{font-size:12px;color:var(--ink-3)}
 .orgline{height:22px;width:2px;background:var(--line-2);margin:0 auto}
+.sector{display:flex;flex-direction:column;gap:12px;border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--sunken)}
+.sector>.sech{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sector>.sech h2{margin:0;font-family:var(--display);font-size:19px}
+.company{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:12px}
+.company .comph{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.company .comph h3{margin:0;font-size:16px}
+.company .sub{font-size:12.5px;font-weight:700;color:var(--ink-3)}
+.company .depts{border-top:0;padding-top:0}
+.brlist{display:flex;flex-wrap:wrap;gap:6px}
+.brchip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:12.5px;background:var(--surface);cursor:pointer}
+.brchip:hover{border-color:var(--line-2)}
+.brchip .s{color:var(--ink-3)}
+.orgtree{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:12.5px;color:var(--ink-3)}
 .depts{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;border-top:2px solid var(--line-2);padding-top:18px}
 .dept{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);display:flex;flex-direction:column;overflow:hidden}
 .dept .dh{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -424,7 +437,7 @@ tr.sel td{background:var(--accent-soft)}
 <template id="guideTpl">
 <div class="guide">
   <nav class="toc" aria-label="محتويات الدليل">
-    <a href="#g-idea">فكرة النظام</a><a href="#g-start">التجهيز لأول مرة</a><a href="#g-share">الدخول والصلاحيات</a><a href="#g-matrix">مصفوفة الإقفال</a><a href="#g-close">الإقفال اليومي</a><a href="#g-approve">الاعتماد والإرجاع</a><a href="#g-dash">لوحة المتابعة</a><a href="#g-tasks">المهام</a><a href="#g-perf">الإنجاز والأداء</a><a href="#g-rev">تسجيل الإيرادات</a><a href="#g-rrep">تقرير الإيرادات</a><a href="#g-bc">البنوك والصندوق</a><a href="#g-perm">الصلاحيات</a><a href="#g-files">المرفقات والتقارير</a><a href="#g-routine">روتين العمل</a><a href="#g-faq">أسئلة شائعة</a>
+    <a href="#g-idea">فكرة النظام</a><a href="#g-start">التجهيز لأول مرة</a><a href="#g-share">الدخول والصلاحيات</a><a href="#g-matrix">مصفوفة الإقفال</a><a href="#g-close">الإقفال اليومي</a><a href="#g-approve">الاعتماد والإرجاع</a><a href="#g-dash">لوحة المتابعة</a><a href="#g-tasks">المهام</a><a href="#g-perf">الإنجاز والأداء</a><a href="#g-rev">تسجيل الإيرادات</a><a href="#g-rrep">تقرير الإيرادات</a><a href="#g-bc">البنوك والصندوق</a><a href="#g-perm">الصلاحيات</a><a href="#g-org">الهيكل التنظيمي</a><a href="#g-files">المرفقات والتقارير</a><a href="#g-routine">روتين العمل</a><a href="#g-faq">أسئلة شائعة</a>
   </nav>
   <article class="doc">
     <section id="g-idea">
@@ -599,6 +612,16 @@ tr.sel td{background:var(--accent-soft)}
       </ul>
       <p><strong>كمهمة إقفال:</strong> أضف بنداً من نوع «إقفال البنوك والصندوق» للمحاسب المسؤول. لا يُرسل للاعتماد إلا بعد إدخال كل الحسابات والصناديق ووسيط كل الفروع، وكتابة ملاحظة لكل فرق في البنوك أو الصندوق.</p>
     </section>
+    <section id="g-org">
+      <h2>الهيكل التنظيمي: القطاعات والشركات</h2>
+      <div class="flow"><span class="chip acc">المجموعة</span><span class="arr">←</span><span class="chip info">القطاعات</span><span class="arr">←</span><span class="chip info">الشركات</span><span class="arr">←</span><span class="chip">الأقسام</span><span class="chip">الفروع</span></div>
+      <ol>
+        <li>من «الهيكل التنظيمي» اضغط <strong>«قطاع»</strong> لإضافة قطاع، مثل قطاع التجزئة والكماليات، أو قطاع الجملة، أو قطاع الصناعة.</li>
+        <li>اضغط <strong>«شركة»</strong>، أو زر «+ شركة» داخل القطاع، وأدخل اسم الشركة وقطاعها والسجل التجاري والرقم الضريبي.</li>
+        <li>داخل كل شركة أضف <strong>أقسامها</strong> و<strong>فروعها</strong>. أقسام الإدارة المالية التي تخدم كل المجموعة تُترك «على مستوى المجموعة».</li>
+      </ol>
+      <p>إذا كانت لديك فروع مستوردة من قبل، فاضغط <strong>«إنشاؤها كشركات وربط فروعها»</strong> لإنشاء الشركات من أسماء المنشآت في الفروع تلقائياً، ثم حدّد قطاع كل شركة. وفي «تقرير الإيرادات» يمكن التصفية حسب <strong>القطاع</strong> ثم الشركة ثم الفرع.</p>
+    </section>
     <section id="g-perm">
       <h2>الصلاحيات</h2>
       <p>من صفحة <strong>«الصلاحيات»</strong> يحدد المدير المالي لكل مستخدم:</p>
@@ -745,9 +768,9 @@ const lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
 const numOrEmpty=v=>v===""||v==null||isNaN(+v)?"":+v;
 
 /* ================= state ================= */
-const state={team:[],depts:[],lines:[],tasks:[],activity:[],files:[],branches:[],bankAccts:[],cashBoxes:[],days:{},rev:{},bc:{},config:null};
+const state={team:[],depts:[],lines:[],tasks:[],activity:[],files:[],branches:[],bankAccts:[],cashBoxes:[],sectors:[],companies:[],orgUnits:{},days:{},rev:{},bc:{},config:null};
 const ready={};
-const ui={view:(location.hash||"").slice(1)||lsGet("crm_view")||"dash",day:null,dept:"all",member:"all",ist:"all",taskMember:"all",taskDept:"all",taskPrio:"all",taskQ:"",permTab:"users",permSel:"",bcTab:"banks",repFrom:"",repTo:"",repQuick:"month",repCo:"all",repBr:"all",repBy:"branch",repTab:"sales",revTab:"sales",revScope:"auto",abnPre:"",fKind:"all",fType:"all",fDept:"all",fQ:"",period:"month",perfDept:"all",actMember:"all"};
+const ui={view:(location.hash||"").slice(1)||lsGet("crm_view")||"dash",day:null,dept:"all",member:"all",ist:"all",taskMember:"all",taskDept:"all",taskPrio:"all",taskQ:"",repSec:"all",permTab:"users",permSel:"",bcTab:"banks",repFrom:"",repTo:"",repQuick:"month",repCo:"all",repBr:"all",repBy:"branch",repTab:"sales",revTab:"sales",revScope:"auto",abnPre:"",fKind:"all",fType:"all",fDept:"all",fQ:"",period:"month",perfDept:"all",actMember:"all"};
 if(!VIEWS.some(v=>v.k===ui.view))ui.view="dash";
 let me=lsGet("crm_me")||"";
 let canWrite=true,isOwnerV=false,fbAuth=null,authUser=null,ownerEmail="",ownerHash="",fbStarted=false,accessEmails=null,syncingAccess=false,accessAdmins=null,permDraft=null,pendingImport=null;
@@ -851,7 +874,8 @@ const Data={
       return;
     }
     this.mode="local";
-    try{const raw=JSON.parse(lsGet("crm_local2")||"{}");COLS.forEach(c=>{if(Array.isArray(raw[c]))state[c]=raw[c]});if(raw.days)state.days=raw.days;if(raw.config)state.config=raw.config;if(Array.isArray(raw.files))state.files=raw.files;if(raw.rev)state.rev=raw.rev;if(raw.bc)state.bc=raw.bc}catch(e){}
+    try{const raw=JSON.parse(lsGet("crm_local2")||"{}");COLS.forEach(c=>{if(Array.isArray(raw[c]))state[c]=raw[c]});if(raw.days)state.days=raw.days;if(raw.config)state.config=raw.config;if(Array.isArray(raw.files))state.files=raw.files;if(raw.rev)state.rev=raw.rev;if(raw.bc)state.bc=raw.bc;if(raw.orgUnits)state.orgUnits=raw.orgUnits}catch(e){}
+    rebuildOrg();
     COLS.forEach(c=>ready[c]=true);ready.config=true;daysReady=true;
     paintConn();afterData();
   },
@@ -864,6 +888,7 @@ const Data={
     ["team","depts","lines","tasks","branches","bankAccts","cashBoxes"].forEach(c=>db.collection(c).onSnapshot(s=>{state[c]=rows(s);ready[c]=true;afterData()},subErr));
     db.collection("activity").orderBy("at","desc").limit(150).onSnapshot(s=>{state.activity=rows(s);ready.activity=true;afterData()},subErr);
     db.doc("setup/config").onSnapshot(s=>{state.config=s.exists?s.data():null;ready.config=true;afterData()},subErr);
+    db.doc("setup/orgUnits").onSnapshot(s=>{state.orgUnits=s.exists?s.data():{};rebuildOrg();ready.org=true;afterData()},subErr);
     db.collection("days").where("date",">=",WIN).onSnapshot(s=>{
       const m={};Object.keys(state.days).forEach(k=>{if(k<WIN)m[k]=state.days[k]});
       s.docs.forEach(d=>{m[d.id]=d.data()});state.days=m;daysReady=true;afterData()},subErr);
@@ -930,12 +955,28 @@ function writeErr(e){
   else toast("تعذّر الحفظ، حاول مرة أخرى");
   console.warn(e);
 }
+const ORG_COLS=["sectors","companies"];
+function rebuildOrg(){const o=state.orgUnits||{},arr=k=>Object.keys(o[k]||{}).map(id=>Object.assign({},o[k][id],{id})).sort((a,b)=>(+a.order||0)-(+b.order||0)||String(a.name).localeCompare(String(b.name),"ar"));state.sectors=arr("sectors");state.companies=arr("companies")}
+async function orgWrite(patch){
+  if(Data.mode==="db")await db.doc("setup/orgUnits").set(patch,{merge:true});
+  else{deepMerge(state.orgUnits,patch);rebuildOrg();Data.persist();schedule()}
+}
+async function orgDel(col,id){
+  if(Data.mode==="db")await db.doc("setup/orgUnits").update({[col+"."+id]:firebase.firestore.FieldValue.delete()});
+  else{if(state.orgUnits[col])delete state.orgUnits[col][id];rebuildOrg();Data.persist();schedule()}
+}
+const companyByName=n=>{const k=normAr(n);return k?state.companies.find(c=>normAr(c.name)===k):null};
+const companyOf=b=>b&&(byId("companies",b.companyId)||companyByName(b.company));
+const sectorOfCompany=c=>c&&byId("sectors",c.sectorId);
 async function save(col,rec,logText){
   if(!canWrite){toast("وضع القراءة فقط");return null}
-  try{rec.updatedAt=Date.now();if(!rec.createdAt)rec.createdAt=rec.updatedAt;const id=await Data.put(col,rec);if(logText)log(logText);return id}
+  if(col==="branches"){const c=rec.companyId&&byId("companies",rec.companyId);if(c)rec.company=c.name;else if(rec.company){const m=companyByName(rec.company);rec.companyId=m?m.id:""}}
+  try{rec.updatedAt=Date.now();if(!rec.createdAt)rec.createdAt=rec.updatedAt;
+    let id;if(ORG_COLS.includes(col)){id=rec.id||uid();const b=Object.assign({},rec);delete b.id;await orgWrite({[col]:{[id]:b}})}else id=await Data.put(col,rec);
+    if(logText)log(logText);return id}
   catch(e){writeErr(e);return null}
 }
-async function removeRec(col,id,logText){try{await Data.del(col,id);if(logText)log(logText);return true}catch(e){writeErr(e);return false}}
+async function removeRec(col,id,logText){try{if(ORG_COLS.includes(col))await orgDel(col,id);else await Data.del(col,id);if(logText)log(logText);return true}catch(e){writeErr(e);return false}}
 async function log(text){
   try{
     await Data.put("activity",{text,who:me||"",at:Date.now()});
@@ -1071,7 +1112,7 @@ function render(){
     dash:"",close:(can("export")?'<button class="btn" data-export="close">'+svg("dl")+"تصدير اليوم</button>":""),
     tasks:'<button class="btn primary" data-new="tasks">'+svg("plus")+"مهمة جديدة</button>",
     perf:(can("export")?'<button class="btn" data-export="perf">'+svg("dl")+"تصدير CSV</button>":""),
-    org:can("org.manage")?'<button class="btn" data-new="depts">'+svg("plus")+'قسم جديد</button><button class="btn primary" data-new="team">'+svg("plus")+"إضافة موظف</button>":"",
+    org:can("org.manage")?'<button class="btn" data-new="sectors">'+svg("plus")+'قطاع</button><button class="btn" data-new="companies">'+svg("plus")+'شركة</button><button class="btn" data-new="depts">'+svg("plus")+'قسم جديد</button><button class="btn primary" data-new="team">'+svg("plus")+"إضافة موظف</button>":"",
     setup:can("setup.manage")?'<button class="btn primary" data-new="lines">'+svg("plus")+"بند إقفال جديد</button>":"",
     activity:"",guide:""
   }[v.k];
@@ -1277,20 +1318,46 @@ VIEWFN.perf=function(){
 
 /* ---- org ---- */
 VIEWFN.org=function(){
-  const cfos=state.team.filter(m=>m.role==="cfo");
+  const cfos=state.team.filter(m=>m.role==="cfo"),M=can("org.manage"),B=M||can("setup.manage");
   const its=dayItems(defaultDay());
   const stat=id=>{const mi=its.filter(i=>i.assignee===id);const ot=state.tasks.filter(t=>t.assignee===id&&t.status!=="done").length;return(mi.length?"إقفال "+nf.format(mi.filter(isClosed).length)+"/"+nf.format(mi.length)+" · ":"")+"مهام مفتوحة "+nf.format(ot)};
   const pcard=(m,cls)=>'<div class="pcard '+(cls||"")+'" data-open="team:'+esc(m.id)+'" style="cursor:pointer">'+avatar(m.id,1)+'<div class="grow"><div class="nm">'+esc(m.name)+(m.id===me?' <span class="chip acc">أنت</span>':"")+(m.sample?' <span class="chip sample">مثال</span>':"")+'</div><div class="rl">'+esc(m.title||lbl(ROLES,m.role))+"</div></div></div>";
-  let h='<div class="orgtop">'+(cfos.length?cfos.map(m=>pcard(m,"cfo")).join(""):'<div class="empty" style="max-width:440px">لم يُضف المدير المالي بعد — اضغط «إضافة موظف» واختر الدور «المدير المالي».</div>')+'</div><div class="orgline"></div>';
-  if(!state.depts.length)h+='<div class="empty">لا توجد أقسام بعد. اضغط «قسم جديد».</div>';
-  else h+='<div class="depts">'+state.depts.map(d=>{const hd=deptHead(d);const accs=sortedTeam().filter(m=>m.deptId===d.id&&m.id!==hd);
-    return'<div class="dept"><div class="dh"><h3>'+esc(d.name)+"</h3>"+(d.sample?'<span class="chip sample">مثال</span>':"")+'<span class="chip num">'+nf.format(accs.length+(hd?1:0))+" موظف</span>"+(can("org.manage")?'<button type="button" class="btn sm ghost" data-open="depts:'+esc(d.id)+'">تعديل</button>':"")+"</div>"+
+  const deptCard=d=>{const hd=deptHead(d);const accs=sortedTeam().filter(m=>m.deptId===d.id&&m.id!==hd);
+    return'<div class="dept"><div class="dh"><h3>'+esc(d.name)+"</h3>"+(d.sample?'<span class="chip sample">مثال</span>':"")+'<span class="chip num">'+nf.format(accs.length+(hd?1:0))+" موظف</span>"+(M?'<button type="button" class="btn sm ghost" data-open="depts:'+esc(d.id)+'">تعديل</button>':"")+"</div>"+
       (hd?'<div class="headp" data-open="team:'+esc(hd)+'" style="cursor:pointer">'+avatar(hd)+'<div class="grow"><div style="font-weight:700">'+esc(memberName(hd))+'</div><div class="s">رئيس القسم · '+stat(hd)+"</div></div></div>":'<div class="headp"><span class="muted">لم يُعيَّن رئيس للقسم</span></div>')+
-      (accs.length?accs.map(m=>'<div class="mem" data-open="team:'+esc(m.id)+'">'+avatar(m.id)+'<div class="grow"><div style="font-weight:600">'+esc(m.name)+(m.id===me?' <span class="chip acc">أنت</span>':"")+'</div><div class="s">'+esc(m.title||lbl(ROLES,m.role))+" · "+stat(m.id)+"</div></div></div>").join(""):'<div class="mem" style="cursor:default"><span class="muted">لا يوجد محاسبون</span></div>')+"</div>"}).join("")+"</div>";
+      (accs.length?accs.map(m=>'<div class="mem" data-open="team:'+esc(m.id)+'">'+avatar(m.id)+'<div class="grow"><div style="font-weight:600">'+esc(m.name)+(m.id===me?' <span class="chip acc">أنت</span>':"")+'</div><div class="s">'+esc(m.title||lbl(ROLES,m.role))+" · "+stat(m.id)+"</div></div></div>").join(""):'<div class="mem" style="cursor:default"><span class="muted">لا يوجد موظفون</span></div>')+"</div>"};
+  const brChips=bs=>bs.length?'<div class="brlist">'+bs.slice().sort(sortBr).map(b=>{const o=lineOwner(b.id);return'<span class="brchip"'+(B?' data-open="branches:'+esc(b.id)+'"':"")+'><b>'+esc(b.name)+"</b>"+(o?'<span class="s">· '+esc(memberName(o))+"</span>":"")+(b.active===false?' <span class="chip">موقوف</span>':"")+"</span>"}).join("")+"</div>":'<span class="muted" style="font-size:12.5px">لا توجد فروع</span>';
+  const compBox=c=>{const ds=state.depts.filter(d=>d.companyId===c.id),bs=state.branches.filter(b=>companyOf(b)===c);
+    return'<div class="company"><div class="comph"><h3>'+esc(c.name)+"</h3>"+(c.shortName?'<span class="chip">'+esc(c.shortName)+"</span>":"")+(c.crNo?'<span class="chip num" dir="ltr">س.ت '+esc(c.crNo)+"</span>":"")+(c.sample?'<span class="chip sample">مثال</span>':"")+'<span class="chip info num">'+nf.format(ds.length)+" قسم · "+nf.format(bs.length)+' فرع</span><span style="flex:1"></span>'+
+      (M?'<button type="button" class="btn sm" data-newin="depts|'+esc(c.id)+'">'+svg("plus")+"قسم</button>":"")+(B?'<button type="button" class="btn sm" data-newin="branches|'+esc(c.id)+'">'+svg("plus")+"فرع</button>":"")+(M?'<button type="button" class="btn sm ghost" data-open="companies:'+esc(c.id)+'">تعديل</button>':"")+"</div>"+
+      (ds.length?'<div class="sub">الأقسام</div><div class="depts">'+ds.map(deptCard).join("")+"</div>":"")+'<div class="sub">الفروع</div>'+brChips(bs)+"</div>"};
+  let h='<div class="orgtop">'+(cfos.length?cfos.map(m=>pcard(m,"cfo")).join(""):'<div class="empty" style="max-width:440px">لم يُضف المدير المالي بعد — اضغط «إضافة موظف» واختر الدور «المدير المالي».</div>')+'</div>';
+  h+='<div class="orgtree"><span class="chip acc">المجموعة</span>←<span class="chip info">'+nf.format(state.sectors.length)+' قطاع</span>←<span class="chip info">'+nf.format(state.companies.length)+' شركة</span>←<span class="chip">'+nf.format(state.depts.length)+' قسم</span><span class="chip">'+nf.format(state.branches.length)+" فرع</span></div>";
+  const loose=[...new Set(state.branches.filter(b=>!companyOf(b)&&String(b.company||"").trim()).map(b=>String(b.company).trim()))];
+  if(loose.length&&M)h+='<div class="banner"><span><b>شركات من بيانات الفروع غير مسجّلة:</b> '+esc(loose.join("، "))+'</span><button type="button" class="btn sm" id="orgMigrate">إنشاؤها كشركات وربط فروعها</button></div>';
+  // group-level finance departments
+  const gd=state.depts.filter(d=>!byId("companies",d.companyId));
+  h+='<div class="sector"><div class="sech"><h2>أقسام الإدارة المالية</h2><span class="muted" style="font-size:12.5px">على مستوى المجموعة</span></div>'+(gd.length?'<div class="depts" style="border-top:0;padding-top:0">'+gd.map(deptCard).join("")+"</div>":'<div class="muted" style="font-size:13px">لا توجد أقسام على مستوى المجموعة.</div>')+"</div>";
+  state.sectors.forEach(x=>{const cs=state.companies.filter(c=>c.sectorId===x.id);
+    h+='<div class="sector"><div class="sech"><h2>'+esc(x.name)+"</h2>"+(x.sample?'<span class="chip sample">مثال</span>':"")+'<span class="chip info num">'+nf.format(cs.length)+' شركة</span><span style="flex:1"></span>'+(M?'<button type="button" class="btn sm" data-newin="companies|'+esc(x.id)+'">'+svg("plus")+'شركة</button><button type="button" class="btn sm ghost" data-open="sectors:'+esc(x.id)+'">تعديل</button>':"")+"</div>"+
+      (x.desc?'<div class="muted" style="font-size:13px">'+esc(x.desc)+"</div>":"")+(cs.length?cs.map(compBox).join(""):'<div class="muted" style="font-size:13px">لا توجد شركات في هذا القطاع.</div>')+"</div>"});
+  const nos=state.companies.filter(c=>!byId("sectors",c.sectorId));
+  if(nos.length)h+='<div class="sector"><div class="sech"><h2>شركات بدون قطاع</h2></div>'+nos.map(compBox).join("")+"</div>";
+  if(!state.sectors.length&&!state.companies.length)h+='<div class="empty">ابدأ بإضافة <b>قطاع</b>، ثم <b>شركات</b> تحته، ثم أضف لكل شركة أقسامها وفروعها.'+(M?" استخدم الأزرار في أعلى الصفحة.":"")+"</div>";
+  const lb=state.branches.filter(b=>!companyOf(b));
+  if(lb.length)h+='<div class="panel"><h2>فروع غير مرتبطة بشركة</h2>'+brChips(lb)+"</div>";
   const orphans=state.team.filter(m=>m.role!=="cfo"&&!byId("depts",m.deptId));
   if(orphans.length)h+='<div class="panel"><h2>موظفون بدون قسم</h2><div class="toolbar">'+orphans.map(m=>pcard(m)).join("")+"</div></div>";
   return h;
 };
+async function orgMigrate(){
+  if(!can("org.manage"))return;
+  const names=[...new Set(state.branches.filter(b=>!companyOf(b)&&String(b.company||"").trim()).map(b=>String(b.company).trim()))];
+  const made={};let n=0;
+  for(const nm of names){const id=await save("companies",{name:nm,sectorId:"",order:state.companies.length+n});if(!id)return;made[normAr(nm)]=id;n++}
+  for(const b of state.branches.filter(b=>!b.companyId&&made[normAr(b.company)]))await save("branches",Object.assign({},b,{companyId:made[normAr(b.company)]}));
+  if(n)log("أنشأ "+n+" شركة من بيانات الفروع");toast("تم إنشاء "+nf.format(n)+" شركة — حدّد قطاع كل شركة من «تعديل»");
+}
 
 /* ---- setup ---- */
 VIEWFN.setup=function(){
@@ -1320,7 +1387,7 @@ function dataPanel(){
 }
 async function exportBackup(){
   try{
-    const d={app:"masar",version:1,exportedAt:new Date().toISOString(),config:state.config,days:state.days,rev:state.rev,bc:state.bc};
+    const d={app:"masar",version:1,exportedAt:new Date().toISOString(),config:state.config,days:state.days,rev:state.rev,bc:state.bc,orgUnits:state.orgUnits};
     COLS.forEach(c=>{d[c]=state[c]});
     if(Data.mode==="db"){
       toast("جارٍ تجهيز النسخة الاحتياطية…");
@@ -1340,7 +1407,7 @@ async function readImport(file){
 }
 async function applyImport(){
   const d=pendingImport&&pendingImport.d;pendingImport=null;if(!d)return;
-  if(Data.mode==="local"){COLS.forEach(c=>{state[c]=Array.isArray(d[c])?d[c]:[]});state.days=d.days||{};state.rev=d.rev||{};state.bc=d.bc||{};state.config=d.config||null;Data.persist();toast("تم الاسترجاع");afterData();return}
+  if(Data.mode==="local"){COLS.forEach(c=>{state[c]=Array.isArray(d[c])?d[c]:[]});state.days=d.days||{};state.rev=d.rev||{};state.bc=d.bc||{};state.orgUnits=d.orgUnits||{};rebuildOrg();state.config=d.config||null;Data.persist();toast("تم الاسترجاع");afterData();return}
   try{
     const ops=[];
     COLS.forEach(c=>(d[c]||[]).forEach(r=>{const b=Object.assign({},r);const id=b.id;delete b.id;if(id)ops.push([db.collection(c).doc(String(id)),b])}));
@@ -1348,6 +1415,7 @@ async function applyImport(){
     Object.keys(d.rev||{}).forEach(k=>ops.push([db.doc("rev/"+k),d.rev[k]]));
     Object.keys(d.bc||{}).forEach(k=>ops.push([db.doc("bc/"+k),d.bc[k]]));
     if(d.config)ops.push([db.doc("setup/config"),d.config]);
+    if(d.orgUnits)ops.push([db.doc("setup/orgUnits"),d.orgUnits]);
     for(let i=0;i<ops.length;i+=400){const b=db.batch();ops.slice(i,i+400).forEach(o=>b.set(o[0],o[1]));await b.commit()}
     log("استرجع نسخة احتياطية ("+ops.length+" سجل)");toast("تم استرجاع "+nf.format(ops.length)+" سجل");
   }catch(e){writeErr(e)}
@@ -1365,7 +1433,8 @@ function genDemo(){
   state.team=TM.map(x=>Object.assign({id:x[0],name:x[1],role:x[2],deptId:x[3],title:x[4]},S));
   const head={s_d1:"s_h1",s_d2:"s_h2",s_d3:"s_h3"},dep={};TM.forEach(x=>{dep[x[0]]=x[3]});
   const LN=[["s_l01","bank","بنك الراجحي — الحساب الجاري","s_a1",850000],["s_l02","bank","البنك الأهلي — حساب التحصيل","s_a1",420000],["s_l03","bank","بنك الإنماء — حساب الرواتب","s_h1",310000],["s_l04","cash","الصندوق الرئيسي","s_a2",18000],["s_l05","cust","عهد المندوبين والموظفين","s_a2",42000],["s_l06","rev","إيرادات الفرع الرئيسي","s_a3",95000],["s_l07","rev","إيرادات فرع جدة","s_a4",61000],["s_l08","rev","إيرادات المتجر الإلكتروني","s_a4",38000],["s_l09","pur","مشتريات المستودع الرئيسي","s_a5",72000],["s_l10","pur","مشتريات الخدمات والعقود","s_a5",15000],["s_l11","exp","المصاريف التشغيلية","s_a6",22000],["s_l12","exp","مصاريف الفروع","s_a6",9000]];
-  state.branches=[["s_b1","فرع الرياض — العليا","شركة المثال التجارية",["10001","10002"]],["s_b2","فرع الرياض — النسيم","شركة المثال التجارية",["10003"]],["s_b3","فرع جدة","شركة المثال التجارية",["20001","20002"]],["s_b4","فرع الدمام","مؤسسة المثال للتجزئة",["30001"]]].map((x,i)=>Object.assign({id:x[0],name:x[1],company:x[2],terminals:x[3].map(no=>({no})),active:true,order:i},S));
+  state.orgUnits={sectors:{s_sec1:{name:"قطاع التجزئة",order:0,sample:true}},companies:{s_co1:{name:"شركة المثال التجارية",sectorId:"s_sec1",order:0,sample:true},s_co2:{name:"مؤسسة المثال للتجزئة",sectorId:"s_sec1",order:1,sample:true}}};rebuildOrg();
+  state.branches=[["s_b1","فرع الرياض — العليا","شركة المثال التجارية",["10001","10002"]],["s_b2","فرع الرياض — النسيم","شركة المثال التجارية",["10003"]],["s_b3","فرع جدة","شركة المثال التجارية",["20001","20002"]],["s_b4","فرع الدمام","مؤسسة المثال للتجزئة",["30001"]]].map((x,i)=>Object.assign({id:x[0],name:x[1],company:x[2],companyId:x[2]==="شركة المثال التجارية"?"s_co1":"s_co2",terminals:x[3].map(no=>({no})),active:true,order:i},S));
   LN.push(["s_l13","revform","تسجيل إيرادات: فرع الرياض — العليا، فرع الرياض — النسيم","s_a3",0,["s_b1","s_b2"]],["s_l14","revform","تسجيل إيرادات: فرع جدة، فرع الدمام","s_a4",0,["s_b3","s_b4"]]);
   state.rev={};
   const demoRev=(D,bids,partial)=>{const doc=state.rev[D]||(state.rev[D]={date:D,sales:{},terms:{},abn:{},sample:true});
@@ -1417,6 +1486,7 @@ VIEWFN.guide=function(){return document.getElementById("guideTpl").innerHTML};
 
 /* ================= generic forms ================= */
 const teamOpts=()=>[["","— غير مسند —"]].concat(sortedTeam().map(m=>[m.id,m.name+" — "+lbl(ROLES,m.role)]));
+const companyOpts=empty=>()=>[["",empty]].concat(state.companies.map(c=>{const x=sectorOfCompany(c);return[c.id,(x?x.name+" › ":"")+c.name]}));
 const deptOpts=()=>[["","— اختر القسم —"]].concat(state.depts.map(d=>[d.id,d.name]));
 const SCHEMA={
   team:{t:"موظف",f:[
@@ -1425,8 +1495,16 @@ const SCHEMA={
     {k:"deptId",l:"القسم",type:"select",opts:deptOpts,showIf:r=>r.role!=="cfo",req:r=>r.role!=="cfo"&&state.depts.length>0},
     {k:"title",l:"المسمى الوظيفي",ph:"مثال: محاسب بنوك"},
     {k:"phone",l:"الجوال",type:"tel",ltr:1},{k:"email",l:"البريد الإلكتروني (للدخول)",type:"email",ltr:1,req:()=>Data.mode==="db"}]},
+  sectors:{t:"قطاع",f:[
+    {k:"name",l:"اسم القطاع",req:1,full:1,ph:"مثال: قطاع التجزئة والكماليات"},
+    {k:"desc",l:"وصف القطاع",type:"textarea",full:1}]},
+  companies:{t:"شركة",f:[
+    {k:"name",l:"اسم الشركة / المنشأة",req:1,full:1,ph:"مثال: شركة (ع) الرزيحي التجارية - تجزئة"},
+    {k:"sectorId",l:"القطاع",type:"select",opts:()=>[["","— بدون قطاع —"]].concat(state.sectors.map(x=>[x.id,x.name])),full:1},
+    {k:"shortName",l:"الاسم المختصر",ph:"مثال: الرزيحي تجزئة"},{k:"crNo",l:"رقم السجل التجاري",ltr:1},{k:"vatNo",l:"الرقم الضريبي",ltr:1}]},
   depts:{t:"قسم",f:[
     {k:"name",l:"اسم القسم",req:1,full:1,ph:"مثال: الخزينة والبنوك"},
+    {k:"companyId",l:"يتبع",type:"select",opts:companyOpts("— الإدارة المالية (على مستوى المجموعة) —"),full:1},
     {k:"headId",l:"رئيس القسم",type:"select",opts:()=>[["","— لم يُعيَّن —"]].concat(sortedTeam().filter(m=>m.role!=="cfo").map(m=>[m.id,m.name])),full:1},
     {k:"desc",l:"مهام القسم",type:"textarea",full:1}]},
   lines:{t:"بند إقفال",f:[
@@ -1444,7 +1522,9 @@ const SCHEMA={
     {k:"group",l:"الجدول",type:"select",opts:()=>[["main","إقفال الصندوق الرئيسي (الخزينة)"],["other","جهات أخرى"]],def:"main",full:1},
     {k:"active",l:"الحالة",type:"select",opts:()=>[["1","فعّال"],["0","موقوف"]],def:"1",full:1}]},
   branches:{t:"فرع",f:[
-    {k:"name",l:"اسم الفرع",req:1},{k:"company",l:"المنشأة / الشركة"},
+    {k:"name",l:"اسم الفرع",req:1},
+    {k:"companyId",l:"الشركة",type:"select",opts:companyOpts("— اختر الشركة —"),showIf:()=>state.companies.length>0,repaint:1},
+    {k:"company",l:"المنشأة / الشركة",showIf:r=>!state.companies.length||!r.companyId},
     {k:"termsText",l:"أرقام أجهزة الشبكة (رقم في كل سطر)",type:"textarea",full:1},
     {k:"active",l:"الحالة",type:"select",opts:()=>[["1","فعّال"],["0","موقوف"]],def:"1",full:1}]},
   types:{t:"نوع إقفال",f:[
@@ -1485,7 +1565,7 @@ function paintForm(){
   if(col==="team"&&Data.mode==="db")extraHtml='<div class="note info">بهذا البريد ينشئ الموظف حسابه ويسجّل الدخول. تغيير البريد أو حذف الموظف يوقف دخوله بالبريد القديم.</div>';
   if(col==="lines"&&!id)extraHtml='<div class="note info">يظهر البند في الإقفال اليومي ابتداءً من اليوم.</div>';
   if(col==="tasks")extraHtml+=id?'<div class="field full"><label>المرفقات</label><div id="attBox"></div></div>':'<div class="note info">يمكنك إرفاق ملفات Excel وWord وPDF بعد حفظ المهمة.</div>';
-  const canEditThis=col==="tasks"?canWrite:(col==="team"||col==="depts")?can("org.manage"):can("setup.manage");
+  const canEditThis=col==="tasks"?canWrite:(col==="team"||col==="depts"||col==="sectors"||col==="companies")?can("org.manage"):col==="branches"?(can("setup.manage")||can("org.manage")):can("setup.manage");
   $("#layer").innerHTML='<div class="overlay" id="ov"><form class="modal" id="mform" novalidate><header><h3>'+(id?"تعديل ":"إضافة ")+S.t+'</h3><button type="button" class="btn ghost sm" data-close aria-label="إغلاق">'+svg("x")+'</button></header><div class="body">'+fields+extraHtml+"</div><footer>"+(canEditThis?'<button type="submit" class="btn primary">'+(id?"حفظ التعديلات":"إضافة")+"</button>":"")+'<button type="button" class="btn" data-close>إغلاق</button><span class="spacer"></span>'+(id&&canEditThis?'<button type="button" class="btn danger" id="delBtn">حذف</button>':"")+"</footer></form></div>";
   const first=$("#mform [data-k]");if(first&&!id)first.focus();
   if(col==="tasks"&&id)attachOpen({key:"task:"+id,kind:"task",taskId:id,label:"مهمة: "+(rec.title||""),deptId:deptOf(rec.assignee),can:canWrite});
@@ -1524,6 +1604,7 @@ async function submitForm(){
   const newId=await save(col,rec,text);
   if(!newId)return;
   if(col==="team"&&rec.role==="head"&&rec.deptId){const d=byId("depts",rec.deptId);if(d&&!deptHead(d))await save("depts",Object.assign({},d,{headId:newId}))}
+  if(col==="companies"&&id){const nm=rec.name;for(const b of state.branches.filter(b=>b.companyId===id&&b.company!==nm))await save("branches",Object.assign({},b,{company:nm}))}
   if(col==="depts"&&rec.headId){const m=byId("team",rec.headId);if(m&&(m.role!=="head"||m.deptId!==newId))await save("team",Object.assign({},m,{role:"head",deptId:newId}))}
   if(firstMember&&Data.mode==="local"){me=newId;lsSet("crm_me",me)}
   if(col==="lines"){delete ensured[today()];delete ensured[curDay()]}
@@ -1541,6 +1622,8 @@ async function deleteCurrent(){
   if(col==="team"&&state.lines.some(l=>l.assignee===id&&l.active!==false)){toast("هذا الموظف مسؤول عن بنود إقفال فعّالة — انقلها لموظف آخر أولاً");return}
   if(col==="tasks"&&!(await deleteFilesByKey("task:"+id)))return;
   if(col==="branches"&&state.lines.some(l=>l.active!==false&&(l.branchIds||[]).includes(id))){toast("الفرع مسند في مصفوفة الإقفال — أزله من البند أولاً، أو أوقفه بدلاً من حذفه");return}
+  if(col==="sectors"&&state.companies.some(c=>c.sectorId===id)){toast("القطاع يضم شركات — انقلها لقطاع آخر أولاً");return}
+  if(col==="companies"&&(state.depts.some(d=>d.companyId===id)||state.branches.some(b=>b.companyId===id))){toast("الشركة تضم أقساماً أو فروعاً — انقلها أولاً");return}
   if(col==="depts"&&state.team.some(m=>m.deptId===id)){toast("القسم يضم موظفين — انقلهم لقسم آخر أولاً");return}
   const r=byId(col,id);const nm=r&&(r.title||r.name||r.label);
   if(await removeRec(col,id,"حذف "+SCHEMA[col].t+" «"+nm+"»")){closeModal();toast("تم الحذف")}
@@ -1644,6 +1727,7 @@ async function purgeSamples(){
   let n=0;
   for(const d of Object.keys(state.days).filter(k=>state.days[k].sample)){try{await Data.dayDelete(d);n++}catch(e){writeErr(e);return}}
   for(const d of Object.keys(state.rev).filter(k=>state.rev[k].sample)){try{if(Data.mode==="db")await db.doc("rev/"+d).delete();else{delete state.rev[d];Data.persist()}n++}catch(e){}}
+  for(const c of ORG_COLS)for(const r of state[c].filter(x=>x.sample)){if(await removeRec(c,r.id))n++;else return}
   for(const c of ["activity","tasks","lines","branches","team","depts"])for(const r of state[c].filter(x=>x.sample)){if(await removeRec(c,r.id))n++;else return}
   if(!byId("team",me)){me="";lsSet("crm_me","")}
   toast("تم حذف "+nf.format(n)+" سجل تجريبي");
@@ -1888,8 +1972,9 @@ function repDocs(f,to){
 }
 const lineOwner=bid=>{const l=state.lines.find(l=>l.active!==false&&typeOf(l.typeK).mode==="revform"&&(l.branchIds||[]).includes(bid));return l?l.assignee:""};
 const repBranchOk=b=>!!b&&branchAllowed(b.id)&&(myPerms().full||myPerms().scope==="all"||(!!lineOwner(b.id)&&scopeMember(lineOwner(b.id))));
-const repCompanies=()=>[...new Set(state.branches.filter(repBranchOk).map(b=>String(b.company||"").trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"ar"));
-function repBranchFilter(){return b=>repBranchOk(b)&&(ui.repCo==="all"||String((b||{}).company||"").trim()===ui.repCo)&&(ui.repBr==="all"||(b&&b.id===ui.repBr))}
+const repCompanies=()=>[...new Set(state.branches.filter(b=>repBranchOk(b)&&repSecOk(b)).map(b=>String(b.company||"").trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"ar"));
+const repSecOk=b=>ui.repSec==="all"||((sectorOfCompany(companyOf(b))||{}).id||"")===ui.repSec;
+function repBranchFilter(){return b=>repBranchOk(b)&&repSecOk(b||{})&&(ui.repCo==="all"||String((b||{}).company||"").trim()===ui.repCo)&&(ui.repBr==="all"||(b&&b.id===ui.repBr))}
 const ACC0=()=>({sys_cash:0,sys_net:0,sysT:0,act_cash:0,act_net:0,act_transfer:0,act_credit:0,actT:0,lc:0,ln:0,net:0,sn:0,sa:0,hn:0,ha:0,rc:0,rv:0,days:new Set()});
 function repAggregate(docs){
   const ok=repBranchFilter(),rows={},T=ACC0();
@@ -1914,10 +1999,10 @@ function repRowLabel(key){
 }
 VIEWFN.rrep=function(){
   const[f,to]=repRange();const docs=repDocs(f,to);const cos=repCompanies();
-  const brs=state.branches.filter(repBranchOk).filter(b=>ui.repCo==="all"||String(b.company||"").trim()===ui.repCo).sort(sortBr);
+  const brs=state.branches.filter(b=>repBranchOk(b)&&repSecOk(b)).filter(b=>ui.repCo==="all"||String(b.company||"").trim()===ui.repCo).sort(sortBr);
   if(ui.repBr!=="all"&&!brs.some(b=>b.id===ui.repBr))ui.repBr="all";
   let h='<div class="toolbar"><div class="seg" role="group" aria-label="الفترة">'+[["today","اليوم"],["week","هذا الأسبوع"],["month","هذا الشهر"],["last","الشهر الماضي"],["custom","فترة محددة"]].map(x=>'<button type="button" data-rq="'+x[0]+'" aria-pressed="'+(ui.repQuick===x[0])+'">'+x[1]+"</button>").join("")+'</div><label class="muted" for="repFrom">من</label><input class="input num" type="date" id="repFrom" value="'+f+'" max="'+today()+'"><label class="muted" for="repTo">إلى</label><input class="input num" type="date" id="repTo" value="'+to+'" max="'+today()+'"></div>';
-  h+='<div class="toolbar"><select class="select" id="repCo" aria-label="المنشأة"><option value="all">كل المنشآت</option>'+cos.map(c=>'<option value="'+esc(c)+'"'+(ui.repCo===c?" selected":"")+">"+esc(c)+"</option>").join("")+'</select><select class="select" id="repBr" aria-label="الفرع"><option value="all">كل الفروع</option>'+brs.map(b=>'<option value="'+esc(b.id)+'"'+(ui.repBr===b.id?" selected":"")+">"+esc(b.name)+"</option>").join("")+'</select><div class="seg" role="group" aria-label="عرض حسب">'+[["branch","حسب الفرع"],["company","حسب المنشأة"],["day","حسب اليوم"]].map(x=>'<button type="button" data-rby="'+x[0]+'" aria-pressed="'+(ui.repBy===x[0])+'">'+x[1]+"</button>").join("")+'</div><span style="flex:1"></span>'+
+  h+='<div class="toolbar">'+(state.sectors.length?'<select class="select" id="repSec" aria-label="القطاع"><option value="all">كل القطاعات</option>'+state.sectors.map(x=>'<option value="'+esc(x.id)+'"'+(ui.repSec===x.id?" selected":"")+">"+esc(x.name)+"</option>").join("")+"</select>":"")+'<select class="select" id="repCo" aria-label="المنشأة"><option value="all">كل المنشآت</option>'+cos.map(c=>'<option value="'+esc(c)+'"'+(ui.repCo===c?" selected":"")+">"+esc(c)+"</option>").join("")+'</select><select class="select" id="repBr" aria-label="الفرع"><option value="all">كل الفروع</option>'+brs.map(b=>'<option value="'+esc(b.id)+'"'+(ui.repBr===b.id?" selected":"")+">"+esc(b.name)+"</option>").join("")+'</select><div class="seg" role="group" aria-label="عرض حسب">'+[["branch","حسب الفرع"],["company","حسب المنشأة"],["day","حسب اليوم"]].map(x=>'<button type="button" data-rby="'+x[0]+'" aria-pressed="'+(ui.repBy===x[0])+'">'+x[1]+"</button>").join("")+'</div><span style="flex:1"></span>'+
     (Data.mode==="db"&&f<WIN?'<button type="button" class="btn" id="repRefresh">تحديث</button>':"")+
     (can("rev.import")?'<label class="btn" for="repImport" style="cursor:pointer">استيراد تقارير يومية (Excel)</label><input type="file" id="repImport" accept=".xlsx,.xls" multiple hidden>':"")+
     (can("export")?'<button type="button" class="btn primary" id="repExport">'+svg("dl")+"تصدير Excel</button>":"")+"</div>";
@@ -2536,6 +2621,8 @@ document.addEventListener("click",e=>{
   if(d.new&&t.matches("[data-new]")){openForm(d.new);return}
   if(d.export){exportCsv(d.export);return}
   if(d.ia){itemAction(d.ia);return}
+  if(d.newin){const p=d.newin.split("|");openForm(p[0],null,p[0]==="companies"?{sectorId:p[1]}:{companyId:p[1]});return}
+  if(t.id==="orgMigrate"){orgMigrate();return}
   if(d.ptab){ui.permTab=d.ptab;ui.permSel="";permDraft=null;render();return}
   if(d.pmode&&permDraft){permDraft.mode=d.pmode;if(d.pmode==="role"){const m=byId("team",permDraft.target.slice(5));const t=roleTemplate(m.role);Object.assign(permDraft,{pages:new Set(t.pages||[]),actions:new Set(t.actions||[]),scope:t.scope||"own",branches:new Set(t.branches||[])})}render();return}
   if(t.id==="permSave"){permSave();return}
@@ -2585,6 +2672,7 @@ document.addEventListener("change",e=>{
   if(el.dataset&&el.dataset.bcd!==undefined&&modal&&modal.kind==="bcimp"){modal.files[+el.dataset.bcd].date=el.value;paintBcImport();return}
   if(el.id==="bcImport"&&el.files&&el.files.length){const fl=[...el.files];el.value="";bcImportFiles(fl);return}
   if(el.id==="repFrom"||el.id==="repTo"){const[f,to]=repRange();ui.repFrom=f;ui.repTo=to;ui[el.id]=el.value;ui.repQuick="custom";render();return}
+  if(el.id==="repSec"){ui.repSec=el.value;ui.repCo="all";ui.repBr="all";render();return}
   if(el.id==="repCo"){ui.repCo=el.value;ui.repBr="all";render();return}
   if(el.id==="repBr"){ui.repBr=el.value;render();return}
   if(el.id==="repImport"&&el.files&&el.files.length){const fl=[...el.files];el.value="";repImportFiles(fl);return}
