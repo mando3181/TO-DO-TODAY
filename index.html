@@ -620,6 +620,7 @@ tr.sel td{background:var(--accent-soft)}
         <li>اضغط <strong>«شركة»</strong>، أو زر «+ شركة» داخل القطاع، وأدخل اسم الشركة وقطاعها والسجل التجاري والرقم الضريبي.</li>
         <li>داخل كل شركة أضف <strong>أقسامها</strong> و<strong>فروعها</strong>. أقسام الإدارة المالية التي تخدم كل المجموعة تُترك «على مستوى المجموعة».</li>
       </ol>
+      <p><strong>المسؤولون:</strong> لكل قطاع وشركة وفرع مسؤول تختاره من موظفي النظام، أو تكتب اسمه وجواله إن كان من خارج النظام (مثل مدير الفرع). يظهر المسؤول في رأس القطاع والشركة وعلى بطاقة الفرع، ويظهر تنبيه «لم يُحدَّد» حيث لا يوجد مسؤول.</p>
       <p>إذا كانت لديك فروع مستوردة من قبل، فاضغط <strong>«إنشاؤها كشركات وربط فروعها»</strong> لإنشاء الشركات من أسماء المنشآت في الفروع تلقائياً، ثم حدّد قطاع كل شركة. وفي «تقرير الإيرادات» يمكن التصفية حسب <strong>القطاع</strong> ثم الشركة ثم الفرع.</p>
     </section>
     <section id="g-perm">
@@ -1326,9 +1327,9 @@ VIEWFN.org=function(){
     return'<div class="dept"><div class="dh"><h3>'+esc(d.name)+"</h3>"+(d.sample?'<span class="chip sample">مثال</span>':"")+'<span class="chip num">'+nf.format(accs.length+(hd?1:0))+" موظف</span>"+(M?'<button type="button" class="btn sm ghost" data-open="depts:'+esc(d.id)+'">تعديل</button>':"")+"</div>"+
       (hd?'<div class="headp" data-open="team:'+esc(hd)+'" style="cursor:pointer">'+avatar(hd)+'<div class="grow"><div style="font-weight:700">'+esc(memberName(hd))+'</div><div class="s">رئيس القسم · '+stat(hd)+"</div></div></div>":'<div class="headp"><span class="muted">لم يُعيَّن رئيس للقسم</span></div>')+
       (accs.length?accs.map(m=>'<div class="mem" data-open="team:'+esc(m.id)+'">'+avatar(m.id)+'<div class="grow"><div style="font-weight:600">'+esc(m.name)+(m.id===me?' <span class="chip acc">أنت</span>':"")+'</div><div class="s">'+esc(m.title||lbl(ROLES,m.role))+" · "+stat(m.id)+"</div></div></div>").join(""):'<div class="mem" style="cursor:default"><span class="muted">لا يوجد موظفون</span></div>')+"</div>"};
-  const brChips=bs=>bs.length?'<div class="brlist">'+bs.slice().sort(sortBr).map(b=>{const o=lineOwner(b.id);return'<span class="brchip"'+(B?' data-open="branches:'+esc(b.id)+'"':"")+'><b>'+esc(b.name)+"</b>"+(o?'<span class="s">· '+esc(memberName(o))+"</span>":"")+(b.active===false?' <span class="chip">موقوف</span>':"")+"</span>"}).join("")+"</div>":'<span class="muted" style="font-size:12.5px">لا توجد فروع</span>';
+  const brChips=bs=>bs.length?'<div class="brlist">'+bs.slice().sort(sortBr).map(b=>{const o=lineOwner(b.id);return'<span class="brchip"'+(B?' data-open="branches:'+esc(b.id)+'"':"")+'><b>'+esc(b.name)+"</b>"+(mgrName(b)?'<span class="s">· المسؤول: '+esc(mgrName(b))+"</span>":"")+(o?'<span class="s">· المحاسب: '+esc(memberName(o))+"</span>":"")+(b.active===false?' <span class="chip">موقوف</span>':"")+"</span>"}).join("")+"</div>":'<span class="muted" style="font-size:12.5px">لا توجد فروع</span>';
   const compBox=c=>{const ds=state.depts.filter(d=>d.companyId===c.id),bs=state.branches.filter(b=>companyOf(b)===c);
-    return'<div class="company"><div class="comph"><h3>'+esc(c.name)+"</h3>"+(c.shortName?'<span class="chip">'+esc(c.shortName)+"</span>":"")+(c.crNo?'<span class="chip num" dir="ltr">س.ت '+esc(c.crNo)+"</span>":"")+(c.sample?'<span class="chip sample">مثال</span>':"")+'<span class="chip info num">'+nf.format(ds.length)+" قسم · "+nf.format(bs.length)+' فرع</span><span style="flex:1"></span>'+
+    return'<div class="company"><div class="comph"><h3>'+esc(c.name)+"</h3>"+mgrChip(c,"مسؤول الشركة")+(c.shortName?'<span class="chip">'+esc(c.shortName)+"</span>":"")+(c.crNo?'<span class="chip num" dir="ltr">س.ت '+esc(c.crNo)+"</span>":"")+(c.sample?'<span class="chip sample">مثال</span>':"")+'<span class="chip info num">'+nf.format(ds.length)+" قسم · "+nf.format(bs.length)+' فرع</span><span style="flex:1"></span>'+
       (M?'<button type="button" class="btn sm" data-newin="depts|'+esc(c.id)+'">'+svg("plus")+"قسم</button>":"")+(B?'<button type="button" class="btn sm" data-newin="branches|'+esc(c.id)+'">'+svg("plus")+"فرع</button>":"")+(M?'<button type="button" class="btn sm ghost" data-open="companies:'+esc(c.id)+'">تعديل</button>':"")+"</div>"+
       (ds.length?'<div class="sub">الأقسام</div><div class="depts">'+ds.map(deptCard).join("")+"</div>":"")+'<div class="sub">الفروع</div>'+brChips(bs)+"</div>"};
   let h='<div class="orgtop">'+(cfos.length?cfos.map(m=>pcard(m,"cfo")).join(""):'<div class="empty" style="max-width:440px">لم يُضف المدير المالي بعد — اضغط «إضافة موظف» واختر الدور «المدير المالي».</div>')+'</div>';
@@ -1339,7 +1340,7 @@ VIEWFN.org=function(){
   const gd=state.depts.filter(d=>!byId("companies",d.companyId));
   h+='<div class="sector"><div class="sech"><h2>أقسام الإدارة المالية</h2><span class="muted" style="font-size:12.5px">على مستوى المجموعة</span></div>'+(gd.length?'<div class="depts" style="border-top:0;padding-top:0">'+gd.map(deptCard).join("")+"</div>":'<div class="muted" style="font-size:13px">لا توجد أقسام على مستوى المجموعة.</div>')+"</div>";
   state.sectors.forEach(x=>{const cs=state.companies.filter(c=>c.sectorId===x.id);
-    h+='<div class="sector"><div class="sech"><h2>'+esc(x.name)+"</h2>"+(x.sample?'<span class="chip sample">مثال</span>':"")+'<span class="chip info num">'+nf.format(cs.length)+' شركة</span><span style="flex:1"></span>'+(M?'<button type="button" class="btn sm" data-newin="companies|'+esc(x.id)+'">'+svg("plus")+'شركة</button><button type="button" class="btn sm ghost" data-open="sectors:'+esc(x.id)+'">تعديل</button>':"")+"</div>"+
+    h+='<div class="sector"><div class="sech"><h2>'+esc(x.name)+"</h2>"+(x.sample?'<span class="chip sample">مثال</span>':"")+mgrChip(x,"مسؤول القطاع")+'<span class="chip info num">'+nf.format(cs.length)+' شركة</span><span style="flex:1"></span>'+(M?'<button type="button" class="btn sm" data-newin="companies|'+esc(x.id)+'">'+svg("plus")+'شركة</button><button type="button" class="btn sm ghost" data-open="sectors:'+esc(x.id)+'">تعديل</button>':"")+"</div>"+
       (x.desc?'<div class="muted" style="font-size:13px">'+esc(x.desc)+"</div>":"")+(cs.length?cs.map(compBox).join(""):'<div class="muted" style="font-size:13px">لا توجد شركات في هذا القطاع.</div>')+"</div>"});
   const nos=state.companies.filter(c=>!byId("sectors",c.sectorId));
   if(nos.length)h+='<div class="sector"><div class="sech"><h2>شركات بدون قطاع</h2></div>'+nos.map(compBox).join("")+"</div>";
@@ -1486,6 +1487,14 @@ VIEWFN.guide=function(){return document.getElementById("guideTpl").innerHTML};
 
 /* ================= generic forms ================= */
 const teamOpts=()=>[["","— غير مسند —"]].concat(sortedTeam().map(m=>[m.id,m.name+" — "+lbl(ROLES,m.role)]));
+const personOpts=()=>[["","— لم يُحدَّد —"],["__ext","— شخص من خارج النظام —"]].concat(sortedTeam().map(m=>[m.id,m.name+" — "+(m.title||lbl(ROLES,m.role))]));
+const mgrFields=l=>[{k:"managerId",l:l,type:"select",opts:personOpts,repaint:1,full:1},{k:"managerName",l:"اسم "+l.replace(/^مسؤول /,"المسؤول عن "),req:r=>r.managerId==="__ext",showIf:r=>r.managerId==="__ext"},{k:"managerPhone",l:"جوال المسؤول",type:"tel",ltr:1,showIf:r=>r.managerId==="__ext"}];
+const mgrName=x=>!x||!x.managerId?"":x.managerId==="__ext"?String(x.managerName||""):memberName(x.managerId);
+function mgrChip(x,label){
+  const n=mgrName(x);if(!n)return'<span class="chip warn">'+label+": لم يُحدَّد</span>";
+  const inSys=x.managerId!=="__ext";
+  return'<span class="who" style="font-size:12.5px"'+(inSys?' data-open="team:'+esc(x.managerId)+'" role="button" tabindex="0"':"")+">"+(inSys?avatar(x.managerId):"")+'<span><span class="muted">'+label+":</span> <b>"+esc(n)+"</b>"+(!inSys&&x.managerPhone?' <span class="muted num" dir="ltr">'+esc(x.managerPhone)+"</span>":"")+"</span></span>";
+}
 const companyOpts=empty=>()=>[["",empty]].concat(state.companies.map(c=>{const x=sectorOfCompany(c);return[c.id,(x?x.name+" › ":"")+c.name]}));
 const deptOpts=()=>[["","— اختر القسم —"]].concat(state.depts.map(d=>[d.id,d.name]));
 const SCHEMA={
@@ -1497,11 +1506,11 @@ const SCHEMA={
     {k:"phone",l:"الجوال",type:"tel",ltr:1},{k:"email",l:"البريد الإلكتروني (للدخول)",type:"email",ltr:1,req:()=>Data.mode==="db"}]},
   sectors:{t:"قطاع",f:[
     {k:"name",l:"اسم القطاع",req:1,full:1,ph:"مثال: قطاع التجزئة والكماليات"},
-    {k:"desc",l:"وصف القطاع",type:"textarea",full:1}]},
+    {k:"desc",l:"وصف القطاع",type:"textarea",full:1}].concat(mgrFields("مسؤول القطاع"))},
   companies:{t:"شركة",f:[
     {k:"name",l:"اسم الشركة / المنشأة",req:1,full:1,ph:"مثال: شركة (ع) الرزيحي التجارية - تجزئة"},
     {k:"sectorId",l:"القطاع",type:"select",opts:()=>[["","— بدون قطاع —"]].concat(state.sectors.map(x=>[x.id,x.name])),full:1},
-    {k:"shortName",l:"الاسم المختصر",ph:"مثال: الرزيحي تجزئة"},{k:"crNo",l:"رقم السجل التجاري",ltr:1},{k:"vatNo",l:"الرقم الضريبي",ltr:1}]},
+    {k:"shortName",l:"الاسم المختصر",ph:"مثال: الرزيحي تجزئة"},{k:"crNo",l:"رقم السجل التجاري",ltr:1},{k:"vatNo",l:"الرقم الضريبي",ltr:1}].concat(mgrFields("مسؤول الشركة"))},
   depts:{t:"قسم",f:[
     {k:"name",l:"اسم القسم",req:1,full:1,ph:"مثال: الخزينة والبنوك"},
     {k:"companyId",l:"يتبع",type:"select",opts:companyOpts("— الإدارة المالية (على مستوى المجموعة) —"),full:1},
@@ -1525,6 +1534,7 @@ const SCHEMA={
     {k:"name",l:"اسم الفرع",req:1},
     {k:"companyId",l:"الشركة",type:"select",opts:companyOpts("— اختر الشركة —"),showIf:()=>state.companies.length>0,repaint:1},
     {k:"company",l:"المنشأة / الشركة",showIf:r=>!state.companies.length||!r.companyId},
+    ...mgrFields("مسؤول الفرع"),
     {k:"termsText",l:"أرقام أجهزة الشبكة (رقم في كل سطر)",type:"textarea",full:1},
     {k:"active",l:"الحالة",type:"select",opts:()=>[["1","فعّال"],["0","موقوف"]],def:"1",full:1}]},
   types:{t:"نوع إقفال",f:[
@@ -1619,6 +1629,7 @@ async function deleteCurrent(){
     if(state.lines.some(l=>l.typeK===id)){toast("لا يمكن حذف نوع مستخدم في بنود الإقفال — احذف البنود أو غيّر نوعها أولاً");return}
     const c=cfg();try{await Data.setConfig(Object.assign({},c,{types:types().filter(t=>t.k!==id)}));closeModal();toast("تم الحذف")}catch(e){writeErr(e)}return;
   }
+  if(col==="team"){const where=state.sectors.filter(x=>x.managerId===id).map(x=>/^قطاع/.test(x.name)?x.name:"قطاع "+x.name).concat(state.companies.filter(x=>x.managerId===id).map(x=>x.name),state.branches.filter(x=>x.managerId===id).map(x=>"فرع "+x.name));if(where.length){toast("هذا الموظف مسؤول عن: "+where.join("، ")+" — عيّن مسؤولاً آخر أولاً");return}}
   if(col==="team"&&state.lines.some(l=>l.assignee===id&&l.active!==false)){toast("هذا الموظف مسؤول عن بنود إقفال فعّالة — انقلها لموظف آخر أولاً");return}
   if(col==="tasks"&&!(await deleteFilesByKey("task:"+id)))return;
   if(col==="branches"&&state.lines.some(l=>l.active!==false&&(l.branchIds||[]).includes(id))){toast("الفرع مسند في مصفوفة الإقفال — أزله من البند أولاً، أو أوقفه بدلاً من حذفه");return}
@@ -1877,8 +1888,8 @@ function branchesPanel(A){
   const own=branchOwner(curDay());
   let h='<div class="panel"><h2>الفروع وأجهزة الشبكة <span class="muted">لنموذج تسجيل الإيرادات</span>'+(A?'<label class="btn sm" for="brImport" style="cursor:pointer">استيراد ملف الفروع</label><input type="file" id="brImport" accept=".json,application/json" hidden><button type="button" class="btn sm" data-new="branches">'+svg("plus")+"فرع جديد</button>":"")+"</h2>";
   if(!state.branches.length)return h+'<div class="empty">لا توجد فروع. أضف فرعاً، أو استورد ملف <span dir="ltr">seed.json</span> من نظام الإيرادات السابق.</div></div>';
-  h+='<div class="tablewrap" style="border:0"><table style="min-width:600px"><thead><tr><th>الفرع</th><th>المنشأة</th><th>المحاسب المسؤول</th><th>أجهزة الشبكة</th><th>الحالة</th></tr></thead><tbody>'+
-    state.branches.slice().sort(sortBr).map(b=>{const o=own[b.id];return"<tr"+(A?' class="cl" data-open="branches:'+esc(b.id)+'"':"")+'><td class="t">'+esc(b.name)+(b.sample?' <span class="chip sample">مثال</span>':"")+'</td><td class="s">'+esc(b.company||"—")+"</td><td>"+(o?who(o.assignee):'<span class="chip warn">غير مسند</span>')+'</td><td class="num">'+nf.format((b.terminals||[]).length)+"</td><td>"+(b.active===false?'<span class="chip">موقوف</span>':'<span class="chip ok">فعّال</span>')+"</td></tr>"}).join("")+"</tbody></table></div>";
+  h+='<div class="tablewrap" style="border:0"><table style="min-width:600px"><thead><tr><th>الفرع</th><th>المنشأة</th><th>مسؤول الفرع</th><th>المحاسب المسؤول</th><th>أجهزة الشبكة</th><th>الحالة</th></tr></thead><tbody>'+
+    state.branches.slice().sort(sortBr).map(b=>{const o=own[b.id];return"<tr"+(A?' class="cl" data-open="branches:'+esc(b.id)+'"':"")+'><td class="t">'+esc(b.name)+(b.sample?' <span class="chip sample">مثال</span>':"")+'</td><td class="s">'+esc(b.company||"—")+"</td><td>"+(mgrName(b)?esc(mgrName(b)):'<span class="muted">—</span>')+"</td><td>"+(o?who(o.assignee):'<span class="chip warn">غير مسند</span>')+'</td><td class="num">'+nf.format((b.terminals||[]).length)+"</td><td>"+(b.active===false?'<span class="chip">موقوف</span>':'<span class="chip ok">فعّال</span>')+"</td></tr>"}).join("")+"</tbody></table></div>";
   return h+'<div class="muted" style="font-size:12.5px;margin-top:8px">لإسناد الفروع لمحاسب: أضف «بند إقفال جديد» من نوع «نموذج إيرادات الفروع» واختر فروعه.</div></div>';
 }
 VIEWFN.rev=function(){
