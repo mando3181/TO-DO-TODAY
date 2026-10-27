@@ -481,7 +481,7 @@ tr.sel td{background:var(--accent-soft)}
 <template id="guideTpl">
 <div class="guide">
   <nav class="toc" aria-label="محتويات الدليل">
-    <a href="#g-idea">فكرة النظام</a><a href="#g-start">التجهيز لأول مرة</a><a href="#g-share">الدخول والصلاحيات</a><a href="#g-matrix">مصفوفة الإقفال</a><a href="#g-close">الإقفال اليومي</a><a href="#g-approve">الاعتماد والإرجاع</a><a href="#g-dash">لوحة المتابعة</a><a href="#g-tasks">المهام</a><a href="#g-perf">الإنجاز والأداء</a><a href="#g-rev">تسجيل الإيرادات</a><a href="#g-rrep">تقرير الإيرادات</a><a href="#g-bc">البنوك والصندوق</a><a href="#g-staff">المشرفون والكاشيرية</a><a href="#g-perm">الصلاحيات</a><a href="#g-org">الهيكل التنظيمي</a><a href="#g-files">المرفقات والتقارير</a><a href="#g-routine">روتين العمل</a><a href="#g-faq">أسئلة شائعة</a>
+    <a href="#g-idea">فكرة النظام</a><a href="#g-start">التجهيز لأول مرة</a><a href="#g-share">الدخول والصلاحيات</a><a href="#g-matrix">مصفوفة الإقفال</a><a href="#g-close">الإقفال اليومي</a><a href="#g-approve">الاعتماد والإرجاع</a><a href="#g-dash">لوحة المتابعة</a><a href="#g-tasks">المهام</a><a href="#g-perf">الإنجاز والأداء</a><a href="#g-rev">تسجيل الإيرادات</a><a href="#g-rrep">تقرير الإيرادات</a><a href="#g-bc">البنوك والصندوق</a><a href="#g-staff">التواصل وواتساب</a><a href="#g-perm">الصلاحيات</a><a href="#g-org">الهيكل التنظيمي</a><a href="#g-files">المرفقات والتقارير</a><a href="#g-routine">روتين العمل</a><a href="#g-faq">أسئلة شائعة</a>
   </nav>
   <article class="doc">
     <section id="g-idea">
@@ -681,8 +681,9 @@ tr.sel td{background:var(--accent-soft)}
       <div class="warnbox">قواعد قاعدة البيانات تمنع غير المصرّح لهم من تعديل الهيكل والإعداد والصلاحيات حتى لو تجاوزوا الواجهة. أما إخفاء الصفحات ونطاق البيانات فتطبّقه واجهة النظام.</div>
     </section>
     <section id="g-staff">
-      <h2>المشرفون والكاشيرية ومراسلتهم عبر واتساب</h2>
-      <p>صفحة <strong>«المشرفون والكاشيرية»</strong> فيها بيانات موظفي الفروع: الاسم، والوظيفة (مشرف فرع، مشرف منطقة، كاشير، أمين صندوق)، والفرع، ورقم الجوال، والرقم الوظيفي، ورقم الهوية، والجنسية، وتاريخ المباشرة، والوردية.</p>
+      <h2>التواصل وواتساب</h2>
+      <p>صفحة <strong>«التواصل وواتساب»</strong> فيها قائمتان: <strong>فريق الإدارة المالية</strong> (كل أعضاء الموقع، بأرقام الجوال المسجّلة لهم في الهيكل التنظيمي)، و<strong>موظفو الفروع</strong>. ولمراسلة كل الفريق دفعة واحدة اضغط «واتساب للجميع».</p>
+      <p>قائمة موظفي الفروع فيها: الاسم، والوظيفة (مشرف فرع، مشرف منطقة، كاشير، أمين صندوق)، والفرع، ورقم الجوال، والرقم الوظيفي، ورقم الهوية، والجنسية، وتاريخ المباشرة، والوردية.</p>
       <ol>
         <li><strong>الإضافة:</strong> اضغط «إضافة موظف فرع»، أو «استيراد Excel» لملف فيه أعمدة: الاسم، الوظيفة، الفرع، الجوال، الرقم الوظيفي. أسهل طريقة: صدّر الملف من الصفحة، واملأه، ثم استورده. اسم الفرع في الملف يجب أن يطابق اسمه في النظام.</li>
         <li><strong>رسالة لموظف:</strong> اضغط «واتساب» بجانب اسمه، واختر قالباً أو اكتب رسالتك، ثم «فتح واتساب». تُفتح المحادثة والرسالة مكتوبة، فتضغط «إرسال» داخل واتساب.</li>
@@ -788,7 +789,7 @@ const VIEWS=[
   {k:"rev",l:"تسجيل الإيرادات",i:"rev",h:"نموذج إيرادات الفروع اليومية: المبيعات وسحب الشبكات والعجز والفائض"},
   {k:"rrep",l:"تقرير الإيرادات",i:"rrep",h:"تجميع إيرادات الفروع لأي فترة، حسب الفرع أو المنشأة أو اليوم"},
   {k:"bc",l:"البنوك والصندوق",i:"bank",h:"مطابقة أرصدة البنوك، ووسيط المتحصلات، وتحصيل النقدية بالفروع، وإقفال الصندوق"},
-  {k:"staff",l:"المشرفون والكاشيرية",i:"users",h:"موظفو الفروع: بياناتهم وفروعهم وأرقام جوالاتهم، ومراسلتهم عبر واتساب"},
+  {k:"staff",l:"التواصل وواتساب",i:"users",h:"أرقام جوالات فريق الإدارة المالية وموظفي الفروع (المشرفين والكاشيرية)، ومراسلتهم عبر واتساب"},
   {k:"tasks",l:"المهام",i:"tasks",h:"الأعمال غير اليومية وتوزيعها على الفريق"},
   {k:"perf",l:"الإنجاز والأداء",i:"perf",h:"حجم الإنجاز والانضباط لكل محاسب وقسم"},
   {k:"files",l:"المرفقات والتقارير",i:"clip",h:"كل ملفات Excel وWord وPDF المرفقة بالإقفالات والمهام"},
@@ -831,7 +832,7 @@ const numOrEmpty=v=>v===""||v==null||isNaN(+v)?"":+v;
 /* ================= state ================= */
 const state={team:[],depts:[],lines:[],tasks:[],activity:[],files:[],branches:[],bankAccts:[],cashBoxes:[],staff:[],sectors:[],companies:[],orgUnits:{},days:{},rev:{},bc:{},config:null};
 const ready={};
-const ui={view:(location.hash||"").slice(1)||lsGet("crm_view")||"dash",day:null,dept:"all",member:"all",ist:"all",taskMember:"all",taskDept:"all",taskPrio:"all",taskQ:"",repSec:"all",permTab:"users",permSel:"",bcTab:"banks",repFrom:"",repTo:"",repQuick:"month",repCo:"all",repBr:"all",repBy:"branch",repTab:"sales",revTab:"sales",revScope:"auto",abnPre:"",fKind:"all",fType:"all",fDept:"all",fQ:"",stQ:"",stBr:"all",stRole:"all",stAct:"1",stSel:new Set(),period:"month",perfDept:"all",actMember:"all"};
+const ui={view:(location.hash||"").slice(1)||lsGet("crm_view")||"dash",day:null,dept:"all",member:"all",ist:"all",taskMember:"all",taskDept:"all",taskPrio:"all",taskQ:"",repSec:"all",permTab:"users",permSel:"",bcTab:"banks",repFrom:"",repTo:"",repQuick:"month",repCo:"all",repBr:"all",repBy:"branch",repTab:"sales",revTab:"sales",revScope:"auto",abnPre:"",fKind:"all",fType:"all",fDept:"all",fQ:"",stQ:"",stBr:"all",stRole:"all",stAct:"1",stSel:new Set(),stTab:"team",tmSel:new Set(),tmDept:"all",tmRole:"all",period:"month",perfDept:"all",actMember:"all"};
 if(!VIEWS.some(v=>v.k===ui.view))ui.view="dash";
 let me=lsGet("crm_me")||"";
 let canWrite=true,isOwnerV=false,fbAuth=null,authUser=null,ownerEmail="",ownerHash="",fbStarted=false,accessEmails=null,syncingAccess=false,accessAdmins=null,permDraft=null,pendingImport=null;
@@ -1175,7 +1176,7 @@ function render(){
   const actions={
     dash:"",close:(can("export")?'<button class="btn" data-export="close">'+svg("dl")+"تصدير اليوم</button>":""),
     tasks:'<button class="btn primary" data-new="tasks">'+svg("plus")+"مهمة جديدة</button>",
-    staff:(can("staff.manage")?'<label class="btn" for="stImport" style="cursor:pointer">استيراد Excel</label><input type="file" id="stImport" accept=".xlsx,.xls,.csv" hidden>':"")+(can("export")?'<button class="btn" id="stExport">'+svg("dl")+"تصدير Excel</button>":"")+(can("staff.manage")?'<button class="btn primary" data-new="staff">'+svg("plus")+"إضافة موظف فرع</button>":""),
+    staff:ui.stTab==="team"?(can("org.manage")?'<button class="btn primary" data-new="team">'+svg("plus")+"إضافة موظف</button>":""):(can("staff.manage")?'<label class="btn" for="stImport" style="cursor:pointer">استيراد Excel</label><input type="file" id="stImport" accept=".xlsx,.xls,.csv" hidden>':"")+(can("export")?'<button class="btn" id="stExport">'+svg("dl")+"تصدير Excel</button>":"")+(can("staff.manage")?'<button class="btn primary" data-new="staff">'+svg("plus")+"إضافة موظف فرع</button>":""),
     perf:(can("export")?'<button class="btn" data-export="perf">'+svg("dl")+"تصدير CSV</button>":""),
     org:can("org.manage")?'<button class="btn" data-new="sectors">'+svg("plus")+'قطاع</button><button class="btn" data-new="companies">'+svg("plus")+'شركة</button><button class="btn" data-new="depts">'+svg("plus")+'قسم جديد</button><button class="btn primary" data-new="team">'+svg("plus")+"إضافة موظف</button>":"",
     setup:can("setup.manage")?'<button class="btn primary" data-new="lines">'+svg("plus")+"بند إقفال جديد</button>":"",
@@ -1655,6 +1656,7 @@ function paintForm(){
   let extraHtml="";
   if(col==="team"&&Data.mode==="db")extraHtml='<div class="note info">بهذا البريد ينشئ الموظف حسابه ويسجّل الدخول. تغيير البريد أو حذف الموظف يوقف دخوله بالبريد القديم.</div>';
   if(col==="lines"&&!id)extraHtml='<div class="note info">يظهر البند في الإقفال اليومي ابتداءً من اليوم.</div>';
+  if(col==="team"&&id&&id!==me&&waNum(rec.phone))extraHtml+='<div class="field full"><div class="toolbar"><button type="button" class="btn wa" data-wa="t:'+esc(id)+'">'+svg("chat")+'رسالة واتساب</button><a class="btn" href="tel:+'+waNum(rec.phone)+'">'+svg("phone")+"اتصال</a></div></div>";
   if(col==="staff"&&id){const n=waNum(rec.phone);extraHtml='<div class="field full"><div class="toolbar">'+(n?'<button type="button" class="btn wa" data-wa="'+esc(id)+'">'+svg("chat")+"رسالة واتساب</button><a class=\"btn\" href=\"tel:+"+n+'">'+svg("phone")+"اتصال</a>":'<span class="chip bad">رقم الجوال غير صالح لواتساب</span>')+"</div></div>"}
   if(col==="tasks")extraHtml+=id?'<div class="field full"><label>المرفقات</label><div id="attBox"></div></div>':'<div class="note info">يمكنك إرفاق ملفات Excel وWord وPDF بعد حفظ المهمة.</div>';
   const canEditThis=col==="tasks"?canWrite:(col==="team"||col==="depts"||col==="sectors"||col==="companies")?can("org.manage"):col==="branches"?(can("setup.manage")||can("org.manage")):col==="staff"?can("staff.manage"):can("setup.manage");
@@ -1745,7 +1747,11 @@ const staffRole=k=>lbl(STAFF_ROLES,k);
 const staffBranch=x=>byId("branches",x.branchId);
 const roleChip=k=>{const r=STAFF_ROLES.find(x=>x.k===k)||STAFF_ROLES[4];return'<span class="chip '+r.c+'">'+r.l+"</span>"};
 const waTpls=()=>WA_TPL.concat((cfg().waTpl||[]).map(x=>Object.assign({custom:true},x)));
-function waFill(t,x,D){const b=staffBranch(x)||{};return String(t||"").replace(/\{الاسم\}/g,x.name||"").replace(/\{الفرع\}/g,b.name||"").replace(/\{الشركة\}/g,b.company||"").replace(/\{الوظيفة\}/g,staffRole(x.role)).replace(/\{التاريخ\}/g,D?fmtDay(D):"")}
+function contact(k){
+  if(String(k).startsWith("t:")){const m=byId("team",k.slice(2));return m&&{k,name:m.name,phone:m.phone,role:m.title||lbl(ROLES,m.role),place:m.role==="cfo"?"الإدارة المالية":deptName(m.deptId),company:"",log:lbl(ROLES,m.role)}}
+  const x=byId("staff",k);if(!x)return null;const b=staffBranch(x)||{};return{k,name:x.name,phone:x.phone,role:staffRole(x.role),place:b.name||"",company:b.company||"",log:staffRole(x.role)+" — "+(b.name||"")};
+}
+function waFill(t,c,D){return String(t||"").replace(/\{الاسم\}/g,c.name||"").replace(/\{(الفرع|القسم)\}/g,c.place||"").replace(/\{الشركة\}/g,c.company||"").replace(/\{الوظيفة\}/g,c.role||"").replace(/\{التاريخ\}/g,D?fmtDay(D):"")}
 const staffVisible=()=>state.staff.filter(x=>branchAllowed(x.branchId));
 const roleIdx=k=>{const i=STAFF_ROLES.findIndex(r=>r.k===k);return i<0?9:i};
 function staffList(){
@@ -1753,7 +1759,36 @@ function staffList(){
   return staffVisible().filter(x=>(ui.stBr==="all"||x.branchId===ui.stBr)&&(ui.stRole==="all"||(ui.stRole==="sups"?x.role==="sup"||x.role==="area":x.role===ui.stRole))&&(ui.stAct==="all"||(ui.stAct==="0")===(x.active===false))&&(!q||normAr([x.name,x.empNo,x.phone,x.phone2,x.idNo,(staffBranch(x)||{}).name].join(" ")).toLowerCase().includes(q)))
     .sort((a,b)=>{const A=staffBranch(a),B=staffBranch(b);return(A&&B?sortBr(A,B):A?-1:B?1:0)||roleIdx(a.role)-roleIdx(b.role)||String(a.name).localeCompare(b.name,"ar")});
 }
+const STAB=[["team","فريق الإدارة المالية"],["branch","موظفو الفروع (المشرفون والكاشيرية)"]];
+function teamList(){
+  const q=normAr(ui.stQ).toLowerCase();
+  return sortedTeam().filter(m=>m.id!==me&&(ui.tmDept==="all"||m.deptId===ui.tmDept)&&(ui.tmRole==="all"||m.role===ui.tmRole)&&(!q||normAr([m.name,m.title,m.phone,m.email,deptName(m.deptId)].join(" ")).toLowerCase().includes(q)));
+}
+function bulkBar(list,sel,id){
+  const ok=list.filter(x=>waNum(x.phone)).length,n=sel.size;
+  return'<div class="toolbar"><span class="muted fs13">'+nf.format(list.length)+" شخص"+(n?" · المحدد: <b class=\"num\">"+nf.format(n)+"</b>":"")+'</span><span style="flex:1"></span><button type="button" class="btn wa" id="'+id+'"'+(n||ok?"":" disabled")+">"+svg("chat")+(n?"واتساب للمحددين ("+nf.format(n)+")":"واتساب للجميع ("+nf.format(ok)+")")+"</button></div>";
+}
+function teamTab(){
+  const all=state.team.filter(m=>m.id!==me),list=teamList(),O=can("org.manage");
+  const noPh=all.filter(m=>!waNum(m.phone));
+  let h='<div class="toolbar"><input class="input search" id="stQ" placeholder="ابحث بالاسم أو الجوال أو القسم" value="'+esc(ui.stQ)+'">'+
+    '<select class="select" id="tmDept" aria-label="القسم"><option value="all">كل الأقسام</option>'+state.depts.map(d=>'<option value="'+esc(d.id)+'"'+(ui.tmDept===d.id?" selected":"")+">"+esc(d.name)+"</option>").join("")+"</select>"+
+    '<select class="select" id="tmRole" aria-label="الدور"><option value="all">كل الأدوار</option>'+ROLES.map(r=>'<option value="'+r.k+'"'+(ui.tmRole===r.k?" selected":"")+">"+r.l+"</option>").join("")+"</select></div>";
+  if(noPh.length)h+='<div class="note warn" style="margin-bottom:12px">'+nf.format(noPh.length)+" من أعضاء الفريق بلا رقم جوال صالح: "+noPh.slice(0,8).map(m=>esc(m.name)).join("، ")+(noPh.length>8?"…":"")+(O?" — أضف الرقم من «الهيكل التنظيمي» أو بالضغط على الاسم هنا.":" — يضيفه من يدير الهيكل التنظيمي.")+"</div>";
+  if(!all.length)return h+'<div class="empty">لا يوجد أعضاء آخرون في الفريق. أضفهم من «الهيكل التنظيمي».</div>';
+  if(!list.length)return h+'<div class="empty">لا يوجد أعضاء مطابقون للتصفية</div>';
+  const vis=new Set(list.map(m=>"t:"+m.id));[...ui.tmSel].forEach(k=>{if(!vis.has(k))ui.tmSel.delete(k)});
+  h+=bulkBar(list,ui.tmSel,"waBulkT");
+  h+='<div class="tablewrap"><table style="min-width:680px"><thead><tr><th style="width:36px"><input type="checkbox" id="tmAll" aria-label="تحديد الكل"'+(ui.tmSel.size===list.length?" checked":"")+'></th><th>الاسم</th><th>الدور</th><th>القسم</th><th>الجوال</th><th></th></tr></thead><tbody>'+
+    list.map(m=>{const n=waNum(m.phone),k="t:"+m.id;
+      return'<tr><td><input type="checkbox" class="tmck" value="'+esc(k)+'" aria-label="تحديد '+esc(m.name)+'"'+(ui.tmSel.has(k)?" checked":"")+"></td><td>"+(O?'<button type="button" class="linkish" data-open="team:'+esc(m.id)+'">'+esc(m.name)+"</button>":"<b>"+esc(m.name)+"</b>")+(m.title?'<div class="muted fs13">'+esc(m.title)+"</div>":"")+"</td><td>"+lbl(ROLES,m.role)+'</td><td class="s">'+esc(m.role==="cfo"?"—":deptName(m.deptId))+'</td><td class="num" dir="ltr" style="text-align:end">'+esc(m.phone||"—")+'</td><td><div class="stacts">'+(n?'<button type="button" class="btn sm wa" data-wa="'+esc(k)+'" aria-label="واتساب '+esc(m.name)+'">'+svg("chat")+'واتساب</button><a class="btn sm ghost" href="tel:+'+n+'" aria-label="اتصال بـ'+esc(m.name)+'">'+svg("phone")+"</a>":'<span class="chip warn">لا يوجد رقم</span>')+"</div></td></tr>"}).join("")+"</tbody></table></div>";
+  return h;
+}
 VIEWFN.staff=function(){
+  const seg='<div class="toolbar"><div class="seg" role="group" aria-label="القائمة">'+STAB.map(x=>'<button type="button" data-sttab="'+x[0]+'" aria-pressed="'+(ui.stTab===x[0])+'">'+x[1]+"</button>").join("")+"</div></div>";
+  return seg+(ui.stTab==="team"?teamTab():branchTab())+'<div class="muted fs13" style="margin-top:8px">زر «واتساب» يفتح المحادثة في تطبيق واتساب (على الجوال) أو واتساب ويب (على الكمبيوتر) والرسالة مكتوبة جاهزة، ثم تضغط «إرسال».</div>';
+};
+function branchTab(){
   const M=can("staff.manage"),all=staffVisible(),act=all.filter(x=>x.active!==false),list=staffList();
   const brs=state.branches.filter(b=>branchAllowed(b.id)).sort(sortBr);
   const noSup=brs.filter(b=>b.active!==false&&!act.some(x=>x.branchId===b.id&&x.role==="sup"));
@@ -1770,26 +1805,26 @@ VIEWFN.staff=function(){
   if(!list.length)return h+'<div class="empty">لا يوجد موظفون مطابقون للتصفية</div>';
   const vis=new Set(list.map(x=>x.id));[...ui.stSel].forEach(id=>{if(!vis.has(id))ui.stSel.delete(id)});
   const nSel=ui.stSel.size,allOn=nSel===list.length;
-  h+='<div class="toolbar"><span class="muted fs13">'+nf.format(list.length)+" موظف"+(nSel?" · المحدد: <b class=\"num\">"+nf.format(nSel)+"</b>":"")+'</span><span style="flex:1"></span><button type="button" class="btn wa" id="waBulk"'+(nSel?"":" disabled")+">"+svg("chat")+"واتساب للمحددين"+(nSel?" ("+nf.format(nSel)+")":"")+"</button></div>";
+  h+=bulkBar(list,ui.stSel,"waBulk");
   h+='<div class="tablewrap"><table style="min-width:760px"><thead><tr><th style="width:36px"><input type="checkbox" id="stAll" aria-label="تحديد الكل"'+(allOn?" checked":"")+'></th><th>الاسم</th><th>الوظيفة</th><th>الفرع</th><th>الجوال</th><th>الرقم الوظيفي</th><th></th></tr></thead><tbody>'+
     list.map(x=>{const b=staffBranch(x),n=waNum(x.phone);
       return"<tr><td><input type=\"checkbox\" class=\"stck\" value=\""+esc(x.id)+'" aria-label="تحديد '+esc(x.name)+'"'+(ui.stSel.has(x.id)?" checked":"")+'></td><td><button type="button" class="linkish" data-open="staff:'+esc(x.id)+'">'+esc(x.name)+"</button>"+(x.sample?' <span class="chip sample">مثال</span>':"")+(x.active===false?' <span class="chip">موقوف</span>':"")+(x.shift?'<div class="muted fs13">وردية '+esc((SHIFTS.find(s=>s[0]===x.shift)||["",""])[1])+"</div>":"")+"</td><td>"+roleChip(x.role)+"</td><td>"+(b?esc(b.name)+'<div class="muted fs13">'+esc(b.company||"")+"</div>":'<span class="chip warn">فرع محذوف</span>')+'</td><td class="num" dir="ltr" style="text-align:end">'+esc(x.phone||"—")+(x.phone2?'<div class="muted fs13">'+esc(x.phone2)+"</div>":"")+'</td><td class="num">'+esc(x.empNo||"—")+'</td><td><div class="stacts">'+(n?'<button type="button" class="btn sm wa" data-wa="'+esc(x.id)+'" aria-label="واتساب '+esc(x.name)+'">'+svg("chat")+'واتساب</button><a class="btn sm ghost" href="tel:+'+n+'" aria-label="اتصال بـ'+esc(x.name)+'">'+svg("phone")+"</a>":'<span class="chip bad">رقم غير صالح</span>')+"</div></td></tr>"}).join("")+"</tbody></table></div>";
-  return h+'<div class="muted fs13" style="margin-top:8px">زر «واتساب» يفتح المحادثة في تطبيق واتساب (على الجوال) أو واتساب ويب (على الكمبيوتر) والرسالة مكتوبة جاهزة، ثم تضغط «إرسال».</div>';
-};
+  return h;
+}
 function openWa(ids){
-  const L=ids.map(id=>byId("staff",id)).filter(x=>x&&waNum(x.phone));
+  const L=ids.map(contact).filter(x=>x&&waNum(x.phone));
   if(!L.length){toast("لا يوجد رقم جوال صالح لواتساب");return}
   const tk=lsGet("crm_watpl")||"close",tp=waTpls().find(x=>x.k===tk)||WA_TPL[1];
-  modal={kind:"wa",ids:L.map(x=>x.id),tpl:tp.k,text:tp.t,date:defaultDay(),sent:new Set(),skipped:ids.length-L.length};paintWa();
+  modal={kind:"wa",ids:L.map(x=>x.k),tpl:tp.k,text:tp.t,date:defaultDay(),sent:new Set(),skipped:ids.length-L.length};paintWa();
   const ta=$("#waText");if(ta)ta.focus();
 }
 function paintWa(){
-  const M=modal,L=M.ids.map(id=>byId("staff",id)).filter(Boolean),one=L.length===1,tp=waTpls().find(x=>x.k===M.tpl);
-  const rows=L.map(x=>{const b=staffBranch(x),done=M.sent.has(x.id);return'<div class="warow'+(done?" sent":"")+'"><div style="min-width:0"><b>'+esc(x.name)+'</b><div class="muted fs13">'+esc(staffRole(x.role))+" · "+esc(b?b.name:"—")+' · <span dir="ltr" class="num">'+esc(x.phone)+'</span></div></div><button type="button" class="btn sm'+(done?"":" wa")+'" data-wasend="'+esc(x.id)+'">'+(done?"✓ فُتحت — إعادة":svg("chat")+"فتح واتساب")+"</button></div>"}).join("");
+  const M=modal,L=M.ids.map(contact).filter(Boolean),one=L.length===1,tp=waTpls().find(x=>x.k===M.tpl);
+  const rows=L.map(x=>{const done=M.sent.has(x.k);return'<div class="warow'+(done?" sent":"")+'"><div style="min-width:0"><b>'+esc(x.name)+'</b><div class="muted fs13">'+esc(x.role)+" · "+esc(x.place||"—")+' · <span dir="ltr" class="num">'+esc(x.phone)+'</span></div></div><button type="button" class="btn sm'+(done?"":" wa")+'" data-wasend="'+esc(x.k)+'">'+(done?"✓ فُتحت — إعادة":svg("chat")+"فتح واتساب")+"</button></div>"}).join("");
   $("#layer").innerHTML='<div class="overlay" id="ov"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="waH"><header><h3 id="waH">'+(one?"رسالة واتساب إلى "+esc(L[0].name):"رسالة واتساب جماعية — عدد المستلمين: "+nf.format(L.length))+'</h3><button type="button" class="btn ghost sm" data-close aria-label="إغلاق">'+svg("x")+'</button></header><div class="body">'+
     '<div class="field"><label for="waTpl">القالب</label><select class="select" id="waTpl">'+waTpls().map(x=>'<option value="'+esc(x.k)+'"'+(x.k===M.tpl?" selected":"")+">"+esc(x.l)+"</option>").join("")+"</select></div>"+
     '<div class="field"><label for="waDate">التاريخ في الرسالة</label><input class="input" type="date" id="waDate" value="'+esc(M.date)+'"></div>'+
-    '<div class="field full"><label for="waText">نص الرسالة</label><textarea class="input" id="waText" rows="6">'+esc(M.text)+'</textarea><span class="muted fs13">يمكنك كتابة: {الاسم} {الفرع} {الشركة} {الوظيفة} {التاريخ} — تُستبدل تلقائياً لكل موظف.</span></div>'+
+    '<div class="field full"><label for="waText">نص الرسالة</label><textarea class="input" id="waText" rows="6">'+esc(M.text)+'</textarea><span class="muted fs13">يمكنك كتابة: {الاسم} {الفرع} أو {القسم} {الشركة} {الوظيفة} {التاريخ} — تُستبدل تلقائياً لكل موظف.</span></div>'+
     (can("setup.manage")?'<div class="field full"><div class="toolbar"><input class="input" id="waTplName" placeholder="اسم قالب جديد" style="flex:1 1 160px" aria-label="اسم القالب"><button type="button" class="btn sm" id="waTplSave">حفظ النص كقالب</button>'+(tp&&tp.custom?'<button type="button" class="btn sm ghost" id="waTplDel">حذف هذا القالب</button>':"")+"</div></div>":"")+
     '<div class="field full"><label>معاينة'+(one?"":" (لأول موظف)")+'</label><div class="wapreview" id="waPrev">'+esc(waFill(M.text,L[0],M.date))+"</div></div>"+
     '<div class="field full"><label>'+(one?"المستلم":"المستلمون")+'</label><div class="walist">'+rows+"</div>"+(one?"":'<span class="muted fs13">يُفتح واتساب لكل موظف على حدة والرسالة جاهزة، فتضغط «إرسال» داخل واتساب ثم تعود للموظف التالي. المتصفحات لا تسمح بفتح عدة محادثات دفعة واحدة.</span>')+(M.skipped?'<span class="chip warn">استُبعد '+nf.format(M.skipped)+" موظف لعدم وجود رقم صالح</span>":"")+"</div>"+
@@ -1797,10 +1832,10 @@ function paintWa(){
 }
 function waKeepText(){const ta=$("#waText");if(ta&&modal&&modal.kind==="wa")modal.text=ta.value}
 function waSend(id){
-  const x=byId("staff",id),n=x&&waNum(x.phone);if(!n){toast("رقم الجوال غير صالح");return}
+  const x=contact(id),n=x&&waNum(x.phone);if(!n){toast("رقم الجوال غير صالح");return}
   waKeepText();const msg=waFill(modal.text,x,modal.date).trim();
   window.open("https://wa.me/"+n+(msg?"?text="+encodeURIComponent(msg):""),"_blank","noopener");
-  if(!modal.sent.has(id)){modal.sent.add(id);log("فتح رسالة واتساب إلى "+x.name+" ("+staffRole(x.role)+" — "+((staffBranch(x)||{}).name||"")+")")}
+  if(!modal.sent.has(id)){modal.sent.add(id);log("فتح رسالة واتساب إلى "+x.name+" ("+x.log+")")}
   paintWa();
 }
 async function waTplSave(){
@@ -2909,7 +2944,9 @@ document.addEventListener("click",e=>{
   if(t.id==="purge"){if(!purgeArmed){purgeArmed=true;t.classList.add("armed");t.textContent="اضغط مرة أخرى للتأكيد";return}purgeArmed=false;purgeSamples();return}
   if(t.dataset.psel){ui.permSel=t.dataset.psel;permDraft=null;render();const e=$("#permEditor");if(e)e.scrollIntoView({behavior:"smooth",block:"start"});return}
   if(d.wa){openWa([d.wa]);return}
-  if(t.id==="waBulk"){openWa([...ui.stSel]);return}
+  if(t.id==="waBulk"){openWa(ui.stSel.size?[...ui.stSel]:staffList().map(x=>x.id));return}
+  if(t.id==="waBulkT"){openWa(ui.tmSel.size?[...ui.tmSel]:teamList().map(m=>"t:"+m.id));return}
+  if(d.sttab){ui.stTab=d.sttab;render();return}
   if(d.wasend){waSend(d.wasend);return}
   if(t.id==="waTplSave"){waTplSave();return}
   if(t.id==="waTplDel"){waTplDel();return}
@@ -2945,7 +2982,9 @@ document.addEventListener("change",e=>{
   if(el.id==="stImport"&&el.files&&el.files[0]){const f=el.files[0];el.value="";staffImport(f);return}
   if(el.classList&&el.classList.contains("stck")){el.checked?ui.stSel.add(el.value):ui.stSel.delete(el.value);render();return}
   if(el.id==="stAll"){if(el.checked)staffList().forEach(x=>ui.stSel.add(x.id));else ui.stSel.clear();render();return}
-  if(el.id==="stBr"||el.id==="stRole"||el.id==="stAct"){ui[el.id]=el.value;render();return}
+  if(el.id==="stBr"||el.id==="stRole"||el.id==="stAct"||el.id==="tmDept"||el.id==="tmRole"){ui[el.id]=el.value;render();return}
+  if(el.classList&&el.classList.contains("tmck")){el.checked?ui.tmSel.add(el.value):ui.tmSel.delete(el.value);render();return}
+  if(el.id==="tmAll"){if(el.checked)teamList().forEach(m=>ui.tmSel.add("t:"+m.id));else ui.tmSel.clear();render();return}
   if(el.id==="waTpl"&&modal&&modal.kind==="wa"){const tp=waTpls().find(x=>x.k===el.value);if(tp){modal.tpl=tp.k;modal.text=tp.t;lsSet("crm_watpl",tp.k)}paintWa();return}
   if(el.id==="waDate"&&modal&&modal.kind==="wa"){waKeepText();modal.date=el.value||defaultDay();paintWa();return}
   if(el.id==="ab_no"||el.id==="ab_name"){abnStaffFill(el);return}
@@ -2959,7 +2998,7 @@ document.addEventListener("change",e=>{
   if(map[el.id]){ui[map[el.id]]=el.value;if(el.id==="fDept")ui.member="all";if(el.id==="taskDept")ui.taskMember="all";render()}
 });
 document.addEventListener("input",e=>{const el=e.target;if(el.id==="taskQ"){ui.taskQ=el.value;schedule()}if(el.id==="fQ"){ui.fQ=el.value;schedule()}if(el.id==="stQ"){ui.stQ=el.value;schedule()}
-  if(el.id==="waText"&&modal&&modal.kind==="wa"){modal.text=el.value;const p=$("#waPrev"),x=byId("staff",modal.ids[0]);if(p&&x)p.textContent=waFill(el.value,x,modal.date)}if(el.dataset&&el.dataset.ik)paintVar();
+  if(el.id==="waText"&&modal&&modal.kind==="wa"){modal.text=el.value;const p=$("#waPrev"),x=contact(modal.ids[0]);if(p&&x)p.textContent=waFill(el.value,x,modal.date)}if(el.dataset&&el.dataset.ik)paintVar();
   if(el.classList&&el.classList.contains("bcin")){const tr=el.closest("tr");revDirty.add(bcKey(tr));tr.classList.add("dirty");bcRecalc(tr)}
   if(el.classList&&el.classList.contains("rvin")){const tr=el.closest("tr");revDirty.add(tr.dataset.d+"|"+tr.dataset.b);tr.classList.add("dirty");recalcRow(tr)}
   if(el.classList&&el.classList.contains("tmin"))revDirty.add("t|"+el.id);
