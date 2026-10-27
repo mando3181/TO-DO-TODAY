@@ -609,14 +609,14 @@ tr.sel td{background:var(--accent-soft)}
       <h3>العمل اليومي للمحاسب</h3>
       <ol>
         <li>افتح «تسجيل الإيرادات». تظهر فروعك فقط في تاريخ اليوم المستحق.</li>
-        <li><strong>الإيرادات اليومية:</strong> أدخل لكل فرع النقدي والشبكة من النظام، ثم النقدي والشبكة الفعليين، والتحويل البنكي، والآجل، والمرتجع. يُحفظ الصف تلقائياً عند الانتقال لصف آخر، ويتنقل زر Enter بين الحقول.</li>
+        <li><strong>الإيرادات اليومية:</strong> أدخل لكل فرع النقدي والشبكة من النظام، ثم النقدي والشبكة الفعليين، والتحويل البنكي، والآجل، ومبيعات التطبيقات (تطبيقات التوصيل والمتاجر الإلكترونية)، والمرتجع. يُحفظ الصف تلقائياً عند الانتقال لصف آخر، ويتنقل زر Enter بين الحقول.</li>
         <li><strong>سحب الشبكات:</strong> أدخل مبلغ كل جهاز. يقارن النظام مجموع الأجهزة مع «شبكة (فعلي)» للفرع.</li>
         <li><strong>العجز والفائض غير الطبيعي:</strong> سجّل الموظف والسبب لكل فرع تجاوز فرقه الحد.</li>
         <li>اضغط <strong>«إقفال وإرسال للاعتماد»</strong>. لا يُقبل الإرسال قبل تسجيل كل الفروع، وكتابة ملاحظة لكل حالة غير طبيعية.</li>
       </ol>
       <div class="tw"><table><thead><tr><th>الحقل</th><th>المعادلة</th></tr></thead><tbody>
         <tr><td>فرق النقدي</td><td>نقدي فعلي − نقدي نظام</td></tr>
-        <tr><td>فرق الشبكة</td><td>(شبكة فعلي + تحويل بنكي + آجل) − شبكة نظام</td></tr>
+        <tr><td>فرق الشبكة</td><td>(شبكة فعلي + تحويل بنكي + آجل + مبيعات التطبيقات) − شبكة نظام</td></tr>
         <tr><td>صافي الفرق</td><td>فرق النقدي + فرق الشبكة</td></tr>
         <tr><td>التصنيف</td><td>≥ الحد: فائض غير طبيعي · من 0 إلى أقل من الحد: فائض طبيعي · أكبر من (−الحد) وأقل من 0: عجز طبيعي · ≤ (−الحد): عجز غير طبيعي</td></tr>
       </tbody></table></div>
@@ -1507,8 +1507,8 @@ function genDemo(){
   state.rev={};
   const demoRev=(D,bids,partial)=>{const doc=state.rev[D]||(state.rev[D]={date:D,sales:{},terms:{},abn:{},sample:true});
     bids.forEach((b,bi)=>{if(partial&&bi>0)return;const sc=ri(6000,18000),sn=ri(9000,26000);let dc=pick([0,0,0,-2,1.5,-5,3]);if(rnd()<.12)dc=pick([-60,-25,40]);
-      const tr=rnd()<.3?ri(500,3000):0,cr=rnd()<.2?ri(300,1500):0,an=sn-tr-cr;
-      doc.sales[b]={sys_cash:sc,sys_net:sn,act_cash:r2(sc+dc),act_net:an,act_transfer:tr,act_credit:cr,returns_count:ri(0,4),returns_value:ri(0,900),notes:Math.abs(dc)>=7?"فرق بسبب خطأ في عدّ النقدية — تمت مراجعة الكاشير":"",by:"",at:Date.now()};
+      const tr=rnd()<.3?ri(500,3000):0,cr=rnd()<.2?ri(300,1500):0,ap=rnd()<.6?ri(400,4000):0,an=sn-tr-cr-ap;
+      doc.sales[b]={sys_cash:sc,sys_net:sn,act_cash:r2(sc+dc),act_net:an,act_transfer:tr,act_credit:cr,act_app:ap,returns_count:ri(0,4),returns_value:ri(0,900),notes:Math.abs(dc)>=7?"فرق بسبب خطأ في عدّ النقدية — تمت مراجعة الكاشير":"",by:"",at:Date.now()};
       const br=state.branches.find(x=>x.id===b);const ts=br.terminals;let left=an;doc.terms[b]={};ts.forEach((t,ti)=>{const v=ti===ts.length-1?left:Math.round(an/ts.length);doc.terms[b][t.no]=v;left-=v});
       if(Math.abs(dc)>=7){doc.abn["s_ab"+D+b]={branchId:b,emp_no:String(ri(1000,9999)),emp_name:pick(["أحمد سالم","خالد فهد","محمد علي"]),emp_title:"كاشير",sys_rev:r2(sc+sn),act_rev:r2(sc+dc+sn),notes:"فرق في عدّ النقدية عند الإقفال",by:"",at:Date.now()}}
     });};
@@ -2025,7 +2025,7 @@ async function purgeSamples(){
 async function exportCsv(kind){
   if(!downloads)return;let rows,name;
   if(kind==="rev"){const D=curDay();name="إيرادات-"+D+".csv";const own=branchOwner(D);
-    rows=[["التاريخ","المنشأة","الفرع","نقدي (نظام)","شبكة (نظام)","إجمالي النظام","نقدي (فعلي)","شبكة (فعلي)","تحويل بنكي","آجل","الإجمالي الفعلي","فرق النقدي","فرق الشبكة","صافي الفرق","التصنيف","عدد المرتجع","قيمة المرتجع","ملاحظات","المحاسب"]].concat(state.branches.slice().sort(sortBr).filter(b=>salesOf(D,b.id)).map(b=>{const r=salesOf(D,b.id),c=calcRev(r);return[D,b.company||"",b.name,r.sys_cash,r.sys_net,c.sysT,r.act_cash,r.act_net,r.act_transfer,r.act_credit,c.actT,c.lc,c.ln,c.net,CLS[c.cls][0],r.returns_count,r.returns_value,r.notes||"",memberName(r.by)||memberName((own[b.id]||{}).assignee)]}))}
+    rows=[["التاريخ","المنشأة","الفرع","نقدي (نظام)","شبكة (نظام)","إجمالي النظام","نقدي (فعلي)","شبكة (فعلي)","تحويل بنكي","آجل","مبيعات التطبيقات","الإجمالي الفعلي","فرق النقدي","فرق الشبكة","صافي الفرق","التصنيف","عدد المرتجع","قيمة المرتجع","ملاحظات","المحاسب"]].concat(state.branches.slice().sort(sortBr).filter(b=>salesOf(D,b.id)).map(b=>{const r=salesOf(D,b.id),c=calcRev(r);return[D,b.company||"",b.name,r.sys_cash,r.sys_net,c.sysT,r.act_cash,r.act_net,r.act_transfer,r.act_credit,r.act_app||0,c.actT,c.lc,c.ln,c.net,CLS[c.cls][0],r.returns_count,r.returns_value,r.notes||"",memberName(r.by)||memberName((own[b.id]||{}).assignee)]}))}
   else if(kind==="close"){const D=curDay();name="إقفال-"+D+".csv";
     rows=[["التاريخ","القسم","المحاسب","النوع","البند","الحالة","العدد","المبلغ","الرصيد الدفتري","الرصيد الفعلي","الفرق","متأخر","ملاحظات","وقت الإرسال","اعتمده"]].concat(dayItems(D).map(i=>[D,deptName(deptOf(i.assignee)),memberName(i.assignee),typeOf(i.typeK).l,i.label,lbl(IST,i.status),i.count,i.amount,i.book,i.actual,typeOf(i.typeK).mode==="reconcile"?variance(i):"",lateOf(i)?"نعم":"",i.note,i.submittedAt?new Date(i.submittedAt).toLocaleString("en-GB"):"",memberName(i.approvedBy)]))}
   else{const {P,from,to}=perfData();name="الأداء-"+from+"-"+to+".csv";
@@ -2036,7 +2036,7 @@ async function exportCsv(kind){
 function setDay(d){if(d>today())d=today();ui.day=d===defaultDay()?null:d;render()}
 
 /* ================= revenue form (نموذج إيرادات الفروع) ================= */
-const REV_NUM=["sys_cash","sys_net","act_cash","act_net","act_transfer","act_credit","returns_count","returns_value"];
+const REV_NUM=["sys_cash","sys_net","act_cash","act_net","act_transfer","act_credit","act_app","returns_count","returns_value"];
 const r2=v=>Math.round((+v||0)*100)/100;
 const thr=()=>{const v=cfg().revThreshold;return v===undefined||v===null||v===""||isNaN(+v)?7:+v};
 const CLS={sa:["فائض غير طبيعي","gold"],sn:["فائض طبيعي","ok"],hn:["عجز طبيعي","ok"],ha:["عجز غير طبيعي","bad"]};
@@ -2044,7 +2044,7 @@ function classify(n){const t=thr();return n>=t?"sa":n>=0?"sn":n>-t?"hn":"ha"}
 const isAbn=c=>c==="sa"||c==="ha";
 const clsChip=c=>'<span class="chip '+CLS[c][1]+'">'+CLS[c][0]+"</span>";
 const sgn=v=>v?'<span class="'+(v<0?"neg":"pos")+'">'+(v>0?"+":"")+nf2.format(v)+"</span>":"0";
-function calcRev(r){r=r||{};const g=k=>+r[k]||0;const sysT=r2(g("sys_cash")+g("sys_net")),actT=r2(g("act_cash")+g("act_net")+g("act_transfer")+g("act_credit")),lc=r2(g("act_cash")-g("sys_cash")),ln=r2(g("act_net")+g("act_transfer")+g("act_credit")-g("sys_net")),net=r2(lc+ln);return{sysT,actT,lc,ln,net,cls:classify(net)}}
+function calcRev(r){r=r||{};const g=k=>+r[k]||0;const sysT=r2(g("sys_cash")+g("sys_net")),actT=r2(g("act_cash")+g("act_net")+g("act_transfer")+g("act_credit")+g("act_app")),lc=r2(g("act_cash")-g("sys_cash")),ln=r2(g("act_net")+g("act_transfer")+g("act_credit")+g("act_app")-g("sys_net")),net=r2(lc+ln);return{sysT,actT,lc,ln,net,cls:classify(net)}}
 const revDoc=d=>state.rev[d]||{};
 const salesOf=(d,b)=>(revDoc(d).sales||{})[b];
 const brName=b=>(byId("branches",b)||{}).name||"فرع محذوف";
@@ -2198,13 +2198,13 @@ function revSalesTable(D,bs,own){
     if(has){REV_NUM.forEach(k=>tot[k]+=(+r[k]||0));Object.keys(TC).forEach(k=>TC[k]+=c[k])}
     const inp=k=>'<td><input class="rvin num" type="number" step="'+(k==="returns_count"?"1":"0.01")+'" inputmode="decimal" id="rv_'+esc(b.id)+"_"+k+'" data-f="'+k+'" value="'+(has&&r[k]!==undefined&&r[k]!==""?esc(r[k]):"")+'"'+(ed?"":" disabled")+' aria-label="'+esc(b.name)+'"></td>';
     return'<tr class="rvrow" data-b="'+esc(b.id)+'" data-d="'+D+'"><td class="rvname"><b>'+esc(b.name)+'</b><div class="s">'+esc(b.company||"")+(o?" · "+esc(memberName(o.assignee)):"")+"</div></td>"+
-      inp("sys_cash")+inp("sys_net")+'<td class="calc num" data-c="sysT">'+(has?nf2.format(c.sysT):"")+"</td>"+inp("act_cash")+inp("act_net")+inp("act_transfer")+inp("act_credit")+
+      inp("sys_cash")+inp("sys_net")+'<td class="calc num" data-c="sysT">'+(has?nf2.format(c.sysT):"")+"</td>"+inp("act_cash")+inp("act_net")+inp("act_transfer")+inp("act_credit")+inp("act_app")+
       '<td class="calc num" data-c="actT">'+(has?nf2.format(c.actT):"")+'</td><td class="calc num" data-c="lc">'+(has?sgn(c.lc):"")+'</td><td class="calc num" data-c="ln">'+(has?sgn(c.ln):"")+'</td><td class="calc num" data-c="net">'+(has?sgn(c.net):"")+'</td><td data-c="cls">'+(has?clsChip(c.cls):"")+"</td>"+
       inp("returns_count")+inp("returns_value")+'<td><input class="rvin rvnote" type="text" id="rv_'+esc(b.id)+'_notes" data-f="notes" value="'+esc(r.notes||"")+'" maxlength="500" placeholder="ملاحظات"'+(ed?"":" disabled")+'></td><td class="s">'+(has?esc(memberName(r.by)||"—")+"<br>"+ago(r.at):'<span class="muted">غير مسجّل</span>')+(lock?' <span class="chip">مُقفل</span>':"")+"</td></tr>";
   }).join("");
   const th=a=>"<th>"+a+"</th>";
-  return'<div class="tablewrap"><table class="revtable"><thead><tr><th class="rvname">الفرع</th>'+["نقدي (نظام)","شبكة (نظام)","إجمالي النظام","نقدي (فعلي)","شبكة (فعلي)","تحويل بنكي","آجل","الإجمالي الفعلي","فرق النقدي","فرق الشبكة","صافي الفرق","التصنيف","عدد فواتير المرتجع","قيمة المرتجع","ملاحظات","آخر تحديث"].map(th).join("")+"</tr></thead><tbody>"+rows+
-    '</tbody><tfoot><tr><td class="rvname">الإجمالي</td>'+["sys_cash","sys_net"].map(k=>'<td class="num">'+nf2.format(r2(tot[k]))+"</td>").join("")+'<td class="num">'+nf2.format(r2(TC.sysT))+"</td>"+["act_cash","act_net","act_transfer","act_credit"].map(k=>'<td class="num">'+nf2.format(r2(tot[k]))+"</td>").join("")+'<td class="num">'+nf2.format(r2(TC.actT))+'</td><td class="num">'+sgn(r2(TC.lc))+'</td><td class="num">'+sgn(r2(TC.ln))+'</td><td class="num">'+sgn(r2(TC.net))+'</td><td></td><td class="num">'+nf.format(tot.returns_count)+'</td><td class="num">'+nf2.format(r2(tot.returns_value))+"</td><td></td><td></td></tr></tfoot></table></div>"+
+  return'<div class="tablewrap"><table class="revtable"><thead><tr><th class="rvname">الفرع</th>'+["نقدي (نظام)","شبكة (نظام)","إجمالي النظام","نقدي (فعلي)","شبكة (فعلي)","تحويل بنكي","آجل","مبيعات التطبيقات","الإجمالي الفعلي","فرق النقدي","فرق الشبكة","صافي الفرق","التصنيف","عدد فواتير المرتجع","قيمة المرتجع","ملاحظات","آخر تحديث"].map(th).join("")+"</tr></thead><tbody>"+rows+
+    '</tbody><tfoot><tr><td class="rvname">الإجمالي</td>'+["sys_cash","sys_net"].map(k=>'<td class="num">'+nf2.format(r2(tot[k]))+"</td>").join("")+'<td class="num">'+nf2.format(r2(TC.sysT))+"</td>"+["act_cash","act_net","act_transfer","act_credit","act_app"].map(k=>'<td class="num">'+nf2.format(r2(tot[k]))+"</td>").join("")+'<td class="num">'+nf2.format(r2(TC.actT))+'</td><td class="num">'+sgn(r2(TC.lc))+'</td><td class="num">'+sgn(r2(TC.ln))+'</td><td class="num">'+sgn(r2(TC.net))+'</td><td></td><td class="num">'+nf.format(tot.returns_count)+'</td><td class="num">'+nf2.format(r2(tot.returns_value))+"</td><td></td><td></td></tr></tfoot></table></div>"+
     '<div class="muted" style="font-size:12.5px">يُحفظ الصف تلقائياً عند الانتقال لصف آخر · Enter للانتقال للحقل التالي · حد العجز/الفائض غير الطبيعي: '+nf2.format(thr())+" ر.س</div>";
 }
 function revTermsView(D,bs){
@@ -2266,7 +2266,7 @@ const repBranchOk=b=>!!b&&branchAllowed(b.id)&&(myPerms().full||myPerms().scope=
 const repCompanies=()=>[...new Set(state.branches.filter(b=>repBranchOk(b)&&repSecOk(b)).map(b=>String(b.company||"").trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"ar"));
 const repSecOk=b=>ui.repSec==="all"||((sectorOfCompany(companyOf(b))||{}).id||"")===ui.repSec;
 function repBranchFilter(){return b=>repBranchOk(b)&&repSecOk(b||{})&&(ui.repCo==="all"||String((b||{}).company||"").trim()===ui.repCo)&&(ui.repBr==="all"||(b&&b.id===ui.repBr))}
-const ACC0=()=>({sys_cash:0,sys_net:0,sysT:0,act_cash:0,act_net:0,act_transfer:0,act_credit:0,actT:0,lc:0,ln:0,net:0,sn:0,sa:0,hn:0,ha:0,rc:0,rv:0,days:new Set()});
+const ACC0=()=>({sys_cash:0,sys_net:0,sysT:0,act_cash:0,act_net:0,act_transfer:0,act_credit:0,act_app:0,actT:0,lc:0,ln:0,net:0,sn:0,sa:0,hn:0,ha:0,rc:0,rv:0,days:new Set()});
 function repAggregate(docs){
   const ok=repBranchFilter(),rows={},T=ACC0();
   docs.forEach(doc=>{const sales=doc.sales||{};Object.keys(sales).forEach(bid=>{
@@ -2274,7 +2274,7 @@ function repAggregate(docs){
     const r=sales[bid],c=calcRev(r);
     const key=ui.repBy==="company"?(String((b||{}).company||"").trim()||"—"):ui.repBy==="day"?doc.date:bid;
     const A=rows[key]||(rows[key]=ACC0());
-    [A,T].forEach(x=>{["sys_cash","sys_net","act_cash","act_net","act_transfer","act_credit"].forEach(k=>x[k]+=+r[k]||0);x.sysT+=c.sysT;x.actT+=c.actT;x.lc+=c.lc;x.ln+=c.ln;x.net+=c.net;x[c.cls]+=c.net;x.rc+=+r.returns_count||0;x.rv+=+r.returns_value||0;x.days.add(doc.date)});
+    [A,T].forEach(x=>{["sys_cash","sys_net","act_cash","act_net","act_transfer","act_credit","act_app"].forEach(k=>x[k]+=+r[k]||0);x.sysT+=c.sysT;x.actT+=c.actT;x.lc+=c.lc;x.ln+=c.ln;x.net+=c.net;x[c.cls]+=c.net;x.rc+=+r.returns_count||0;x.rv+=+r.returns_value||0;x.days.add(doc.date)});
   })});
   let keys=Object.keys(rows);
   if(ui.repBy==="day")keys.sort();
@@ -2282,7 +2282,7 @@ function repAggregate(docs){
   else keys.sort((a,b)=>{const A=byId("branches",a),B=byId("branches",b);if(!A||!B)return A?-1:B?1:0;return String(A.company||"").localeCompare(String(B.company||""),"ar")||sortBr(A,B)});
   return{keys,rows,T};
 }
-const RCOLS=[["sys_cash"],["sys_net"],["sysT"],["act_cash"],["act_net"],["act_transfer"],["act_credit"],["actT"],["lc",1],["ln",1],["net",1],["sn"],["sa"],["hn"],["ha"]];
+const RCOLS=[["sys_cash"],["sys_net"],["sysT"],["act_cash"],["act_net"],["act_transfer"],["act_credit"],["act_app"],["actT"],["lc",1],["ln",1],["net",1],["sn"],["sa"],["hn"],["ha"]];
 function repRowLabel(key){
   if(ui.repBy==="day")return[fmtDay(key),""];
   if(ui.repBy==="company")return[key,""];
@@ -2310,7 +2310,7 @@ VIEWFN.rrep=function(){
   const fx=(v,sg)=>{v=r2(v);return sg?sgn(v):v?nf2.format(v):"-"};
   const lead=ui.repBy==="branch"?["م","المنشأة","الفرع"]:ui.repBy==="company"?["م","المنشأة"]:["م","اليوم"];
   const ln=lead.length;
-  let t='<div class="tablewrap"><table class="reptable"><thead><tr class="grp">'+lead.map((x,i)=>'<th rowspan="2"'+(i===ln-1?' class="rvname"':"")+">"+x+'</th>').join("")+'<th colspan="3">مبيعات النظام</th><th colspan="5">المبيعات الفعلية</th><th colspan="2">الفرق</th><th rowspan="2">صافي الفرق</th><th rowspan="2">فائض طبيعي</th><th rowspan="2">فائض غير طبيعي</th><th rowspan="2">عجز طبيعي</th><th rowspan="2">عجز غير طبيعي</th><th colspan="2">المرتجعات</th><th rowspan="2">أيام مسجّلة</th></tr><tr>'+["نقدي","شبكة","الإجمالي","نقدي","شبكة","تحويل بنكي","آجل","الإجمالي","نقدي","شبكة","عدد الفواتير","القيمة"].map(x=>"<th>"+x+"</th>").join("")+"</tr></thead><tbody>";
+  let t='<div class="tablewrap"><table class="reptable"><thead><tr class="grp">'+lead.map((x,i)=>'<th rowspan="2"'+(i===ln-1?' class="rvname"':"")+">"+x+'</th>').join("")+'<th colspan="3">مبيعات النظام</th><th colspan="6">المبيعات الفعلية</th><th colspan="2">الفرق</th><th rowspan="2">صافي الفرق</th><th rowspan="2">فائض طبيعي</th><th rowspan="2">فائض غير طبيعي</th><th rowspan="2">عجز طبيعي</th><th rowspan="2">عجز غير طبيعي</th><th colspan="2">المرتجعات</th><th rowspan="2">أيام مسجّلة</th></tr><tr>'+["نقدي","شبكة","الإجمالي","نقدي","شبكة","تحويل بنكي","آجل","التطبيقات","الإجمالي","نقدي","شبكة","عدد الفواتير","القيمة"].map(x=>"<th>"+x+"</th>").join("")+"</tr></thead><tbody>";
   A.keys.forEach((k,i)=>{const R=A.rows[k],lb=repRowLabel(k);
     const lc=ui.repBy==="branch"?'<td class="num">'+(i+1)+'</td><td class="l">'+esc(lb[0])+'</td><td class="l rvname"><b>'+esc(lb[1])+"</b></td>":ui.repBy==="company"?'<td class="num">'+(i+1)+'</td><td class="l rvname"><b>'+esc(lb[0])+"</b></td>":'<td class="num">'+(i+1)+'</td><td class="l rvname"><button type="button" class="linkish" data-gorev="'+esc(k+"|all")+'">'+esc(lb[0])+"</button></td>";
     t+="<tr>"+lc+RCOLS.map(c=>'<td class="num">'+fx(R[c[0]],c[1])+"</td>").join("")+'<td class="num">'+nf.format(R.rc)+'</td><td class="num">'+fx(R.rv)+'</td><td class="num">'+nf.format(R.days.size)+"</td></tr>"});
@@ -2354,15 +2354,15 @@ async function repExport(){
   const A=repAggregate(docs),T=A.T,R=v=>r2(v);
   const title="تقرير الإيرادات — من "+f+" إلى "+to+(ui.repCo!=="all"?" — "+ui.repCo:"")+(ui.repBr!=="all"?" — "+brName(ui.repBr):"");
   const lead=ui.repBy==="branch"?["م","المنشأة","الفرع"]:ui.repBy==="company"?["م","المنشأة"]:["م","اليوم"],L=lead.length;
-  const h1=lead.concat(["مبيعات النظام","","","المبيعات الفعلية","","","","","الفرق","","صافي الفرق","فائض طبيعي","فائض غير طبيعي","عجز طبيعي","عجز غير طبيعي","المرتجعات","","أيام مسجّلة"]);
-  const h2=lead.map(()=>"").concat(["نقدي","شبكة","الإجمالي","نقدي","شبكة","تحويل بنكي","آجل","الإجمالي","نقدي","شبكة","","","","","","عدد الفواتير","القيمة",""]);
+  const h1=lead.concat(["مبيعات النظام","","","المبيعات الفعلية","","","","","","الفرق","","صافي الفرق","فائض طبيعي","فائض غير طبيعي","عجز طبيعي","عجز غير طبيعي","المرتجعات","","أيام مسجّلة"]);
+  const h2=lead.map(()=>"").concat(["نقدي","شبكة","الإجمالي","نقدي","شبكة","تحويل بنكي","آجل","التطبيقات","الإجمالي","نقدي","شبكة","","","","","","عدد الفواتير","القيمة",""]);
   const nums=x=>RCOLS.map(c=>R(x[c[0]])).concat([x.rc,R(x.rv),x.days.size]);
   const body=A.keys.map((k,i)=>{const lb=repRowLabel(k);return(ui.repBy==="branch"?[i+1,lb[0],lb[1]]:ui.repBy==="company"?[i+1,lb[0]]:[i+1,k]).concat(nums(A.rows[k]))});
   const foot=lead.map((x,i)=>i===L-1?"الإجمالي":"").concat(nums(T));
   const ws1=X.utils.aoa_to_sheet([[title],h1,h2].concat(body,[foot]));
-  const m=[{s:{r:0,c:0},e:{r:0,c:L+17}}];lead.forEach((x,i)=>m.push({s:{r:1,c:i},e:{r:2,c:i}}));
-  [[L,3],[L+3,5],[L+8,2],[L+15,2]].forEach(([c,n])=>m.push({s:{r:1,c},e:{r:1,c:c+n-1}}));[L+10,L+11,L+12,L+13,L+14,L+17].forEach(c=>m.push({s:{r:1,c},e:{r:2,c}}));
-  ws1["!merges"]=m;ws1["!cols"]=lead.map((x,i)=>({wch:i===0?5:28})).concat(Array(18).fill({wch:13}));
+  const m=[{s:{r:0,c:0},e:{r:0,c:L+18}}];lead.forEach((x,i)=>m.push({s:{r:1,c:i},e:{r:2,c:i}}));
+  [[L,3],[L+3,6],[L+9,2],[L+16,2]].forEach(([c,n])=>m.push({s:{r:1,c},e:{r:1,c:c+n-1}}));[L+11,L+12,L+13,L+14,L+15,L+18].forEach(c=>m.push({s:{r:1,c},e:{r:2,c}}));
+  ws1["!merges"]=m;ws1["!cols"]=lead.map((x,i)=>({wch:i===0?5:28})).concat(Array(19).fill({wch:13}));
   const td=repTermsData(docs),trows=[];let ti=0;
   Object.keys(td).forEach(bid=>{const b=byId("branches",bid),Xb=td[bid];Object.keys(Xb.t).sort().forEach(no=>trows.push([++ti,b?b.company||"":"",brName(bid),no,R(Xb.t[no]),""]));trows.push(["","",brName(bid)+" — المجموع","",R(Xb.sum),R(Xb.net)])});
   const ws2=X.utils.aoa_to_sheet([["سحب الشبكات — من "+f+" إلى "+to],["م","المنشأة","الفرع","الشبكة","القيمة","شبكة (فعلي) من المبيعات"]].concat(trows));ws2["!cols"]=[{wch:5},{wch:34},{wch:26},{wch:20},{wch:13},{wch:16}];
@@ -2391,12 +2391,12 @@ function parseRevBook(X,buf,name){
   const top=findHeader(S,r=>r.includes("الفرع"),8);
   if(hr<0||top<0){res.warn.push("لم يُعثر على أعمدة ورقة المبيعات");return res}
   const H=S[hr].map(normAr),T=S[top].map(normAr),idx=(arr,pred,from)=>{for(let i=from||0;i<arr.length;i++)if(pred(arr[i]))return i;return -1};
-  const cB=T.indexOf("الفرع"),cC=idx(T,x=>x.includes("المنشا")),c1=idx(H,x=>x==="نقدي"),c2=idx(H,x=>x.startsWith("شبك"),c1+1),c3=idx(H,x=>x==="نقدي",c2+1),c4=idx(H,x=>x.startsWith("شبك"),c3+1),c5=idx(H,x=>x.includes("تحويل"),c4+1),c6=idx(H,x=>x==="اجل"||x==="آجل",c4+1);
+  const cB=T.indexOf("الفرع"),cC=idx(T,x=>x.includes("المنشا")),c1=idx(H,x=>x==="نقدي"),c2=idx(H,x=>x.startsWith("شبك"),c1+1),c3=idx(H,x=>x==="نقدي",c2+1),c4=idx(H,x=>x.startsWith("شبك"),c3+1),c5=idx(H,x=>x.includes("تحويل"),c4+1),c6=idx(H,x=>x==="اجل"||x==="آجل",c4+1),c7=idx(H,x=>x.includes("تطبيق"),c4+1),cE=Math.max(c6,c7);
   const colWhere=(pred,from)=>{for(let c=from||0;c<60;c++)for(let r=0;r<=hr;r++)if(pred(normAr((S[r]||[])[c])))return c;return -1};
-  const rc=colWhere(x=>x.startsWith("عدد"),c6+1),rv=colWhere(x=>x==="القيمه"||x==="القيمة",c6+1);
+  const rc=colWhere(x=>x.startsWith("عدد"),cE+1),rv=colWhere(x=>x==="القيمه"||x==="القيمة",cE+1);
   for(let i=hr+1;i<S.length;i++){const r=S[i]||[];const br=normAr(r[cB]);if(!br||br==="الاجمالي"||normAr(r[0])==="الاجمالي")continue;
-    const vals={sys_cash:num(r[c1]),sys_net:num(r[c2]),act_cash:num(r[c3]),act_net:num(r[c4]),act_transfer:c5>=0?num(r[c5]):0,act_credit:c6>=0?num(r[c6]):0,returns_count:rc>=0?Math.round(num(r[rc])):0,returns_value:rv>=0?num(r[rv]):0};
-    if(![c1,c2,c3,c4,c5,c6].some(c=>c>=0&&isNum(r[c])&&num(r[c])!==0))continue;
+    const vals={sys_cash:num(r[c1]),sys_net:num(r[c2]),act_cash:num(r[c3]),act_net:num(r[c4]),act_transfer:c5>=0?num(r[c5]):0,act_credit:c6>=0?num(r[c6]):0,act_app:c7>=0?num(r[c7]):0,returns_count:rc>=0?Math.round(num(r[rc])):0,returns_value:rv>=0?num(r[rv]):0};
+    if(![c1,c2,c3,c4,c5,c6,c7].some(c=>c>=0&&isNum(r[c])&&num(r[c])!==0))continue;
     res.sales.push({branch:String(r[cB]).trim(),company:cC>=0?String(r[cC]||"").trim():"",vals});
   }
   // networks
@@ -2425,7 +2425,7 @@ function paintImport(){
   const body=M.files.map((f,i)=>{
     const names=[...new Set(f.sales.map(x=>x.branch).concat(f.terms.map(x=>x.branch)))];const miss=names.filter(n=>!findBranch(n));
     const exist=f.date&&state.rev[f.date]&&Object.keys(state.rev[f.date].sales||{}).length;
-    const tot=f.sales.reduce((a,x)=>a+x.vals.act_cash+x.vals.act_net+x.vals.act_transfer+x.vals.act_credit,0);
+    const tot=f.sales.reduce((a,x)=>a+x.vals.act_cash+x.vals.act_net+x.vals.act_transfer+x.vals.act_credit+x.vals.act_app,0);
     return'<div class="imp-file"><div class="hd"><span class="fx fx-xl">XLS</span><b>'+esc(f.name)+'</b><label class="muted" for="impd_'+i+'">التاريخ</label><input class="input num" type="date" id="impd_'+i+'" data-impd="'+i+'" value="'+esc(f.date||"")+'" max="'+today()+'"></div>'+
       '<div class="muted" style="font-size:12.5px">'+nf.format(f.sales.length)+" فرع بمبيعات · إجمالي فعلي "+money(r2(tot))+" · "+nf.format(f.terms.length)+" جهاز شبكة · "+nf.format(f.abn.length)+" حالة عجز/فائض</div>"+
       (miss.length?'<div class="imp-warn">فروع غير موجودة وستُضاف تلقائياً: '+esc(miss.join("، "))+"</div>":"")+
