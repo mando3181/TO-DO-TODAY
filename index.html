@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0D6A59">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="مَسار">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-180.png">
 <title>مَسار — الإقفالات والمهام المالية</title>
 <meta name="description" content="متابعة الإقفالات اليومية والمهام وحجم الإنجاز للإدارة المالية">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -399,22 +407,47 @@ tr.sel td{background:var(--accent-soft)}
 
 @media (max-width:1100px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:900px){.grid-2{grid-template-columns:1fr}}
+#navToggle,.mtitle{display:none}
 @media (max-width:860px){
-  .app{grid-template-columns:1fr}
-  .side{position:sticky;top:env(safe-area-inset-top,0px);height:auto;z-index:30;flex-direction:row;align-items:center;padding:8px 16px;gap:10px;border-inline-end:0;border-bottom:1px solid var(--line)}
+  .app{grid-template-columns:minmax(0,1fr)}
+  .side{position:sticky;top:0;height:auto;min-width:0;z-index:45;flex-direction:row;align-items:center;padding:calc(8px + env(safe-area-inset-top,0px)) 16px 8px;gap:10px;border-inline-end:0;border-bottom:1px solid var(--line)}
+  .side .brand{padding:0}
   .side .brand small,.side-foot,.side .brand b{display:none}
-  .nav{flex-direction:row;overflow-x:auto;gap:2px;scrollbar-width:none}
-  .nav button{white-space:nowrap;padding:7px 10px}
+  .mtitle{display:block;flex:1;min-width:0;font-weight:700;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #navToggle{display:inline-flex;position:relative;padding:8px 12px}
+  #navToggle .dotc{position:absolute;top:4px;inset-inline-start:4px;width:9px;height:9px;border-radius:50%;background:var(--bad)}
+  .nav{display:none;position:fixed;inset-inline:0;top:calc(57px + env(safe-area-inset-top,0px));bottom:0;background:var(--surface);flex-direction:column;overflow-y:auto;gap:2px;padding:10px 16px calc(20px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);z-index:44}
+  .side.open .nav{display:flex}
+  .nav button{white-space:normal;padding:13px 12px;font-size:15px}
   .main{padding-inline:16px;padding-block:16px 60px}
-  .guide{grid-template-columns:1fr}
+  .guide{grid-template-columns:minmax(0,1fr)}
   .toc{display:none}
   .doc{padding:4px 18px 22px}
+  /* 16px inputs stop iOS from zooming in on focus */
+  input,select,textarea,.input,.select{font-size:16px}
+  .rvin,.bcin{font-size:15px}
+  .topbar{gap:10px}
+  .topbar>.btn,.topbar>label.btn{flex:1 1 auto;justify-content:center}
+  .me{max-width:100%}
+  .board{grid-auto-columns:minmax(78vw,1fr);scroll-snap-type:x mandatory}
+  .board .col{scroll-snap-align:start}
+  .overlay{padding:12px 10px calc(12px + env(safe-area-inset-bottom,0px))}
+  .modal footer .btn{flex:1 1 auto;justify-content:center}
+  .drawer{width:100%}
 }
 @media (max-width:560px){
   .modal .body{grid-template-columns:1fr}
   .kpi .v{font-size:20px}
+  .kpi{padding:12px}
   .brow{grid-template-columns:minmax(0,110px) minmax(0,1fr) 64px;font-size:12px}
   .topbar h1{font-size:21px}
+  .datenav input{width:130px}
+  .dhead .prog{max-width:none;flex-basis:100%}
+  .irow .c-val{flex-basis:100%}
+  .irow .c-st{justify-content:flex-start}
+  .ttl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tt .v{font-size:15px}
+  .panel{padding:14px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -424,6 +457,8 @@ tr.sel td{background:var(--accent-soft)}
 <div class="app" dir="rtl" lang="ar">
   <aside class="side">
     <div class="brand"><div class="brand-mark">م</div><div><b>مَسار</b><small>الإقفالات والمهام المالية</small></div></div>
+    <span class="mtitle" id="mTitle"></span>
+    <button type="button" class="btn ghost" id="navToggle" aria-label="القائمة" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     <nav class="nav" id="nav"></nav>
     <div class="side-foot">
       <div class="conn"><span class="dot" id="connDot"></span><span id="connText">جارٍ الاتصال…</span></div>
@@ -1101,6 +1136,8 @@ function renderNav(){
   const c=navCounts();
   $("#nav").innerHTML=VIEWS.filter(v=>canPage(v.k)).map(v=>{let b="";if(v.k==="close"&&c.close)b='<span class="count num'+(c.closeGold?" g":"")+'">'+nf.format(c.close)+"</span>";if(v.k==="tasks"&&c.tasks)b='<span class="count num">'+nf.format(c.tasks)+"</span>";
     return'<button type="button" data-view="'+v.k+'"'+(ui.view===v.k?' aria-current="page"':"")+">"+svg(v.i)+"<span>"+v.l+"</span>"+b+"</button>"}).join("");
+  const cur=VIEWS.find(v=>v.k===ui.view);$("#mTitle").textContent=cur?cur.l:"";
+  const tg=$("#navToggle");tg.querySelectorAll(".dotc").forEach(x=>x.remove());if(c.close||c.tasks)tg.insertAdjacentHTML("beforeend",'<span class="dotc"></span>');
 }
 function render(){
   if((ui.view==="rev"||ui.view==="bc")&&revDirty.size){renderNav();return}
@@ -2625,7 +2662,8 @@ document.addEventListener("click",e=>{
   if(t.id==="impGo"){applyImport();return}
   if(t.id==="impCancel"){pendingImport=null;render();return}
   if(t.id==="loadDemo"){genDemo();return}
-  if(d.view){ui.view=d.view;lsSet("crm_view",d.view);closeModal();window.scrollTo(0,0);return}
+  if(t.id==="navToggle"){const sd=$(".side"),op=!sd.classList.contains("open");sd.classList.toggle("open",op);t.setAttribute("aria-expanded",op);document.body.style.overflow=op?"hidden":"";return}
+  if(d.view){ui.view=d.view;lsSet("crm_view",d.view);$(".side").classList.remove("open");$("#navToggle").setAttribute("aria-expanded","false");document.body.style.overflow="";closeModal();window.scrollTo(0,0);return}
   if(d.go){ui.view=d.go;render();return}
   if(d.goday){ui.view="close";ui.dept="all";ui.member="all";ui.ist="all";setDay(d.goday);window.scrollTo(0,0);return}
   if(d.day){const D=curDay();if(d.day==="prev"){let x=shiftD(D,-1),g=0;while(!isWork(x)&&g++<14)x=shiftD(x,-1);setDay(x)}else if(d.day==="next"){let x=shiftD(D,1),g=0;while(!isWork(x)&&x<today()&&g++<14)x=shiftD(x,1);setDay(x)}else setDay(defaultDay());return}
