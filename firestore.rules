@@ -26,7 +26,7 @@ service cloud.firestore {
 
     // بيانات إدارية: يقرؤها كل الموظفين، ويعدّلها أصحاب الصلاحيات الإدارية فقط
     function adminOnly(collection) {
-      return collection in ['team', 'depts', 'lines', 'branches', 'bankAccts', 'cashBoxes', 'setup'];
+      return collection in ['team', 'depts', 'lines', 'branches', 'bankAccts', 'cashBoxes', 'staff', 'setup'];
     }
 
     match /setup/access {

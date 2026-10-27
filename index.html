@@ -288,6 +288,15 @@ tr.sub td{background:var(--sunken);font-weight:700;font-size:13px}
 .note.bad{background:var(--bad-soft)} .note.info{background:var(--sunken)}
 .meta{grid-column:1/-1;display:flex;flex-direction:column;gap:3px;font-size:12.5px;color:var(--ink-3);border-top:1px solid var(--line);padding-top:10px}
 .checks{display:flex;gap:6px;flex-wrap:wrap}
+.btn.wa{background:#128C4A;border-color:#128C4A;color:#fff;font-weight:600}
+.btn.wa:hover{filter:brightness(1.08)}
+.fs13{font-size:12.5px}
+.note.warn{background:var(--warn-soft)}
+.walist{display:flex;flex-direction:column;gap:6px;max-height:300px;overflow-y:auto}
+.warow{display:flex;align-items:center;gap:10px;justify-content:space-between;padding:8px 10px;border:1px solid var(--line);border-radius:10px}
+.warow.sent{background:var(--ok-soft)}
+.wapreview{white-space:pre-wrap;background:var(--sunken);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px;line-height:1.7;overflow-wrap:anywhere}
+.stacts{display:flex;gap:4px;justify-content:flex-end;flex-wrap:nowrap}
 .checks label{display:inline-flex;align-items:center;gap:5px;background:var(--sunken);border:1px solid var(--line);border-radius:7px;padding:4px 10px;font-size:13px;cursor:pointer}
 
 .banner{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--gold-soft);color:var(--ink);border-radius:var(--radius);padding:12px 16px;font-size:13.5px}
@@ -472,7 +481,7 @@ tr.sel td{background:var(--accent-soft)}
 <template id="guideTpl">
 <div class="guide">
   <nav class="toc" aria-label="محتويات الدليل">
-    <a href="#g-idea">فكرة النظام</a><a href="#g-start">التجهيز لأول مرة</a><a href="#g-share">الدخول والصلاحيات</a><a href="#g-matrix">مصفوفة الإقفال</a><a href="#g-close">الإقفال اليومي</a><a href="#g-approve">الاعتماد والإرجاع</a><a href="#g-dash">لوحة المتابعة</a><a href="#g-tasks">المهام</a><a href="#g-perf">الإنجاز والأداء</a><a href="#g-rev">تسجيل الإيرادات</a><a href="#g-rrep">تقرير الإيرادات</a><a href="#g-bc">البنوك والصندوق</a><a href="#g-perm">الصلاحيات</a><a href="#g-org">الهيكل التنظيمي</a><a href="#g-files">المرفقات والتقارير</a><a href="#g-routine">روتين العمل</a><a href="#g-faq">أسئلة شائعة</a>
+    <a href="#g-idea">فكرة النظام</a><a href="#g-start">التجهيز لأول مرة</a><a href="#g-share">الدخول والصلاحيات</a><a href="#g-matrix">مصفوفة الإقفال</a><a href="#g-close">الإقفال اليومي</a><a href="#g-approve">الاعتماد والإرجاع</a><a href="#g-dash">لوحة المتابعة</a><a href="#g-tasks">المهام</a><a href="#g-perf">الإنجاز والأداء</a><a href="#g-rev">تسجيل الإيرادات</a><a href="#g-rrep">تقرير الإيرادات</a><a href="#g-bc">البنوك والصندوق</a><a href="#g-staff">المشرفون والكاشيرية</a><a href="#g-perm">الصلاحيات</a><a href="#g-org">الهيكل التنظيمي</a><a href="#g-files">المرفقات والتقارير</a><a href="#g-routine">روتين العمل</a><a href="#g-faq">أسئلة شائعة</a>
   </nav>
   <article class="doc">
     <section id="g-idea">
@@ -671,6 +680,18 @@ tr.sel td{background:var(--accent-soft)}
       <p>كل موظف يأخذ تلقائياً صلاحيات <strong>قالب دوره</strong> (رئيس قسم، أو محاسب). عدّل القالب مرة واحدة فيُطبَّق على كل أصحاب الدور. ولموظف بعينه اختر <strong>«صلاحيات مخصّصة»</strong>. أما المدير المالي فيملك كل الصلاحيات دائماً.</p>
       <div class="warnbox">قواعد قاعدة البيانات تمنع غير المصرّح لهم من تعديل الهيكل والإعداد والصلاحيات حتى لو تجاوزوا الواجهة. أما إخفاء الصفحات ونطاق البيانات فتطبّقه واجهة النظام.</div>
     </section>
+    <section id="g-staff">
+      <h2>المشرفون والكاشيرية ومراسلتهم عبر واتساب</h2>
+      <p>صفحة <strong>«المشرفون والكاشيرية»</strong> فيها بيانات موظفي الفروع: الاسم، والوظيفة (مشرف فرع، مشرف منطقة، كاشير، أمين صندوق)، والفرع، ورقم الجوال، والرقم الوظيفي، ورقم الهوية، والجنسية، وتاريخ المباشرة، والوردية.</p>
+      <ol>
+        <li><strong>الإضافة:</strong> اضغط «إضافة موظف فرع»، أو «استيراد Excel» لملف فيه أعمدة: الاسم، الوظيفة، الفرع، الجوال، الرقم الوظيفي. أسهل طريقة: صدّر الملف من الصفحة، واملأه، ثم استورده. اسم الفرع في الملف يجب أن يطابق اسمه في النظام.</li>
+        <li><strong>رسالة لموظف:</strong> اضغط «واتساب» بجانب اسمه، واختر قالباً أو اكتب رسالتك، ثم «فتح واتساب». تُفتح المحادثة والرسالة مكتوبة، فتضغط «إرسال» داخل واتساب.</li>
+        <li><strong>رسالة لعدة موظفين:</strong> حدّد المربعات بجانب أسمائهم (أو صفِّ القائمة بالفرع أو الوظيفة ثم حدّد الكل)، واضغط «واتساب للمحددين». تظهر قائمة المستلمين، وتفتح محادثة كل واحد بضغطة، وتُعلَّم بعلامة ✓.</li>
+        <li><strong>القوالب:</strong> جاهزة للتذكير بالإقفال، وإيداع النقدية، والاستفسار عن العجز والفائض، وطلب المستندات. اكتب {الاسم} و{الفرع} و{التاريخ} في النص، فتُستبدل تلقائياً لكل موظف. ويحفظ أصحاب صلاحية الإعداد قوالب جديدة.</li>
+      </ol>
+      <p>في نموذج <strong>العجز والفائض غير الطبيعي</strong> بصفحة تسجيل الإيرادات، اكتب الرقم الوظيفي أو الاسم واختره من القائمة، فيُكمل النظام بقية بيانات الموظف.</p>
+      <div class="tip">الإرسال يتم من رقم واتساب الجهاز الذي تستخدمه. يُسجَّل في «سجل النشاط» من فتح رسالة لمن. الإرسال الآلي الجماعي دون ضغط «إرسال» يحتاج اشتراك WhatsApp Business API مدفوعاً وخادماً خاصاً.</div>
+    </section>
     <section id="g-files">
       <h2>المرفقات والتقارير</h2>
       <p>يمكن إرفاق ملفات <strong>Excel</strong> و<strong>Word</strong> و<strong>PDF</strong> (وصور المستندات) بأي <strong>بند إقفال</strong> أو <strong>مهمة</strong>، مثل كشف البنك، أو محضر جرد الصندوق، أو تقرير المصاريف، أو ملف التسوية.</p>
@@ -717,7 +738,7 @@ tr.sel td{background:var(--accent-soft)}
 (function(){
 "use strict";
 /* ================= constants ================= */
-const COLS=["team","depts","lines","tasks","activity","branches","bankAccts","cashBoxes"];
+const COLS=["team","depts","lines","tasks","activity","branches","bankAccts","cashBoxes","staff"];
 const DEF_TYPES=[
   {k:"rev",l:"الإيرادات",mode:"amount"},
   {k:"bank",l:"حركة البنوك",mode:"reconcile",a:"الرصيد الدفتري",b:"رصيد كشف البنك"},
@@ -756,7 +777,10 @@ const ICONS={
   dl:'<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
   prev:'<path d="M9 6l6 6-6 6"/>',
   clip:'<path d="M21 11.5l-8.6 8.6a5 5 0 0 1-7.1-7.1l8.6-8.6a3.3 3.3 0 0 1 4.7 4.7l-8.6 8.6a1.7 1.7 0 0 1-2.4-2.4l7.9-7.9"/>',
-  next:'<path d="M15 6l-6 6 6 6"/>'
+  next:'<path d="M15 6l-6 6 6 6"/>',
+  users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/>',
+  chat:'<path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9 10h6M9 13h4"/>',
+  phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>'
 };
 const VIEWS=[
   {k:"dash",l:"لوحة المتابعة",i:"dash",h:"صورة كاملة عن إقفالات الإدارة المالية ومهامها"},
@@ -764,6 +788,7 @@ const VIEWS=[
   {k:"rev",l:"تسجيل الإيرادات",i:"rev",h:"نموذج إيرادات الفروع اليومية: المبيعات وسحب الشبكات والعجز والفائض"},
   {k:"rrep",l:"تقرير الإيرادات",i:"rrep",h:"تجميع إيرادات الفروع لأي فترة، حسب الفرع أو المنشأة أو اليوم"},
   {k:"bc",l:"البنوك والصندوق",i:"bank",h:"مطابقة أرصدة البنوك، ووسيط المتحصلات، وتحصيل النقدية بالفروع، وإقفال الصندوق"},
+  {k:"staff",l:"المشرفون والكاشيرية",i:"users",h:"موظفو الفروع: بياناتهم وفروعهم وأرقام جوالاتهم، ومراسلتهم عبر واتساب"},
   {k:"tasks",l:"المهام",i:"tasks",h:"الأعمال غير اليومية وتوزيعها على الفريق"},
   {k:"perf",l:"الإنجاز والأداء",i:"perf",h:"حجم الإنجاز والانضباط لكل محاسب وقسم"},
   {k:"files",l:"المرفقات والتقارير",i:"clip",h:"كل ملفات Excel وWord وPDF المرفقة بالإقفالات والمهام"},
@@ -804,9 +829,9 @@ const lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
 const numOrEmpty=v=>v===""||v==null||isNaN(+v)?"":+v;
 
 /* ================= state ================= */
-const state={team:[],depts:[],lines:[],tasks:[],activity:[],files:[],branches:[],bankAccts:[],cashBoxes:[],sectors:[],companies:[],orgUnits:{},days:{},rev:{},bc:{},config:null};
+const state={team:[],depts:[],lines:[],tasks:[],activity:[],files:[],branches:[],bankAccts:[],cashBoxes:[],staff:[],sectors:[],companies:[],orgUnits:{},days:{},rev:{},bc:{},config:null};
 const ready={};
-const ui={view:(location.hash||"").slice(1)||lsGet("crm_view")||"dash",day:null,dept:"all",member:"all",ist:"all",taskMember:"all",taskDept:"all",taskPrio:"all",taskQ:"",repSec:"all",permTab:"users",permSel:"",bcTab:"banks",repFrom:"",repTo:"",repQuick:"month",repCo:"all",repBr:"all",repBy:"branch",repTab:"sales",revTab:"sales",revScope:"auto",abnPre:"",fKind:"all",fType:"all",fDept:"all",fQ:"",period:"month",perfDept:"all",actMember:"all"};
+const ui={view:(location.hash||"").slice(1)||lsGet("crm_view")||"dash",day:null,dept:"all",member:"all",ist:"all",taskMember:"all",taskDept:"all",taskPrio:"all",taskQ:"",repSec:"all",permTab:"users",permSel:"",bcTab:"banks",repFrom:"",repTo:"",repQuick:"month",repCo:"all",repBr:"all",repBy:"branch",repTab:"sales",revTab:"sales",revScope:"auto",abnPre:"",fKind:"all",fType:"all",fDept:"all",fQ:"",stQ:"",stBr:"all",stRole:"all",stAct:"1",stSel:new Set(),period:"month",perfDept:"all",actMember:"all"};
 if(!VIEWS.some(v=>v.k===ui.view))ui.view="dash";
 let me=lsGet("crm_me")||"";
 let canWrite=true,isOwnerV=false,fbAuth=null,authUser=null,ownerEmail="",ownerHash="",fbStarted=false,accessEmails=null,syncingAccess=false,accessAdmins=null,permDraft=null,pendingImport=null;
@@ -850,14 +875,15 @@ const ACTIONS=[
   ["المهام",[["tasks.assign","إنشاء مهام وإسنادها للآخرين","بدونها يُنشئ مهاماً لنفسه فقط"]]],
   ["الإيرادات",[["rev.edit","تسجيل إيرادات الفروع","فروع غير مسندة إليه ضمن نطاقه"],["rev.import","استيراد تقارير الإيرادات من Excel",""]]],
   ["البنوك والصندوق",[["bc.edit","إدخال إقفالات البنوك والصندوق",""],["bc.import","استيراد البنوك والصندوق من Excel",""]]],
+  ["المشرفون والكاشيرية",[["staff.manage","إضافة وتعديل بيانات المشرفين والكاشيرية","يشمل الاستيراد من Excel — المراسلة عبر واتساب متاحة لكل من يرى الصفحة"]]],
   ["عام",[["export","تصدير التقارير (Excel / CSV)",""],["files.delete","حذف مرفقات الآخرين","ضمن نطاقه"]]],
   ["الإدارة",[["org.manage","إدارة الهيكل التنظيمي والموظفين",""],["setup.manage","إدارة إعداد الإقفال والفروع والحسابات",""],["data.backup","النسخ الاحتياطي والاسترجاع",""],["perms.manage","إدارة الصلاحيات","يغيّر صلاحيات المستخدمين — امنحها بحذر"]]]];
-const ADMIN_ACTS=["org.manage","setup.manage","perms.manage","rev.import","bc.import","data.backup"];
+const ADMIN_ACTS=["org.manage","setup.manage","perms.manage","rev.import","bc.import","data.backup","staff.manage"];
 const SCOPES=[{k:"all",l:"كل الإدارة المالية",d:"يرى إقفالات ومهام وبيانات كل الموظفين"},{k:"dept",l:"قسمه فقط",d:"يرى بيانات موظفي قسمه فقط"},{k:"own",l:"بياناته فقط",d:"يرى ما أُسند إليه وما أنشأه فقط"}];
 const PERM_PAGES=()=>VIEWS.filter(v=>v.k!=="guide"&&v.k!=="perms");
 const DEF_ROLE_PERMS={
-  head:{pages:["dash","close","rev","rrep","bc","tasks","perf","files","org","setup","activity"],actions:["close.approve","close.others","tasks.assign","rev.edit","rev.import","bc.edit","export","files.delete","setup.manage"],scope:"dept",branches:[]},
-  acc:{pages:["dash","close","rev","tasks","files","activity"],actions:["export"],scope:"own",branches:[]}};
+  head:{pages:["dash","close","rev","rrep","bc","staff","tasks","perf","files","org","setup","activity"],actions:["close.approve","close.others","tasks.assign","rev.edit","rev.import","bc.edit","export","files.delete","setup.manage","staff.manage"],scope:"dept",branches:[]},
+  acc:{pages:["dash","close","rev","staff","tasks","files","activity"],actions:["export"],scope:"own",branches:[]}};
 const roleTemplate=r=>{const c=(cfg().rolePerms||{})[r];return c&&Array.isArray(c.pages)?c:(DEF_ROLE_PERMS[r]||DEF_ROLE_PERMS.acc)};
 function permsOf(m){
   if(!m||m.role==="cfo")return{full:true};
@@ -921,7 +947,7 @@ const Data={
     if(!isOwnerV&&ownerHash&&window.crypto&&crypto.subtle){try{const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(em));isOwnerV=[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")===ownerHash}catch(e){}}
     this.mode="db";
     const rows=s=>s.docs.map(d=>Object.assign({},d.data(),{id:d.id}));
-    ["team","depts","lines","tasks","branches","bankAccts","cashBoxes"].forEach(c=>db.collection(c).onSnapshot(s=>{state[c]=rows(s);ready[c]=true;afterData()},subErr));
+    ["team","depts","lines","tasks","branches","bankAccts","cashBoxes","staff"].forEach(c=>db.collection(c).onSnapshot(s=>{state[c]=rows(s);ready[c]=true;afterData()},subErr));
     db.collection("activity").orderBy("at","desc").limit(150).onSnapshot(s=>{state.activity=rows(s);ready.activity=true;afterData()},subErr);
     db.doc("setup/config").onSnapshot(s=>{state.config=s.exists?s.data():null;ready.config=true;afterData()},subErr);
     db.doc("setup/orgUnits").onSnapshot(s=>{state.orgUnits=s.exists?s.data():{};rebuildOrg();ready.org=true;afterData()},subErr);
@@ -1149,6 +1175,7 @@ function render(){
   const actions={
     dash:"",close:(can("export")?'<button class="btn" data-export="close">'+svg("dl")+"تصدير اليوم</button>":""),
     tasks:'<button class="btn primary" data-new="tasks">'+svg("plus")+"مهمة جديدة</button>",
+    staff:(can("staff.manage")?'<label class="btn" for="stImport" style="cursor:pointer">استيراد Excel</label><input type="file" id="stImport" accept=".xlsx,.xls,.csv" hidden>':"")+(can("export")?'<button class="btn" id="stExport">'+svg("dl")+"تصدير Excel</button>":"")+(can("staff.manage")?'<button class="btn primary" data-new="staff">'+svg("plus")+"إضافة موظف فرع</button>":""),
     perf:(can("export")?'<button class="btn" data-export="perf">'+svg("dl")+"تصدير CSV</button>":""),
     org:can("org.manage")?'<button class="btn" data-new="sectors">'+svg("plus")+'قطاع</button><button class="btn" data-new="companies">'+svg("plus")+'شركة</button><button class="btn" data-new="depts">'+svg("plus")+'قسم جديد</button><button class="btn primary" data-new="team">'+svg("plus")+"إضافة موظف</button>":"",
     setup:can("setup.manage")?'<button class="btn primary" data-new="lines">'+svg("plus")+"بند إقفال جديد</button>":"",
@@ -1473,6 +1500,8 @@ function genDemo(){
   const LN=[["s_l01","bank","بنك الراجحي — الحساب الجاري","s_a1",850000],["s_l02","bank","البنك الأهلي — حساب التحصيل","s_a1",420000],["s_l03","bank","بنك الإنماء — حساب الرواتب","s_h1",310000],["s_l04","cash","الصندوق الرئيسي","s_a2",18000],["s_l05","cust","عهد المندوبين والموظفين","s_a2",42000],["s_l06","rev","إيرادات الفرع الرئيسي","s_a3",95000],["s_l07","rev","إيرادات فرع جدة","s_a4",61000],["s_l08","rev","إيرادات المتجر الإلكتروني","s_a4",38000],["s_l09","pur","مشتريات المستودع الرئيسي","s_a5",72000],["s_l10","pur","مشتريات الخدمات والعقود","s_a5",15000],["s_l11","exp","المصاريف التشغيلية","s_a6",22000],["s_l12","exp","مصاريف الفروع","s_a6",9000]];
   state.orgUnits={sectors:{s_sec1:{name:"قطاع التجزئة",order:0,sample:true}},companies:{s_co1:{name:"شركة المثال التجارية",sectorId:"s_sec1",order:0,sample:true},s_co2:{name:"مؤسسة المثال للتجزئة",sectorId:"s_sec1",order:1,sample:true}}};rebuildOrg();
   state.branches=[["s_b1","فرع الرياض — العليا","شركة المثال التجارية",["10001","10002"]],["s_b2","فرع الرياض — النسيم","شركة المثال التجارية",["10003"]],["s_b3","فرع جدة","شركة المثال التجارية",["20001","20002"]],["s_b4","فرع الدمام","مؤسسة المثال للتجزئة",["30001"]]].map((x,i)=>Object.assign({id:x[0],name:x[1],company:x[2],companyId:x[2]==="شركة المثال التجارية"?"s_co1":"s_co2",terminals:x[3].map(no=>({no})),active:true,order:i},S));
+  const SN=["عبدالله القرني","سلمان العتيبي","ناصر الشمري","يوسف الحارثي","بدر المالكي","عمر الجهني","وليد العمري","حسن البقمي","فهد الرشيدي","مازن الزهراني","طلال العنزي","إبراهيم الأحمدي"];let si=0;
+  state.staff=[];state.branches.forEach((b,bi)=>{[["sup",1],["cashier",2]].forEach(([role,k])=>{for(let j=0;j<k;j++){const nm=SN[si++%SN.length];state.staff.push(Object.assign({id:"s_st"+bi+role+j,name:nm,role,branchId:b.id,phone:"05"+String(ri(10000000,99999999)),empNo:String(ri(1000,9999)),shift:role==="cashier"?(j?"pm":"am"):"",active:true},S))}})});
   LN.push(["s_l13","revform","تسجيل إيرادات: فرع الرياض — العليا، فرع الرياض — النسيم","s_a3",0,["s_b1","s_b2"]],["s_l14","revform","تسجيل إيرادات: فرع جدة، فرع الدمام","s_a4",0,["s_b3","s_b4"]]);
   state.rev={};
   const demoRev=(D,bids,partial)=>{const doc=state.rev[D]||(state.rev[D]={date:D,sales:{},terms:{},abn:{},sample:true});
@@ -1574,6 +1603,19 @@ const SCHEMA={
     ...mgrFields("مسؤول الفرع"),
     {k:"termsText",l:"أرقام أجهزة الشبكة (رقم في كل سطر)",type:"textarea",full:1},
     {k:"active",l:"الحالة",type:"select",opts:()=>[["1","فعّال"],["0","موقوف"]],def:"1",full:1}]},
+  staff:{t:"موظف فرع",f:[
+    {k:"name",l:"الاسم",req:1},
+    {k:"role",l:"الوظيفة",type:"select",opts:()=>STAFF_ROLES.map(r=>[r.k,r.l]),def:"cashier"},
+    {k:"branchId",l:"الفرع",type:"select",opts:()=>[["","— اختر الفرع —"]].concat(state.branches.filter(b=>b.active!==false||b.id===(modal&&modal.rec.branchId)).sort(sortBr).map(b=>[b.id,b.name+(b.company?" — "+b.company:"")])),req:1,full:1},
+    {k:"phone",l:"رقم الجوال (واتساب)",type:"tel",ltr:1,req:1,ph:"05xxxxxxxx"},
+    {k:"phone2",l:"جوال آخر",type:"tel",ltr:1},
+    {k:"empNo",l:"الرقم الوظيفي",ltr:1},
+    {k:"idNo",l:"رقم الهوية / الإقامة",ltr:1},
+    {k:"nationality",l:"الجنسية"},
+    {k:"hireDate",l:"تاريخ المباشرة",type:"date"},
+    {k:"shift",l:"الوردية",type:"select",opts:()=>SHIFTS},
+    {k:"active",l:"الحالة",type:"select",opts:()=>[["1","على رأس العمل"],["0","موقوف / ترك العمل"]],def:"1"},
+    {k:"notes",l:"ملاحظات",type:"textarea",full:1}]},
   types:{t:"نوع إقفال",f:[
     {k:"l",l:"اسم النوع",req:1,full:1,ph:"مثال: المخزون"},
     {k:"mode",l:"طريقة الإقفال",type:"select",opts:()=>[["amount","مبلغ — عدد المستندات والإجمالي"],["reconcile","مطابقة — رصيدان وحساب الفرق"]],def:"amount",full:1,repaint:1},
@@ -1596,6 +1638,7 @@ function openForm(col,id,preset){
   if(col==="lines"&&id)rec.active=rec.active===false?"0":"1";
   if(col==="depts"&&rec.parentKey==null)rec.parentKey=rec.companyId?"co:"+rec.companyId:rec.sectorId?"sec:"+rec.sectorId:"";
   if((col==="bankAccts"||col==="cashBoxes")&&id)rec.active=rec.active===false?"0":"1";
+  if(col==="staff"&&id)rec.active=rec.active===false?"0":"1";
   if(col==="branches"&&id){rec.active=rec.active===false?"0":"1";rec.termsText=(rec.terminals||[]).map(x=>x.no).join("\n")}
   if(!id)SCHEMA[col].f.forEach(f=>{if(rec[f.k]==null&&f.def!=null)rec[f.k]=typeof f.def==="function"?f.def():f.def});
   modal={kind:"form",col,id,rec};paintForm();
@@ -1612,8 +1655,9 @@ function paintForm(){
   let extraHtml="";
   if(col==="team"&&Data.mode==="db")extraHtml='<div class="note info">بهذا البريد ينشئ الموظف حسابه ويسجّل الدخول. تغيير البريد أو حذف الموظف يوقف دخوله بالبريد القديم.</div>';
   if(col==="lines"&&!id)extraHtml='<div class="note info">يظهر البند في الإقفال اليومي ابتداءً من اليوم.</div>';
+  if(col==="staff"&&id){const n=waNum(rec.phone);extraHtml='<div class="field full"><div class="toolbar">'+(n?'<button type="button" class="btn wa" data-wa="'+esc(id)+'">'+svg("chat")+"رسالة واتساب</button><a class=\"btn\" href=\"tel:+"+n+'">'+svg("phone")+"اتصال</a>":'<span class="chip bad">رقم الجوال غير صالح لواتساب</span>')+"</div></div>"}
   if(col==="tasks")extraHtml+=id?'<div class="field full"><label>المرفقات</label><div id="attBox"></div></div>':'<div class="note info">يمكنك إرفاق ملفات Excel وWord وPDF بعد حفظ المهمة.</div>';
-  const canEditThis=col==="tasks"?canWrite:(col==="team"||col==="depts"||col==="sectors"||col==="companies")?can("org.manage"):col==="branches"?(can("setup.manage")||can("org.manage")):can("setup.manage");
+  const canEditThis=col==="tasks"?canWrite:(col==="team"||col==="depts"||col==="sectors"||col==="companies")?can("org.manage"):col==="branches"?(can("setup.manage")||can("org.manage")):col==="staff"?can("staff.manage"):can("setup.manage");
   $("#layer").innerHTML='<div class="overlay" id="ov"><form class="modal" id="mform" novalidate><header><h3>'+(id?"تعديل ":"إضافة ")+S.t+'</h3><button type="button" class="btn ghost sm" data-close aria-label="إغلاق">'+svg("x")+'</button></header><div class="body">'+fields+extraHtml+"</div><footer>"+(canEditThis?'<button type="submit" class="btn primary">'+(id?"حفظ التعديلات":"إضافة")+"</button>":"")+'<button type="button" class="btn" data-close>إغلاق</button><span class="spacer"></span>'+(id&&canEditThis?'<button type="button" class="btn danger" id="delBtn">حذف</button>':"")+"</footer></form></div>";
   const first=$("#mform [data-k]");if(first&&!id)first.focus();
   if(col==="tasks"&&id)attachOpen({key:"task:"+id,kind:"task",taskId:id,label:"مهمة: "+(rec.title||""),deptId:deptOf(rec.assignee),can:canWrite});
@@ -1639,6 +1683,11 @@ async function submitForm(){
   if(col==="team"){rec.email=String(rec.email||"").trim().toLowerCase();if(rec.email&&state.team.some(x=>x.id!==id&&String(x.email||"").trim().toLowerCase()===rec.email)){toast("هذا البريد مسجّل لموظف آخر");return}}
   if(col==="lines"){rec.active=rec.active!=="0";if(!id)rec.startDate=today()}
   if(col==="bankAccts"||col==="cashBoxes"){rec.active=rec.active!=="0";if(!id)rec.order=state[col].length}
+  if(col==="staff"){
+    rec.active=rec.active!=="0";rec.name=String(rec.name||"").trim();rec.phone=cleanPhone(rec.phone);rec.phone2=cleanPhone(rec.phone2);rec.empNo=toLatinDigits(rec.empNo).trim();
+    if(!waNum(rec.phone)){const e=document.querySelector('[data-err="phone"]');if(e){e.textContent="رقم غير صالح — اكتبه مثل 0501234567";e.hidden=false}return}
+    if(rec.empNo&&state.staff.some(x=>x.id!==id&&String(x.empNo||"")===rec.empNo)){toast("الرقم الوظيفي مسجّل لموظف آخر");return}
+  }
   if(col==="branches"){
     if(state.branches.some(b=>b.id!==id&&String(b.name).trim()===String(rec.name).trim())){toast("يوجد فرع بنفس الاسم");return}
     rec.active=rec.active!=="0";rec.terminals=[...new Set(String(rec.termsText||"").split(/[\s,،]+/).map(x=>x.trim()).filter(Boolean))].map(no=>({no}));delete rec.termsText;if(!id)rec.order=state.branches.length;
@@ -1678,6 +1727,161 @@ async function deleteCurrent(){
   if(col==="depts"&&state.team.some(m=>m.deptId===id)){toast("القسم يضم موظفين — انقلهم لقسم آخر أولاً");return}
   const r=byId(col,id);const nm=r&&(r.title||r.name||r.label);
   if(await removeRec(col,id,"حذف "+SCHEMA[col].t+" «"+nm+"»")){closeModal();toast("تم الحذف")}
+}
+
+/* ================= branch staff & WhatsApp ================= */
+const STAFF_ROLES=[{k:"sup",l:"مشرف فرع",c:"info"},{k:"area",l:"مشرف منطقة",c:"gold"},{k:"cashier",l:"كاشير",c:""},{k:"treasurer",l:"أمين صندوق",c:"ok"},{k:"other",l:"أخرى",c:""}];
+const SHIFTS=[["","—"],["am","صباحية"],["pm","مسائية"],["split","فترتين"]];
+const WA_TPL=[
+  {k:"free",l:"رسالة حرة",t:""},
+  {k:"close",l:"تذكير بإرسال إقفال اليوم",t:"السلام عليكم {الاسم}،\nنذكّركم بإرسال إقفال {الفرع} ليوم {التاريخ} (المبيعات وسحب الشبكات والنقدية).\nشكراً لكم — الإدارة المالية"},
+  {k:"cash",l:"تذكير بإيداع النقدية",t:"السلام عليكم {الاسم}،\nنرجو إيداع نقدية {الفرع} عن يوم {التاريخ} وإرسال صورة إشعار الإيداع.\nشكراً لكم — الإدارة المالية"},
+  {k:"diff",l:"استفسار عن عجز أو فائض",t:"السلام عليكم {الاسم}،\nظهر فرق في إقفال {الفرع} ليوم {التاريخ}. نرجو توضيح السبب وإرسال المستندات المؤيدة.\nشكراً لكم — الإدارة المالية"},
+  {k:"docs",l:"طلب مستندات",t:"السلام عليكم {الاسم}،\nنرجو إرسال المستندات التالية الخاصة بـ{الفرع}:\n- \nشكراً لكم — الإدارة المالية"}];
+const toLatinDigits=v=>String(v==null?"":v).replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/[۰-۹]/g,d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d));
+function cleanPhone(p){let d=toLatinDigits(p).replace(/[^\d+]/g,"");if(/^5\d{8}$/.test(d))d="0"+d;return d}
+function waNum(p){let d=toLatinDigits(p).replace(/\D/g,"");if(d.startsWith("00"))d=d.slice(2);if(/^05\d{8}$/.test(d))d="966"+d.slice(1);else if(/^5\d{8}$/.test(d))d="966"+d;else if(/^9660\d{9}$/.test(d))d="966"+d.slice(4);return/^\d{10,15}$/.test(d)?d:""}
+const staffRole=k=>lbl(STAFF_ROLES,k);
+const staffBranch=x=>byId("branches",x.branchId);
+const roleChip=k=>{const r=STAFF_ROLES.find(x=>x.k===k)||STAFF_ROLES[4];return'<span class="chip '+r.c+'">'+r.l+"</span>"};
+const waTpls=()=>WA_TPL.concat((cfg().waTpl||[]).map(x=>Object.assign({custom:true},x)));
+function waFill(t,x,D){const b=staffBranch(x)||{};return String(t||"").replace(/\{الاسم\}/g,x.name||"").replace(/\{الفرع\}/g,b.name||"").replace(/\{الشركة\}/g,b.company||"").replace(/\{الوظيفة\}/g,staffRole(x.role)).replace(/\{التاريخ\}/g,D?fmtDay(D):"")}
+const staffVisible=()=>state.staff.filter(x=>branchAllowed(x.branchId));
+const roleIdx=k=>{const i=STAFF_ROLES.findIndex(r=>r.k===k);return i<0?9:i};
+function staffList(){
+  const q=normAr(ui.stQ).toLowerCase();
+  return staffVisible().filter(x=>(ui.stBr==="all"||x.branchId===ui.stBr)&&(ui.stRole==="all"||(ui.stRole==="sups"?x.role==="sup"||x.role==="area":x.role===ui.stRole))&&(ui.stAct==="all"||(ui.stAct==="0")===(x.active===false))&&(!q||normAr([x.name,x.empNo,x.phone,x.phone2,x.idNo,(staffBranch(x)||{}).name].join(" ")).toLowerCase().includes(q)))
+    .sort((a,b)=>{const A=staffBranch(a),B=staffBranch(b);return(A&&B?sortBr(A,B):A?-1:B?1:0)||roleIdx(a.role)-roleIdx(b.role)||String(a.name).localeCompare(b.name,"ar")});
+}
+VIEWFN.staff=function(){
+  const M=can("staff.manage"),all=staffVisible(),act=all.filter(x=>x.active!==false),list=staffList();
+  const brs=state.branches.filter(b=>branchAllowed(b.id)).sort(sortBr);
+  const noSup=brs.filter(b=>b.active!==false&&!act.some(x=>x.branchId===b.id&&x.role==="sup"));
+  const bad=act.filter(x=>!waNum(x.phone));
+  let h='<div class="kpis">'+kpi("موظفو الفروع",nf.format(act.length),"على رأس العمل")+kpi("المشرفون",nf.format(act.filter(x=>x.role==="sup"||x.role==="area").length),"مشرفو الفروع والمناطق")+kpi("الكاشيرية",nf.format(act.filter(x=>x.role==="cashier").length),"وأمناء الصندوق: "+nf.format(act.filter(x=>x.role==="treasurer").length))+kpi("فروع بلا مشرف",nf.format(noSup.length),"من "+nf.format(brs.filter(b=>b.active!==false).length)+" فرعاً فعّالاً",noSup.length?"warn":"")+"</div>";
+  if(!state.branches.length)return h+'<div class="empty">أضف الفروع أولاً من «إعداد الإقفال» ← «الفروع وأجهزة الشبكة»، ثم سجّل موظفي كل فرع هنا.</div>';
+  h+='<div class="toolbar"><input class="input search" id="stQ" placeholder="ابحث بالاسم أو الجوال أو الرقم الوظيفي" value="'+esc(ui.stQ)+'">'+
+    '<select class="select" id="stBr" aria-label="الفرع"><option value="all">كل الفروع</option>'+brs.map(b=>'<option value="'+esc(b.id)+'"'+(ui.stBr===b.id?" selected":"")+">"+esc(b.name)+"</option>").join("")+"</select>"+
+    '<select class="select" id="stRole" aria-label="الوظيفة"><option value="all">كل الوظائف</option><option value="sups"'+(ui.stRole==="sups"?" selected":"")+">كل المشرفين</option>"+STAFF_ROLES.map(r=>'<option value="'+r.k+'"'+(ui.stRole===r.k?" selected":"")+">"+r.l+"</option>").join("")+"</select>"+
+    '<select class="select" id="stAct" aria-label="الحالة"><option value="1"'+(ui.stAct==="1"?" selected":"")+'>على رأس العمل</option><option value="0"'+(ui.stAct==="0"?" selected":"")+'>الموقوفون</option><option value="all"'+(ui.stAct==="all"?" selected":"")+">الكل</option></select></div>";
+  if(noSup.length&&ui.stAct!=="0")h+='<div class="banner"><span><b>فروع بلا مشرف مسجّل:</b> '+noSup.map(b=>esc(b.name)).join("، ")+"</span>"+(M&&noSup.length===1?'<button type="button" class="btn sm" data-stnew="'+esc(noSup[0].id)+'">'+svg("plus")+"إضافة مشرفها</button>":"")+"</div>";
+  if(bad.length)h+='<div class="note warn" style="margin-bottom:12px">'+nf.format(bad.length)+" موظف رقم جواله غير صالح لواتساب: "+bad.slice(0,6).map(x=>esc(x.name)).join("، ")+(bad.length>6?"…":"")+"</div>";
+  if(!all.length)return h+'<div class="empty">لا يوجد موظفو فروع بعد.'+(M?" أضفهم واحداً واحداً من «إضافة موظف فرع»، أو استورد ملف Excel فيه أعمدة: الاسم، الوظيفة، الفرع، الجوال، الرقم الوظيفي.":"")+"</div>";
+  if(!list.length)return h+'<div class="empty">لا يوجد موظفون مطابقون للتصفية</div>';
+  const vis=new Set(list.map(x=>x.id));[...ui.stSel].forEach(id=>{if(!vis.has(id))ui.stSel.delete(id)});
+  const nSel=ui.stSel.size,allOn=nSel===list.length;
+  h+='<div class="toolbar"><span class="muted fs13">'+nf.format(list.length)+" موظف"+(nSel?" · المحدد: <b class=\"num\">"+nf.format(nSel)+"</b>":"")+'</span><span style="flex:1"></span><button type="button" class="btn wa" id="waBulk"'+(nSel?"":" disabled")+">"+svg("chat")+"واتساب للمحددين"+(nSel?" ("+nf.format(nSel)+")":"")+"</button></div>";
+  h+='<div class="tablewrap"><table style="min-width:760px"><thead><tr><th style="width:36px"><input type="checkbox" id="stAll" aria-label="تحديد الكل"'+(allOn?" checked":"")+'></th><th>الاسم</th><th>الوظيفة</th><th>الفرع</th><th>الجوال</th><th>الرقم الوظيفي</th><th></th></tr></thead><tbody>'+
+    list.map(x=>{const b=staffBranch(x),n=waNum(x.phone);
+      return"<tr><td><input type=\"checkbox\" class=\"stck\" value=\""+esc(x.id)+'" aria-label="تحديد '+esc(x.name)+'"'+(ui.stSel.has(x.id)?" checked":"")+'></td><td><button type="button" class="linkish" data-open="staff:'+esc(x.id)+'">'+esc(x.name)+"</button>"+(x.sample?' <span class="chip sample">مثال</span>':"")+(x.active===false?' <span class="chip">موقوف</span>':"")+(x.shift?'<div class="muted fs13">وردية '+esc((SHIFTS.find(s=>s[0]===x.shift)||["",""])[1])+"</div>":"")+"</td><td>"+roleChip(x.role)+"</td><td>"+(b?esc(b.name)+'<div class="muted fs13">'+esc(b.company||"")+"</div>":'<span class="chip warn">فرع محذوف</span>')+'</td><td class="num" dir="ltr" style="text-align:end">'+esc(x.phone||"—")+(x.phone2?'<div class="muted fs13">'+esc(x.phone2)+"</div>":"")+'</td><td class="num">'+esc(x.empNo||"—")+'</td><td><div class="stacts">'+(n?'<button type="button" class="btn sm wa" data-wa="'+esc(x.id)+'" aria-label="واتساب '+esc(x.name)+'">'+svg("chat")+'واتساب</button><a class="btn sm ghost" href="tel:+'+n+'" aria-label="اتصال بـ'+esc(x.name)+'">'+svg("phone")+"</a>":'<span class="chip bad">رقم غير صالح</span>')+"</div></td></tr>"}).join("")+"</tbody></table></div>";
+  return h+'<div class="muted fs13" style="margin-top:8px">زر «واتساب» يفتح المحادثة في تطبيق واتساب (على الجوال) أو واتساب ويب (على الكمبيوتر) والرسالة مكتوبة جاهزة، ثم تضغط «إرسال».</div>';
+};
+function openWa(ids){
+  const L=ids.map(id=>byId("staff",id)).filter(x=>x&&waNum(x.phone));
+  if(!L.length){toast("لا يوجد رقم جوال صالح لواتساب");return}
+  const tk=lsGet("crm_watpl")||"close",tp=waTpls().find(x=>x.k===tk)||WA_TPL[1];
+  modal={kind:"wa",ids:L.map(x=>x.id),tpl:tp.k,text:tp.t,date:defaultDay(),sent:new Set(),skipped:ids.length-L.length};paintWa();
+  const ta=$("#waText");if(ta)ta.focus();
+}
+function paintWa(){
+  const M=modal,L=M.ids.map(id=>byId("staff",id)).filter(Boolean),one=L.length===1,tp=waTpls().find(x=>x.k===M.tpl);
+  const rows=L.map(x=>{const b=staffBranch(x),done=M.sent.has(x.id);return'<div class="warow'+(done?" sent":"")+'"><div style="min-width:0"><b>'+esc(x.name)+'</b><div class="muted fs13">'+esc(staffRole(x.role))+" · "+esc(b?b.name:"—")+' · <span dir="ltr" class="num">'+esc(x.phone)+'</span></div></div><button type="button" class="btn sm'+(done?"":" wa")+'" data-wasend="'+esc(x.id)+'">'+(done?"✓ فُتحت — إعادة":svg("chat")+"فتح واتساب")+"</button></div>"}).join("");
+  $("#layer").innerHTML='<div class="overlay" id="ov"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="waH"><header><h3 id="waH">'+(one?"رسالة واتساب إلى "+esc(L[0].name):"رسالة واتساب جماعية — عدد المستلمين: "+nf.format(L.length))+'</h3><button type="button" class="btn ghost sm" data-close aria-label="إغلاق">'+svg("x")+'</button></header><div class="body">'+
+    '<div class="field"><label for="waTpl">القالب</label><select class="select" id="waTpl">'+waTpls().map(x=>'<option value="'+esc(x.k)+'"'+(x.k===M.tpl?" selected":"")+">"+esc(x.l)+"</option>").join("")+"</select></div>"+
+    '<div class="field"><label for="waDate">التاريخ في الرسالة</label><input class="input" type="date" id="waDate" value="'+esc(M.date)+'"></div>'+
+    '<div class="field full"><label for="waText">نص الرسالة</label><textarea class="input" id="waText" rows="6">'+esc(M.text)+'</textarea><span class="muted fs13">يمكنك كتابة: {الاسم} {الفرع} {الشركة} {الوظيفة} {التاريخ} — تُستبدل تلقائياً لكل موظف.</span></div>'+
+    (can("setup.manage")?'<div class="field full"><div class="toolbar"><input class="input" id="waTplName" placeholder="اسم قالب جديد" style="flex:1 1 160px" aria-label="اسم القالب"><button type="button" class="btn sm" id="waTplSave">حفظ النص كقالب</button>'+(tp&&tp.custom?'<button type="button" class="btn sm ghost" id="waTplDel">حذف هذا القالب</button>':"")+"</div></div>":"")+
+    '<div class="field full"><label>معاينة'+(one?"":" (لأول موظف)")+'</label><div class="wapreview" id="waPrev">'+esc(waFill(M.text,L[0],M.date))+"</div></div>"+
+    '<div class="field full"><label>'+(one?"المستلم":"المستلمون")+'</label><div class="walist">'+rows+"</div>"+(one?"":'<span class="muted fs13">يُفتح واتساب لكل موظف على حدة والرسالة جاهزة، فتضغط «إرسال» داخل واتساب ثم تعود للموظف التالي. المتصفحات لا تسمح بفتح عدة محادثات دفعة واحدة.</span>')+(M.skipped?'<span class="chip warn">استُبعد '+nf.format(M.skipped)+" موظف لعدم وجود رقم صالح</span>":"")+"</div>"+
+    '</div><footer><button type="button" class="btn" data-close>إغلاق</button><span class="spacer"></span><span class="muted fs13 num" style="align-self:center">فُتحت '+nf.format(M.sent.size)+" من "+nf.format(L.length)+"</span></footer></div></div>";
+}
+function waKeepText(){const ta=$("#waText");if(ta&&modal&&modal.kind==="wa")modal.text=ta.value}
+function waSend(id){
+  const x=byId("staff",id),n=x&&waNum(x.phone);if(!n){toast("رقم الجوال غير صالح");return}
+  waKeepText();const msg=waFill(modal.text,x,modal.date).trim();
+  window.open("https://wa.me/"+n+(msg?"?text="+encodeURIComponent(msg):""),"_blank","noopener");
+  if(!modal.sent.has(id)){modal.sent.add(id);log("فتح رسالة واتساب إلى "+x.name+" ("+staffRole(x.role)+" — "+((staffBranch(x)||{}).name||"")+")")}
+  paintWa();
+}
+async function waTplSave(){
+  waKeepText();const nm=String(($("#waTplName")||{}).value||"").trim();
+  if(!nm||!modal.text.trim()){toast("اكتب اسم القالب ونص الرسالة");return}
+  const c=cfg(),k="u"+uid().slice(-6);
+  try{await Data.setConfig(Object.assign({},c,{waTpl:(c.waTpl||[]).concat([{k,l:nm,t:modal.text}])}));modal.tpl=k;lsSet("crm_watpl",k);log("أضاف قالب واتساب «"+nm+"»");toast("تم حفظ القالب");paintWa()}catch(e){writeErr(e)}
+}
+async function waTplDel(){
+  const c=cfg(),tp=waTpls().find(x=>x.k===modal.tpl);if(!tp||!tp.custom)return;
+  try{await Data.setConfig(Object.assign({},c,{waTpl:(c.waTpl||[]).filter(x=>x.k!==tp.k)}));modal.tpl="free";lsSet("crm_watpl","close");log("حذف قالب واتساب «"+tp.l+"»");toast("تم حذف القالب");paintWa()}catch(e){writeErr(e)}
+}
+async function staffExport(){
+  let X;try{X=await loadXLSX()}catch(e){toast("تعذّر تحميل مكتبة Excel — تحقق من الاتصال");return}
+  const L=staffList(),sh=k=>(SHIFTS.find(x=>x[0]===k)||["",""])[1];
+  const H=["م","الاسم","الوظيفة","الفرع","الشركة","الجوال","جوال آخر","الرقم الوظيفي","رقم الهوية / الإقامة","الجنسية","تاريخ المباشرة","الوردية","الحالة","ملاحظات"];
+  const rows=L.map((x,i)=>{const b=staffBranch(x)||{};return[i+1,x.name||"",staffRole(x.role),b.name||"",b.company||"",x.phone||"",x.phone2||"",x.empNo||"",x.idNo||"",x.nationality||"",x.hireDate||"",sh(x.shift),x.active===false?"موقوف":"على رأس العمل",x.notes||""]});
+  const ws=X.utils.aoa_to_sheet([H].concat(rows));ws["!cols"]=[5,26,13,24,30,14,14,13,18,12,13,10,14,30].map(w=>({wch:w}));
+  const wb=X.utils.book_new();X.utils.book_append_sheet(wb,ws,"موظفو الفروع");wb.Workbook={Views:[{RTL:true}]};
+  X.writeFile(wb,"المشرفون-والكاشيرية-"+today()+".xlsx");
+}
+function staffRoleFrom(v){v=normAr(v);if(!v)return"cashier";if(v.includes("منطق"))return"area";if(v.includes("مشرف"))return"sup";if(v.includes("امين")||v.includes("صندوق"))return"treasurer";if(v.includes("كاش"))return"cashier";return"other"}
+function branchFrom(v){
+  const k=normAr(v),strip=x=>normAr(x).replace(/^فرع\s*/,"");if(!k)return null;const L=state.branches;
+  const hit=L.find(b=>normAr(b.name)===k)||L.find(b=>strip(b.name)===strip(v));if(hit)return hit;
+  const part=L.filter(b=>strip(b.name).includes(strip(v))||strip(v).includes(strip(b.name)));return part.length===1?part[0]:null;
+}
+async function staffImport(file){
+  let X;try{X=await loadXLSX()}catch(e){toast("تعذّر تحميل مكتبة Excel — تحقق من الاتصال");return}
+  let rows=null,hr=-1,C={};
+  try{
+    const wb=X.read(await file.arrayBuffer(),{type:"array"});
+    for(const sn of wb.SheetNames){
+      const R=X.utils.sheet_to_json(wb.Sheets[sn],{header:1,raw:false,defval:""});
+      for(let i=0;i<Math.min(R.length,15);i++){
+        const H=R[i].map(x=>normAr(x)),f=(...ks)=>H.findIndex(h=>h&&ks.some(k=>h.includes(normAr(k))));
+        const c={name:f("الاسم","اسم الموظف"),phone:f("الجوال","الموبايل","الهاتف","واتساب"),branch:f("الفرع"),role:f("الوظيفة","المسمى","الدور"),empNo:f("الرقم الوظيفي","رقم الموظف"),idNo:f("الهوية","الإقامة"),nat:f("الجنسية"),hire:f("المباشرة","التعيين"),notes:f("ملاحظات")};
+        if(c.name>=0&&c.phone>=0&&c.branch>=0){c.phone2=H.findIndex((h,j)=>j!==c.phone&&/جوال|موبايل|هاتف/.test(h));rows=R;hr=i;C=c;break}
+      }
+      if(rows)break;
+    }
+  }catch(e){toast("تعذّر قراءة الملف — تأكد أنه ملف Excel");return}
+  if(!rows){toast("لم أجد في الملف أعمدة «الاسم» و«الجوال» و«الفرع»");return}
+  const cell=(r,i)=>i>=0?String(r[i]==null?"":r[i]).trim():"";
+  const items=[],skipped=[],seen={};
+  rows.slice(hr+1).forEach((r,j)=>{
+    const name=cell(r,C.name);if(!name)return;const line=hr+j+2;
+    const b=branchFrom(cell(r,C.branch));if(!b){skipped.push([line,name,"الفرع «"+(cell(r,C.branch)||"فارغ")+"» غير موجود في النظام"]);return}
+    const phone=cleanPhone(cell(r,C.phone));if(!waNum(phone)){skipped.push([line,name,"رقم الجوال «"+(cell(r,C.phone)||"فارغ")+"» غير صالح"]);return}
+    const empNo=toLatinDigits(cell(r,C.empNo));
+    const rec={name,role:C.role>=0?staffRoleFrom(cell(r,C.role)):"cashier",branchId:b.id,phone};
+    if(empNo)rec.empNo=empNo;[["idNo",C.idNo],["nationality",C.nat],["notes",C.notes]].forEach(([k,i])=>{const v=cell(r,i);if(v)rec[k]=k==="idNo"?toLatinDigits(v):v});
+    const p2=cleanPhone(cell(r,C.phone2));if(p2)rec.phone2=p2;
+    const hd=cell(r,C.hire);if(/^\d{4}-\d{2}-\d{2}$/.test(hd))rec.hireDate=hd;
+    const key=empNo?"e:"+empNo:"p:"+waNum(phone);
+    const ex=state.staff.find(x=>empNo?String(x.empNo||"")===empNo:waNum(x.phone)===waNum(phone));
+    const it={line,rec,ex:ex||null};if(seen[key]!=null)items[seen[key]]=it;else{seen[key]=items.length;items.push(it)}
+  });
+  modal={kind:"stimp",name:file.name,items,skipped,busy:false};paintStImp();
+}
+function paintStImp(){
+  const M=modal,nNew=M.items.filter(x=>!x.ex).length,nUpd=M.items.length-nNew;
+  $("#layer").innerHTML='<div class="overlay" id="ov"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="stiH" style="max-width:760px"><header><h3 id="stiH">استيراد موظفي الفروع — '+esc(M.name)+'</h3><button type="button" class="btn ghost sm" data-close aria-label="إغلاق">'+svg("x")+'</button></header><div class="body" style="grid-template-columns:minmax(0,1fr)">'+
+    '<div class="toolbar"><span class="chip ok num">جديد: '+nf.format(nNew)+'</span><span class="chip info num">تحديث بيانات موجودة: '+nf.format(nUpd)+"</span>"+(M.skipped.length?'<span class="chip bad num">مستبعد: '+nf.format(M.skipped.length)+"</span>":"")+"</div>"+
+    (M.items.length?'<div class="tablewrap" style="max-height:320px;overflow:auto"><table><thead><tr><th>الاسم</th><th>الوظيفة</th><th>الفرع</th><th>الجوال</th><th></th></tr></thead><tbody>'+M.items.map(x=>"<tr><td>"+esc(x.rec.name)+"</td><td>"+roleChip(x.rec.role)+"</td><td>"+esc(brName(x.rec.branchId))+'</td><td class="num" dir="ltr" style="text-align:end">'+esc(x.rec.phone)+"</td><td>"+(x.ex?'<span class="chip info">تحديث</span>':'<span class="chip ok">جديد</span>')+"</td></tr>").join("")+"</tbody></table></div>":'<div class="empty">لا توجد صفوف صالحة للاستيراد</div>')+
+    (M.skipped.length?'<div class="note warn"><b>صفوف لن تُستورد:</b><br>'+M.skipped.slice(0,15).map(x=>"سطر "+nf.format(x[0])+": "+esc(x[1])+" — "+esc(x[2])).join("<br>")+(M.skipped.length>15?"<br>…":"")+"<br>صحّحها في الملف ثم أعد الاستيراد. اسم الفرع يجب أن يطابق اسمه في النظام.</div>":"")+
+    '<div class="muted fs13">يُعرف الموظف الموجود بالرقم الوظيفي، أو برقم الجوال إن لم يوجد رقم وظيفي.</div>'+
+    '</div><footer>'+(M.items.length?'<button type="button" class="btn primary" id="stImpRun"'+(M.busy?" disabled":"")+">"+(M.busy?"جارٍ الاستيراد…":"تنفيذ الاستيراد")+"</button>":"")+'<button type="button" class="btn" data-close>إلغاء</button></footer></div></div>';
+}
+async function runStaffImport(){
+  const M=modal;if(!M||M.busy)return;M.busy=true;paintStImp();let n=0;
+  for(const x of M.items){const rec=x.ex?Object.assign({},x.ex,x.rec):Object.assign({active:true},x.rec);if(await save("staff",rec))n++;else break}
+  if(n)log("استورد بيانات "+n+" من موظفي الفروع من ملف Excel");
+  closeModal();toast(n?"تم استيراد "+nf.format(n)+" موظف":"لم يُستورد أي موظف");
+}
+function abnStaffFill(el){
+  const v=el.value.trim();if(!v)return;const b=($("#ab_b")||{}).value||"";
+  const pool=staffVisible().filter(x=>!b||x.branchId===b).concat(staffVisible());
+  const x=el.id==="ab_no"?pool.find(s=>String(s.empNo||"")===toLatinDigits(v)):pool.find(s=>normAr(s.name)===normAr(v));
+  if(!x)return;const set=(id,val)=>{const f=$("#"+id);if(f&&!f.value.trim()&&val)f.value=val};
+  set("ab_no",x.empNo);set("ab_name",x.name);set("ab_title",staffRole(x.role));
 }
 
 /* ================= closing item modal ================= */
@@ -1988,8 +2192,9 @@ function revAbnView(D,bs){
     const pre=opts.some(b=>b.id===ui.abnPre)?ui.abnPre:"",pc=pre&&salesOf(D,pre)?calcRev(salesOf(D,pre)):null;
     const f=(id,l,attr,val)=>'<div class="field"><label for="'+id+'">'+l+'</label><input class="input" id="'+id+'" '+(attr||"")+' value="'+esc(val==null?"":val)+'"></div>';
     h+='<form class="panel" id="abnForm" novalidate><h2>تسجيل حالة عجز / فائض غير طبيعي</h2><div class="fgrid"><div class="field"><label for="ab_b">الفرع</label><select class="select" id="ab_b"><option value="">— اختر —</option>'+opts.map(b=>'<option value="'+esc(b.id)+'"'+(b.id===pre?" selected":"")+">"+esc(b.name)+"</option>").join("")+"</select></div>"+
-      f("ab_no","الرقم الوظيفي",'dir="ltr"')+f("ab_name","اسم الموظف")+f("ab_title","المسمى الوظيفي")+f("ab_sys","إيراد النظام",'type="number" step="0.01" class="num"',pc?pc.sysT:"")+f("ab_act","الإيراد الفعلي",'type="number" step="0.01" class="num"',pc?pc.actT:"")+
-      '<div class="field full"><label for="ab_notes">الملاحظة (سبب العجز أو الفائض) <span class="req">*</span></label><input class="input" id="ab_notes" maxlength="500"></div></div><div style="margin-top:12px"><button type="submit" class="btn primary">تسجيل الحالة</button></div></form>';
+      f("ab_no","الرقم الوظيفي",'dir="ltr" list="abNos"')+f("ab_name","اسم الموظف",'list="abNames"')+f("ab_title","المسمى الوظيفي")+f("ab_sys","إيراد النظام",'type="number" step="0.01" class="num"',pc?pc.sysT:"")+f("ab_act","الإيراد الفعلي",'type="number" step="0.01" class="num"',pc?pc.actT:"")+
+      '<div class="field full"><label for="ab_notes">الملاحظة (سبب العجز أو الفائض) <span class="req">*</span></label><input class="input" id="ab_notes" maxlength="500"></div></div><div style="margin-top:12px"><button type="submit" class="btn primary">تسجيل الحالة</button></div></form>'+
+      (state.staff.length?'<datalist id="abNames">'+staffVisible().filter(x=>x.active!==false).map(x=>'<option value="'+esc(x.name)+'">'+esc(staffRole(x.role)+" — "+((staffBranch(x)||{}).name||""))+"</option>").join("")+'</datalist><datalist id="abNos">'+staffVisible().filter(x=>x.active!==false&&x.empNo).map(x=>'<option value="'+esc(x.empNo)+'">'+esc(x.name)+"</option>").join("")+"</datalist>":"");
   }
   if(!list.length)return h+'<div class="empty">لا توجد حالات مسجّلة لهذا اليوم</div>';
   return h+'<div class="tablewrap"><table style="min-width:980px"><thead><tr><th>الفرع</th><th>الرقم الوظيفي</th><th>الاسم</th><th>المسمى</th><th>إيراد النظام</th><th>الإيراد الفعلي</th><th>الفرق</th><th>الحالة</th><th>الملاحظة</th><th>سجّلها</th><th></th></tr></thead><tbody>'+
@@ -2703,6 +2908,14 @@ document.addEventListener("click",e=>{
   if(t.id==="saveCfg"){saveCfg();return}
   if(t.id==="purge"){if(!purgeArmed){purgeArmed=true;t.classList.add("armed");t.textContent="اضغط مرة أخرى للتأكيد";return}purgeArmed=false;purgeSamples();return}
   if(t.dataset.psel){ui.permSel=t.dataset.psel;permDraft=null;render();const e=$("#permEditor");if(e)e.scrollIntoView({behavior:"smooth",block:"start"});return}
+  if(d.wa){openWa([d.wa]);return}
+  if(t.id==="waBulk"){openWa([...ui.stSel]);return}
+  if(d.wasend){waSend(d.wasend);return}
+  if(t.id==="waTplSave"){waTplSave();return}
+  if(t.id==="waTplDel"){waTplDel();return}
+  if(d.stnew){openForm("staff",null,{branchId:d.stnew,role:"sup"});return}
+  if(t.id==="stExport"){staffExport();return}
+  if(t.id==="stImpRun"){runStaffImport();return}
   if(d.item){const p=d.item.split("|");openItem(p[0],p[1]);return}
   if(d.open){const i=d.open.indexOf(":");openForm(d.open.slice(0,i),d.open.slice(i+1));return}
   if(t.matches(".toc a")){e.preventDefault();const el=document.getElementById(t.getAttribute("href").slice(1));if(el)el.scrollIntoView({behavior:"smooth",block:"start"});return}
@@ -2729,6 +2942,13 @@ document.addEventListener("change",e=>{
   if(el.id==="repBr"){ui.repBr=el.value;render();return}
   if(el.id==="repImport"&&el.files&&el.files.length){const fl=[...el.files];el.value="";repImportFiles(fl);return}
   if(el.id==="brImport"&&el.files&&el.files[0]){importBranches(el.files[0]);el.value="";return}
+  if(el.id==="stImport"&&el.files&&el.files[0]){const f=el.files[0];el.value="";staffImport(f);return}
+  if(el.classList&&el.classList.contains("stck")){el.checked?ui.stSel.add(el.value):ui.stSel.delete(el.value);render();return}
+  if(el.id==="stAll"){if(el.checked)staffList().forEach(x=>ui.stSel.add(x.id));else ui.stSel.clear();render();return}
+  if(el.id==="stBr"||el.id==="stRole"||el.id==="stAct"){ui[el.id]=el.value;render();return}
+  if(el.id==="waTpl"&&modal&&modal.kind==="wa"){const tp=waTpls().find(x=>x.k===el.value);if(tp){modal.tpl=tp.k;modal.text=tp.t;lsSet("crm_watpl",tp.k)}paintWa();return}
+  if(el.id==="waDate"&&modal&&modal.kind==="wa"){waKeepText();modal.date=el.value||defaultDay();paintWa();return}
+  if(el.id==="ab_no"||el.id==="ab_name"){abnStaffFill(el);return}
   if(el.classList&&el.classList.contains("tmin")){saveTerm(el);return}
   if(el.id==="ab_b"){const D=curDay(),r=salesOf(D,el.value),c=r&&calcRev(r);if(c){$("#ab_sys").value=c.sysT;$("#ab_act").value=c.actT}return}
   if(el.id==="attInput"&&el.files&&el.files.length){const fl=[...el.files];el.value="";uploadFiles(fl);return}
@@ -2738,7 +2958,8 @@ document.addEventListener("change",e=>{
   const map={fDept:"dept",fMember:"member",fIst:"ist",taskMember:"taskMember",taskDept:"taskDept",taskPrio:"taskPrio",perfDept:"perfDept",actMember:"actMember"};
   if(map[el.id]){ui[map[el.id]]=el.value;if(el.id==="fDept")ui.member="all";if(el.id==="taskDept")ui.taskMember="all";render()}
 });
-document.addEventListener("input",e=>{const el=e.target;if(el.id==="taskQ"){ui.taskQ=el.value;schedule()}if(el.id==="fQ"){ui.fQ=el.value;schedule()}if(el.dataset&&el.dataset.ik)paintVar();
+document.addEventListener("input",e=>{const el=e.target;if(el.id==="taskQ"){ui.taskQ=el.value;schedule()}if(el.id==="fQ"){ui.fQ=el.value;schedule()}if(el.id==="stQ"){ui.stQ=el.value;schedule()}
+  if(el.id==="waText"&&modal&&modal.kind==="wa"){modal.text=el.value;const p=$("#waPrev"),x=byId("staff",modal.ids[0]);if(p&&x)p.textContent=waFill(el.value,x,modal.date)}if(el.dataset&&el.dataset.ik)paintVar();
   if(el.classList&&el.classList.contains("bcin")){const tr=el.closest("tr");revDirty.add(bcKey(tr));tr.classList.add("dirty");bcRecalc(tr)}
   if(el.classList&&el.classList.contains("rvin")){const tr=el.closest("tr");revDirty.add(tr.dataset.d+"|"+tr.dataset.b);tr.classList.add("dirty");recalcRow(tr)}
   if(el.classList&&el.classList.contains("tmin"))revDirty.add("t|"+el.id);
